@@ -65,7 +65,6 @@ OptionMenu "JPHUDOptions"
 	StaticText " "
 	StaticText "Enemy health bar", 1
 	Option "Bar type", "hud_enemyhealthbar", "JPHUD_EnemyBarType"
-	Option "Enemy health bar type", "hud_enemyhealthbar", "JPHUD_EnemyBarType"
 	Option "Draw enemy tag", "hud_drawenemytag", "YesNo"
 	Option "Health display", "hud_healthdisplay", "JPHUD_HealthType"
 	Option "Font type", "hud_font", "JPHUD_FontType"
