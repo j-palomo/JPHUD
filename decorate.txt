@@ -1,0 +1,19 @@
+// Don't touch, unless you know what you are doing
+Actor JPHUD_BarToken : Inventory
+{
+    Inventory.MaxAmount 1
+    +Inventory.Undroppable
+	+Inventory.UnTossable
+    -Inventory.Invbar
+	+Inventory.HubPower
+	+Inventory.PersistentPower
+}
+
+Actor SilverBar : JPHUD_BarToken {}
+Actor BronzeBar : JPHUD_BarToken {}
+Actor GoldBar : JPHUD_BarToken {}
+Actor EmeraldBar : JPHUD_BarToken {}
+Actor RubyBar : JPHUD_BarToken {}
+Actor SapphireBar : JPHUD_BarToken {}
+
+Actor HUDKeyBar : JPHUD_BarToken {}

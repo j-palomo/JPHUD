@@ -1,0 +1,4 @@
+NARKISIM
+{
+	Template nrksm%03d
+}

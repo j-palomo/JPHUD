@@ -1,0 +1,408 @@
+// Feel free to tear this apart, reuse it, learn from it. Just be sure to give credit.
+// Also please check the readme for known issues.
+
+#include "zcommon.acs"
+#library "jp_hud"
+
+//===========================================================================
+//
+// Defines
+//
+//===========================================================================
+
+// Everything that modders will possibly need to change is right here
+
+// Enemy health bar dimensions
+// Change these values if you use new graphics
+// Make sure you use fixed point when specifying the dimension, since it is used in calculations
+// To clarify, the dimensions should be for the graphic you want to have cut-off as the health bar
+// X dimension is for the horizontal bar, Y dimension is for the vertical bar
+
+// For example, if you have a horizontal bar with dimensions of 300x20 and a vertical bar with dimensions of 16x240,
+// you would put 300.0 for xdim and 240.0 for ydim
+#define JP_HUD_BARXDIM 320.0
+#define JP_HUD_BARYDIM 240.0
+
+// Bar clipping
+// If the top graphic isn't going to be drawn over the entire bar, we need to define the offsets from the edges
+// If your graphic is going to span the entire bar, then just set all of these to 0
+#define JP_HUD_CLIP_RIGHT -3
+#define JP_HUD_CLIP_LEFT 2
+#define JP_HUD_CLIP_TOP -2
+#define JP_HUD_CLIP_BOTTOM 1
+
+// HUD Message ID value
+// Change this to something else if it causes issues with another HUD message
+#define JP_HUD_BARID 37
+
+// Enemy health bar positions
+// Don't change or remove these unless you know what you are doing
+#define JP_HUD_NOBAR 0
+#define JP_HUD_HORIZONTALBAR 1
+#define JP_HUD_VERTICALBAR 2
+
+// Enemy health bar health value type
+// Exact displays current / max, while percentage displays a rounded percentage of their current health
+#define JP_HUD_HEALTHTYPE_DISABLED 0
+#define JP_HUD_HEALTHTYPE_EXACT 1
+#define JP_HUD_HEALTHTYPE_PERCENTAGE 2
+
+// Font types
+// Only applies to the enemy health bar
+#define JP_HUD_FONT_SMALL 0
+#define JP_HUD_FONT_BIG 1
+#define JP_HUD_FONT_NARKISIM 2
+
+// Bar colors
+// After adding more here, make sure you change the menudef code to reflect the addition
+#define JP_HUD_SILVER 0
+#define JP_HUD_BRONZE 1
+#define JP_HUD_GOLD 2
+#define JP_HUD_EMERALD 3
+#define JP_HUD_RUBY 4
+#define JP_HUD_SAPPHIRE 5
+
+// This is not really needed, but I left it in anyways.
+#define Player_TIDOffset 2000
+
+
+//===========================================================================
+//
+// Variables
+//
+//===========================================================================
+
+// Not really needed
+Int Player_TID [32];
+
+
+//===========================================================================
+//
+// Functions
+//
+//===========================================================================
+
+// Returns the player's TID if it has one
+Function Int GetPlayerID (void)
+{
+	if (ActivatorTID() == 0)
+		Thing_ChangeTID (ActivatorTID(), UniqueTID((PlayerNumber() + Player_TIDOffset)));
+	Player_TID [PlayerNumber()] = ActivatorTID();
+	Return (Player_TID [PlayerNumber()]);
+}
+
+// Draws an image to the HUD with the specified coordinates
+Function Bool DrawSprite (Str Sprite, Int ID, Int X, Int Y, Int Alpha)
+{
+	SetFont(Sprite);
+	HUDMessage(s:"A"; HUDMSG_FADEOUT|HUDMSG_NOTWITHFULLMAP|HUDMSG_ALPHA, ID, CR_UNTRANSLATED, X, Y, 0.029, 0.25, Alpha);
+	Return True;
+}
+
+// Draw current health and maximum health
+Function Bool DrawHealth (Int CurrentHealth, Int MaxHealth, Int ID, Int X, Int Y)
+{
+	Int hp = ((FixedDiv (CurrentHealth, MaxHealth)) * 100) >> 16;
+	switch (GetUserCVar(PlayerNumber(), "hud_font"))
+	{
+		Case JP_HUD_FONT_SMALL:
+			SetFont ("smallfont");
+			break;
+		Case JP_HUD_FONT_BIG:
+			SetFont ("bigfont");
+			break;
+		Case JP_HUD_FONT_NARKISIM:
+			SetFont ("NARKISIM");
+			break;
+	}
+	
+	switch (GetUserCVar (PlayerNumber(), "hud_healthdisplay"))
+	{
+		Case JP_HUD_HEALTHTYPE_DISABLED:
+			// Do nothing
+			break;
+		Case JP_HUD_HEALTHTYPE_EXACT:
+			HUDMessage(i:CurrentHealth, s:"/", i:MaxHealth; HUDMSG_FADEOUT|HUDMSG_NOWRAP|HUDMSG_NOTWITHFULLMAP, ID, CR_White, X, Y, 0.029, 0.25);
+			break;
+		Case JP_HUD_HEALTHTYPE_PERCENTAGE:
+			HUDMessage(i:hp, s:"%"; HUDMSG_FADEOUT|HUDMSG_NOWRAP|HUDMSG_NOTWITHFULLMAP, ID, CR_WHITE, X, Y, 0.029, 0.25);
+			break;
+	}
+	
+	Return True;
+}
+
+// Draw the actor's tag, or name if it doesn't have one
+Function Bool DrawTag (Str Name, Int ID, Int X, Int Y)
+{
+	switch (GetUserCVar(PlayerNumber(), "hud_font"))
+	{
+		Case JP_HUD_FONT_SMALL:
+			SetFont ("smallfont");
+			break;
+		Case JP_HUD_FONT_BIG:
+			SetFont ("bigfont");
+			break;
+		Case JP_HUD_FONT_NARKISIM:
+			SetFont ("NARKISIM");
+			break;
+	}
+	
+	HUDMessage(s:Name; HUDMSG_FADEOUT|HUDMSG_NOWRAP|HUDMSG_NOTWITHFULLMAP, ID, CR_WHITE, X, Y, 0.029, 0.25);
+	Return True;
+}
+
+// Draws the enemy health bar graphics
+Function Bool DrawEnemyHealthBar (Int CurrentHealth, Int MaxHealth, Str Name)
+{
+	// The higher the resolution, the smaller the graphics are drawn
+	Int x_resolution = GetUserCVar(PlayerNumber(), "HUD_XResolution");
+	If (x_resolution == 0) // We don't want a divide by zero
+		x_resolution = GetScreenWidth (); // so use the player's resolution
+	Int y_resolution = GetUserCVar(PlayerNumber(), "HUD_YResolution");
+	If (y_resolution == 0)
+		y_resolution = GetScreenHeight ();
+		
+	// Offsets
+	
+	Int globaloffsetx = GetUserCVar(PlayerNumber(), "HUD_GlobalXOffset"); // The offset from the left side that we want to draw everything from
+	Int globaloffsety = GetUserCVar(PlayerNumber(), "HUD_GlobalYOffset"); // The offset from the top of the screen
+	Int barx = GetUserCVar(PlayerNumber(), "HUD_BarXOffset");
+	Int bary = GetUserCVar(PlayerNumber(), "HUD_BarYOffset");
+	Int tagx = GetUserCVar(PlayerNumber(), "HUD_TagXOffset");
+	Int tagy = GetUserCVar(PlayerNumber(), "HUD_TagYOffset");
+	Int hpx = GetUserCVar(PlayerNumber(), "HUD_HPXOffset");
+	Int hpy = GetUserCVar(PlayerNumber(), "HUD_HPYOffset");
+	
+	Int a = CurrentHealth << 16; // convert to fixed point for accuracy
+	Int b = Maxhealth << 16;
+	Int c = FixedDiv(a, b); // This should give us a percentage of remaining health as a fixed point number between 0 and 1.0
+	
+	// Fixed point conversion
+	Int f_globaloffsetx = globaloffsetx << 16;
+	Int f_globaloffsety = globaloffsety << 16;
+	Int f_xresolution = x_resolution << 16;
+	Int f_yresolution = y_resolution << 16;
+	Int f_barx = barx << 16;
+	Int f_bary = bary << 16;
+	Int f_tagx = tagx << 16;
+	Int f_tagy = tagy << 16;
+	Int f_hpx = hpx << 16;
+	Int f_hpy = hpy << 16;
+	
+	// Multiplies the dimensions of the graphic by the % of health remaining to get how much of the bar we need to show
+	Int barwidth = (FixedMul(c, JP_HUD_BARXDIM) + 0.5) >> 16; // the extra 0.5 is for rounding up
+	Int barheight = (FixedMul(c, JP_HUD_BARYDIM) + 0.5) >> 16;
+	
+	// Center the bar on the x axis by getting the scaled resolution and the graphic size
+	Int centerbarx = ((FixedDiv (f_xresolution, 2.0)) - (FixedDiv(JP_HUD_BARXDIM, 2.0)));
+	Int centerbary = ((FixedDiv (f_yresolution, 2.0)) - (FixedDiv(JP_HUD_BARYDIM, 2.0)));
+	
+	Switch (GetUserCVar(PlayerNumber(), "hud_enemyhealthbar")) // Where do we want the enemy health bar?
+	{
+		Case JP_HUD_NOBAR:
+			// Do nothing
+			break;
+			
+		Case JP_HUD_HORIZONTALBAR: // Bar is drawn right to left
+			SetHUDSize(x_resolution, y_resolution, 0);
+
+			// SetHUDClipRect defines the box that the graphic will be drawn within. Anything outside the box is cutoff, displaying the graphics below
+			SetHUDClipRect(JP_HUD_CLIP_LEFT+globaloffsetx+barx+(centerbarx >> 16), globaloffsety+bary, barwidth+JP_HUD_CLIP_RIGHT, y_resolution+globaloffsety+bary, 0); // To see what these numbers mean, see above.
+			DrawSprite ("HBARTOP", JP_HUD_BARID+4, f_barx+f_globaloffsetx+0.1+centerbarx, 0.1+f_bary+f_globaloffsety, 1.0);
+			
+			
+			// This resets it back to normal
+			SetHUDClipRect(0, 0, 0, 0);
+			
+			DrawSprite ("HBARBRD", JP_HUD_BARID+3, f_globaloffsetx+f_barx+0.1+centerbarx, 0.1+f_bary+f_globaloffsety, 1.0);
+			DrawSprite ("HBARBOT", JP_HUD_BARID+5, f_globaloffsetx+f_barx+0.1+centerbarx, 0.1+f_bary+f_globaloffsety, 0.5);
+			
+			DrawHealth (CurrentHealth, Maxhealth, JP_HUD_BARID+1, 160.4+f_globaloffsetx+f_hpx+centerbarx, 3.1+f_globaloffsety+f_hpy); // Displays "current health / max health" inside the bar
+
+			
+			If (GetUserCVar(PlayerNumber(), "hud_drawenemytag")) // Do we want to draw the name tag?
+			{
+				DrawTag (Name, JP_HUD_BARID+2, 160.4+f_globaloffsetx+f_tagx+centerbarx, 16.1+f_globaloffsety+f_tagy); // Drawn below the bar
+			}
+			break;
+			
+		Case JP_HUD_VERTICALBAR: // Bar is drawn top to bottom
+			SetHUDSize(x_resolution, y_resolution, 0);
+			
+			// This is a little more complicated than the horizontal bar
+			// Instead of starting from the top left and drawing the box size to the right, we have to start from the bottom of the image and draw up
+			SetHUDClipRect(globaloffsetx+barx, JP_HUD_CLIP_BOTTOM+(JP_HUD_BARYDIM>>16)+bary+globaloffsety-barheight+(centerbary >> 16), x_resolution+globaloffsetx+barx, JP_HUD_CLIP_TOP+bary+globaloffsety+(JP_HUD_BARYDIM >> 16));
+
+			DrawSprite ("HBARTOP2", JP_HUD_BARID+4, 0.1+f_globaloffsetx+f_barx, 0.1+f_globaloffsety+f_bary+centerbary, 1.0);
+			
+			SetHUDClipRect(0, 0, 0, 0);
+			DrawSprite ("HBARBOT2", JP_HUD_BARID+5, 0.1+f_globaloffsetx+f_barx, 0.1+f_globaloffsety+f_bary+centerbary, 0.5);
+			DrawSprite ("HBARBRD2", JP_HUD_BARID+3, 0.1+f_globaloffsetx+f_barx, 0.1+f_globaloffsety+f_bary+centerbary, 1.0);
+			
+			DrawHealth (CurrentHealth, Maxhealth, JP_HUD_BARID+1, 18.1+f_globaloffsetx+f_hpx, 120.1+f_globaloffsety+f_hpy+centerbary);
+			
+			If (GetUserCVar(PlayerNumber(), "hud_drawenemytag"))
+			{
+				DrawTag (Name, JP_HUD_BARID+2, 18.1+f_globaloffsetx+f_tagx, 130.1+f_globaloffsety+f_tagy+centerbary); // This is drawn to the right of the bar
+			}
+			break;
+	}
+	
+	Return True;
+}
+
+
+
+//===========================================================================
+//
+// Scripts
+//
+//===========================================================================
+
+// These 3 scripts are to insure that the statusbar is drawn
+
+Script "JP_HUD_ScriptEnter" Enter
+{
+	ACS_NamedExecuteAlways ("JP_HUD_Statusbar", 0, GetPlayerID(), 0, 0);
+}
+
+Script "JP_HUD_Respawn" Respawn
+{
+	ACS_NamedExecuteAlways ("JP_HUD_Statusbar", 0, GetPlayerID(), 0, 0);
+}
+
+Script "JP_HUD_Return" Return
+{
+	ACS_NamedExecuteAlways ("JP_HUD_Statusbar", 0, GetPlayerID(), 0, 0);
+}
+
+
+
+
+
+// Gets the player's target, then gets the needed values for displaying the graphics
+Script "JP_HUD_Statusbar" (Int ActivatorID, Int Target_MaxHealth, Int Target_CurrentHealth)
+{
+	if ((ActivatorTID() == 0) || ThingCount (T_None, ActivatorTID()) > 1)
+		Thing_ChangeTID (0, UniqueTID());
+	if ((ActivatorTID() != Player_TID [PlayerNumber()]))
+		GetPlayerID ();
+	While (PlayerInGame(PlayerNumber()) && GetActorProperty (Player_TID [PlayerNumber()], AProp_Health) > 0)
+	{
+		// Normal HUD stuff
+		Switch (GetUserCVar(PlayerNumber(), "hud_barcolor")) // Set the bar color for the normal HUD
+		{
+			Case JP_HUD_SILVER:
+			GiveInventory ("SilverBar", 1);
+			TakeInventory ("BronzeBar", 1);
+			TakeInventory ("GoldBar", 1);
+			TakeInventory ("EmeraldBar", 1);
+			TakeInventory ("RubyBar", 1);
+			TakeInventory ("SapphireBar", 1);
+			break;
+			
+			Case JP_HUD_BRONZE:
+			GiveInventory ("BronzeBar", 1);
+			TakeInventory ("SilverBar", 1);
+			TakeInventory ("GoldBar", 1);
+			TakeInventory ("EmeraldBar", 1);
+			TakeInventory ("RubyBar", 1);
+			TakeInventory ("SapphireBar", 1);
+			break;
+			
+			Case JP_HUD_GOLD:
+			GiveInventory ("GoldBar", 1);
+			TakeInventory ("SilverBar", 1);
+			TakeInventory ("BronzeBar", 1);
+			TakeInventory ("EmeraldBar", 1);
+			TakeInventory ("RubyBar", 1);
+			TakeInventory ("SapphireBar", 1);
+			break;
+			
+			Case JP_HUD_EMERALD:
+			GiveInventory ("EmeraldBar", 1);
+			TakeInventory ("SilverBar", 1);
+			TakeInventory ("BronzeBar", 1);
+			TakeInventory ("GoldBar", 1);
+			TakeInventory ("RubyBar", 1);
+			TakeInventory ("SapphireBar", 1);
+			break;
+			
+			Case JP_HUD_RUBY:
+			GiveInventory ("RubyBar", 1);
+			TakeInventory ("SilverBar", 1);
+			TakeInventory ("BronzeBar", 1);
+			TakeInventory ("GoldBar", 1);
+			TakeInventory ("EmeraldBar", 1);
+			TakeInventory ("SapphireBar", 1);
+			break;
+			
+			Case JP_HUD_SAPPHIRE:
+			GiveInventory ("SapphireBar", 1);
+			TakeInventory ("SilverBar", 1);
+			TakeInventory ("BronzeBar", 1);
+			TakeInventory ("GoldBar", 1);
+			TakeInventory ("EmeraldBar", 1);
+			TakeInventory ("RubyBar", 1);
+		}
+		If (GetUserCVar(PlayerNumber(), "hud_alwaysshowkeys")) // Do we want the keys to be toggled or to stay?
+			GiveInventory ("HUDKeyBar", 1);
+		Else
+			TakeInventory ("HUDKeyBar", 1);
+	
+	
+	
+		// Enemy health bar stuff
+		ActivatorID = GetPlayerID();
+		if ((GetUserCVar(PlayerNumber(), "hud_enemyhealthbar")) > 0)
+		{
+			if (SetActivatorToTarget(ActivatorID))
+			{
+				if (ClassifyActor(0) & ACTOR_MONSTER  && ClassifyActor(0) & ACTOR_ALIVE && CheckFlag(0, "Shootable") && !(CheckFlag(0, "NoDamage") || CheckFlag(0, "Invulnerable"))) // Monsters
+				{
+					Str Monster_ClassName = GetActorProperty(0, APROP_NameTag);
+					Target_MaxHealth = GetActorProperty (0, AProp_SpawnHealth);
+					Target_CurrentHealth = GetActorProperty (0, AProp_Health);
+					if (ActivatorID != ActivatorTID())
+					{
+						SetActivator(ActivatorID);
+						
+						DrawEnemyHealthBar(Target_CurrentHealth, Target_MaxHealth, Monster_ClassName); // I didn't want to make a huge mess here, so I made a function for it
+					}
+				}
+				else if (ClassifyActor(0) & ACTOR_PLAYER && ClassifyActor(0) & ACTOR_ALIVE) // Players/bots
+				{
+					Str Player_Name = GetCVarString ("Name");
+					Target_MaxHealth = GetActorProperty (0, AProp_SpawnHealth);
+					Target_CurrentHealth = GetActorProperty (0, AProp_Health);
+					
+					// hacks to work around player health
+					// apparently players have a default max health of 0
+					if (Target_MaxHealth == 0)
+					{
+						if (Target_CurrentHealth > 100)
+							Target_MaxHealth = Target_CurrentHealth;
+						else
+							Target_MaxHealth = 100;
+					}
+					SetActivator(ActivatorID);
+					DrawEnemyHealthBar(Target_CurrentHealth, Target_MaxHealth, Player_Name);
+				}
+				else
+				{
+				SetActivator (ActivatorID);
+				}
+			Delay (1);
+			}
+			else
+			{
+				SetActivator (ActivatorID);
+			}
+		}
+		
+		Delay (1);
+	}
+	Delay (1);
+	Restart;
+}

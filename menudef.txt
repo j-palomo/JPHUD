@@ -1,0 +1,89 @@
+OptionValue "JPHUD_BarColor"
+{
+	0, "Silver"
+	1, "Bronze"
+	2, "Gold"
+	3, "Emerald"
+	4, "Ruby"
+	5, "Sapphire"
+}
+
+OptionValue "JPHUD_EnemyBarType"
+{
+	0, "No bar"
+	1, "Horizontal"
+	2, "Vertical"
+}
+
+OptionValue "JPHUD_HealthType"
+{
+	0, "Disabled"
+	1, "Exact"
+	2, "Percentage"
+}
+
+OptionValue "JPHUD_FontType"
+{
+	0, "Small"
+	1, "Big"
+	2, "Narkisim"
+}
+
+OptionMenu "HUDOptions"
+{
+	Title "HUD Options"
+	Submenu "Alternative HUD",			"AltHudOptions"
+	Submenu "JP HUD Options",			"JPHUDOptions"
+	Submenu "Message Options", 			"MessageOptions"
+	StaticText " "
+	Option "Default Crosshair",			"crosshair", "Crosshairs"
+	Option "Force default crosshair",	"crosshairforce", "OnOff"
+	Option "Grow crosshair when picking up items",	"crosshairgrow", "OnOff"
+	ColorPicker "Crosshair color", 		"crosshaircolor"
+	Option "Crosshair shows health",	"crosshairhealth", "OnOff"
+	Option "Scale crosshair",			"crosshairscale", "OnOff"
+	StaticText " "
+	Option "Display nametags",			"displaynametags", "DisplayTagsTypes"
+	Option "Nametag color",				"nametagcolor", "TextColors", "displaynametags"
+	Option "Stretch status bar",		"st_scale", "OnOff"
+	Option "Stretch Fullscreen HUD",	"hud_scale", "OnOff"
+	Option "Use old ouch mug shot formula",	"st_oldouch", "OnOff"
+	StaticText " "
+	Option "Hexen weapon flashes",		"pf_hexenweaps",	"ZDoomHexen"
+	Option "Poison damage flashes",		"pf_poison",		"ZDoomHexen"
+	Option "Ice death flashes",			"pf_ice",			"ZDoomHexen"
+	Option "Poison Buildup flashes",	"pf_hazard",		"ZDoomStrife"
+}
+
+OptionMenu "JPHUDOptions"
+{
+	Title "JP HUD Options"
+	StaticText " "
+	StaticText "Normal HUD", 1
+	Option "Status bar color", "hud_barcolor", "JPHUD_BarColor"
+	Option "Always show keys", "hud_alwaysshowkeys", "YesNo"
+	StaticText " "
+	StaticText "Enemy health bar", 1
+	Option "Bar type", "hud_enemyhealthbar", "JPHUD_EnemyBarType"
+	Option "Enemy health bar type", "hud_enemyhealthbar", "JPHUD_EnemyBarType"
+	Option "Draw enemy tag", "hud_drawenemytag", "YesNo"
+	Option "Health display", "hud_healthdisplay", "JPHUD_HealthType"
+	Option "Font type", "hud_font", "JPHUD_FontType"
+	StaticText " "
+	StaticText "Offsets", 1
+	Slider "Global X offset", "hud_globalxoffset", -1920, 1920, 1
+	Slider "Global Y offset", "hud_globalyoffset", -1080, 1080, 1
+	Slider "Tag X offset", "HUD_TagXOffset", -1920, 1920, 1
+	Slider "Tag Y offset", "HUD_TagYOffset", -1080, 1080, 1
+	Slider "Bar X offset", "HUD_BarXOffset", -1920, 1920, 1
+	Slider "Bar Y offset", "HUD_BarYOffset", -1080, 1080, 1
+	Slider "Health X offset", "HUD_HPXOffset", -1920, 1920, 1
+	Slider "Health Y offset", "HUD_HPYOffset", -1080, 1080, 1
+	StaticText " "
+	StaticText "Bar scaling", 1
+	StaticText "Don't use odd numbered resolution"
+	StaticText "Smaller values increase graphic size"
+	StaticText "Setting value to 0 will use the video resolution"
+	Slider "X scaled resolution", "hud_xresolution", 0, 1920, 8
+	Slider "Y scaled resolution", "hud_yresolution", 0, 1080, 8
+}

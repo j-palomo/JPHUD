@@ -1,0 +1,17 @@
+User Int hud_barcolor = 0;
+User Bool hud_alwaysshowkeys = true;
+
+User Int hud_enemyhealthbar = 1;
+User Int hud_healthdisplay = 1;
+User Bool hud_drawenemytag = true;
+User Int hud_globalxoffset;
+User Int hud_globalyoffset;
+User Int hud_xresolution = 320;
+User Int hud_yresolution = 240;
+User Int HUD_BarXOffset;
+User Int HUD_BarYOffset;
+User Int HUD_TagXOffset;
+User Int HUD_TagYOffset;
+User Int HUD_HPXOffset;
+User Int HUD_HPYOffset;
+User Int hud_font;
