@@ -11,9 +11,7 @@ Please read these before reporting any bugs or issues to me.
 -Health values 32768 and above don't display the enemy health bar properly, but the numbers are still shown and are accurate.
 -Enemy health bar does not show up if you are more than a certain distance away from the enemy (1024 map units).
 -Resolutions below 640x480 are not supported.
--While the HUD can be loaded with any IWAD, it won't look right on some, especially Strife.
 -Using the console/menu to change the hud settings takes at least one in-game tic to change.
--Odd numbered scaled dimensions will not display the enemy health bar properly
 
 
 ////////////////////////////////////////////////////////////////////////////////
