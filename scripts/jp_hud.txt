@@ -100,8 +100,8 @@ Function Bool DrawSprite (Str Sprite, Int ID, Int X, Int Y, Int Alpha)
 // Draw current health and maximum health
 Function Bool DrawHealth (Int CurrentHealth, Int MaxHealth, Int ID, Int X, Int Y)
 {
-	Int hp = ((FixedDiv (CurrentHealth, MaxHealth)) * 100) >> 16;
-	switch (GetUserCVar(PlayerNumber(), "hud_font"))
+	Int hp = ((FixedDiv (CurrentHealth, MaxHealth)) * 100) >> 16; // Used for percentage health display
+	switch (GetUserCVar(PlayerNumber(), "hud_font")) // Which font should we draw?
 	{
 		Case JP_HUD_FONT_SMALL:
 			SetFont ("smallfont");
@@ -133,7 +133,7 @@ Function Bool DrawHealth (Int CurrentHealth, Int MaxHealth, Int ID, Int X, Int Y
 // Draw the actor's tag, or name if it doesn't have one
 Function Bool DrawTag (Str Name, Int ID, Int X, Int Y)
 {
-	switch (GetUserCVar(PlayerNumber(), "hud_font"))
+	switch (GetUserCVar(PlayerNumber(), "hud_font")) // Which font should we draw?
 	{
 		Case JP_HUD_FONT_SMALL:
 			SetFont ("smallfont");
@@ -288,6 +288,7 @@ Script "JP_HUD_Return" Return
 // Gets the player's target, then gets the needed values for displaying the graphics
 Script "JP_HUD_Statusbar" (Int ActivatorID, Int Target_MaxHealth, Int Target_CurrentHealth)
 {
+	// Get the player's TID
 	if ((ActivatorTID() == 0) || ThingCount (T_None, ActivatorTID()) > 1)
 		Thing_ChangeTID (0, UniqueTID());
 	if ((ActivatorTID() != Player_TID [PlayerNumber()]))
@@ -327,7 +328,7 @@ Script "JP_HUD_Statusbar" (Int ActivatorID, Int Target_MaxHealth, Int Target_Cur
 							Target_MaxHealth = 100;
 					}
 					SetActivator(ActivatorID);
-					DrawEnemyHealthBar(Target_CurrentHealth, Target_MaxHealth, Player_Name);
+					DrawEnemyHealthBar(Target_CurrentHealth, Target_MaxHealth, Player_Name); // This will only show up if the player is an enemy
 				}
 				else
 				{
