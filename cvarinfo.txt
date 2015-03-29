@@ -1,6 +1,3 @@
-User Int hud_barcolor = 0;
-User Bool hud_alwaysshowkeys = true;
-
 User Int hud_enemyhealthbar = 1;
 User Int hud_healthdisplay = 1;
 User Bool hud_drawenemytag = true;

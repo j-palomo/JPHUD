@@ -53,15 +53,6 @@
 #define JP_HUD_FONT_BIG 1
 #define JP_HUD_FONT_NARKISIM 2
 
-// Bar colors
-// After adding more here, make sure you change the menudef code to reflect the addition
-#define JP_HUD_SILVER 0
-#define JP_HUD_BRONZE 1
-#define JP_HUD_GOLD 2
-#define JP_HUD_EMERALD 3
-#define JP_HUD_RUBY 4
-#define JP_HUD_SAPPHIRE 5
-
 // This is not really needed, but I left it in anyways.
 #define Player_TIDOffset 2000
 
@@ -290,70 +281,6 @@ Script "JP_HUD_Statusbar" (Int ActivatorID, Int Target_MaxHealth, Int Target_Cur
 		GetPlayerID ();
 	While (PlayerInGame(PlayerNumber()) && GetActorProperty (Player_TID [PlayerNumber()], AProp_Health) > 0)
 	{
-		// Normal HUD stuff
-		Switch (GetUserCVar(PlayerNumber(), "hud_barcolor")) // Set the bar color for the normal HUD
-		{
-			Case JP_HUD_SILVER:
-			GiveInventory ("SilverBar", 1);
-			TakeInventory ("BronzeBar", 1);
-			TakeInventory ("GoldBar", 1);
-			TakeInventory ("EmeraldBar", 1);
-			TakeInventory ("RubyBar", 1);
-			TakeInventory ("SapphireBar", 1);
-			break;
-			
-			Case JP_HUD_BRONZE:
-			GiveInventory ("BronzeBar", 1);
-			TakeInventory ("SilverBar", 1);
-			TakeInventory ("GoldBar", 1);
-			TakeInventory ("EmeraldBar", 1);
-			TakeInventory ("RubyBar", 1);
-			TakeInventory ("SapphireBar", 1);
-			break;
-			
-			Case JP_HUD_GOLD:
-			GiveInventory ("GoldBar", 1);
-			TakeInventory ("SilverBar", 1);
-			TakeInventory ("BronzeBar", 1);
-			TakeInventory ("EmeraldBar", 1);
-			TakeInventory ("RubyBar", 1);
-			TakeInventory ("SapphireBar", 1);
-			break;
-			
-			Case JP_HUD_EMERALD:
-			GiveInventory ("EmeraldBar", 1);
-			TakeInventory ("SilverBar", 1);
-			TakeInventory ("BronzeBar", 1);
-			TakeInventory ("GoldBar", 1);
-			TakeInventory ("RubyBar", 1);
-			TakeInventory ("SapphireBar", 1);
-			break;
-			
-			Case JP_HUD_RUBY:
-			GiveInventory ("RubyBar", 1);
-			TakeInventory ("SilverBar", 1);
-			TakeInventory ("BronzeBar", 1);
-			TakeInventory ("GoldBar", 1);
-			TakeInventory ("EmeraldBar", 1);
-			TakeInventory ("SapphireBar", 1);
-			break;
-			
-			Case JP_HUD_SAPPHIRE:
-			GiveInventory ("SapphireBar", 1);
-			TakeInventory ("SilverBar", 1);
-			TakeInventory ("BronzeBar", 1);
-			TakeInventory ("GoldBar", 1);
-			TakeInventory ("EmeraldBar", 1);
-			TakeInventory ("RubyBar", 1);
-		}
-		If (GetUserCVar(PlayerNumber(), "hud_alwaysshowkeys")) // Do we want the keys to be toggled or to stay?
-			GiveInventory ("HUDKeyBar", 1);
-		Else
-			TakeInventory ("HUDKeyBar", 1);
-	
-	
-	
-		// Enemy health bar stuff
 		ActivatorID = GetPlayerID();
 		if ((GetUserCVar(PlayerNumber(), "hud_enemyhealthbar")) > 0)
 		{

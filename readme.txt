@@ -12,8 +12,7 @@ Please read these before reporting any bugs or issues to me.
 -Enemy health bar does not show up if you are more than a certain distance away from the enemy (1024 map units).
 -Resolutions below 640x480 are not supported.
 -While the HUD can be loaded with any IWAD, it won't look right on some, especially Strife.
--The normal HUD isn't displayed properly until at least one tic occurs.
--Using the console/menu to change the hud settings also takes at least one tic to change.
+-Using the console/menu to change the hud settings takes at least one in-game tic to change.
 -Odd numbered scaled dimensions will not display the enemy health bar properly
 
 
@@ -32,11 +31,16 @@ scripts (optional, but recommended if you want to modify anything)
 graphics
 
 loadacs
-decorate
 cvarinfo
 menudef (optional)
 
-You will need to copy only the needed code from sbarinfo. The code is a little messy, so contact me on the ZDoom forums if you need help.
+
+If you intend to replace the graphics, here is a short guide to getting it to work:
+-You will need at least 3 graphics: the border, the background, and the foreground
+-Adjust your graphic offsets so that the background and foreground are within the border when displayed on top of each other
+-Note the foreground's dimensions. If it is a horizontal bar, use the x value. If it is vertical, use the y value.
+-In the acs script, modify the defines with your dimension, and the clipping offsets if necessary.
+-If you need to replace the graphic names, search and replace these names in the script: HBARTOP, HBARBOT, HBARBRD
 
 */
 

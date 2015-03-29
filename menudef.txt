@@ -1,13 +1,3 @@
-OptionValue "JPHUD_BarColor"
-{
-	0, "Silver"
-	1, "Bronze"
-	2, "Gold"
-	3, "Emerald"
-	4, "Ruby"
-	5, "Sapphire"
-}
-
 OptionValue "JPHUD_EnemyBarType"
 {
 	0, "No bar"
@@ -58,14 +48,8 @@ OptionMenu "HUDOptions"
 OptionMenu "JPHUDOptions"
 {
 	Title "JP HUD Options"
-	StaticText " "
-	StaticText "Normal HUD", 1
-	Option "Status bar color", "hud_barcolor", "JPHUD_BarColor"
-	Option "Always show keys", "hud_alwaysshowkeys", "YesNo"
-	StaticText " "
 	StaticText "Enemy health bar", 1
 	Option "Bar type", "hud_enemyhealthbar", "JPHUD_EnemyBarType"
-	Option "Enemy health bar type", "hud_enemyhealthbar", "JPHUD_EnemyBarType"
 	Option "Draw enemy tag", "hud_drawenemytag", "YesNo"
 	Option "Health display", "hud_healthdisplay", "JPHUD_HealthType"
 	Option "Font type", "hud_font", "JPHUD_FontType"
@@ -84,6 +68,6 @@ OptionMenu "JPHUDOptions"
 	StaticText "Don't use odd numbered resolution"
 	StaticText "Smaller values increase graphic size"
 	StaticText "Setting value to 0 will use the video resolution"
-	Slider "X scaled resolution", "hud_xresolution", 0, 1920, 8
-	Slider "Y scaled resolution", "hud_yresolution", 0, 1080, 8
+	Slider "X scaled resolution", "hud_xresolution", 320, 1920, 8
+	Slider "Y scaled resolution", "hud_yresolution", 200, 1080, 8
 }
