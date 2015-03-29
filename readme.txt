@@ -14,7 +14,6 @@ Please read these before reporting any bugs or issues to me.
 -While the HUD can be loaded with any IWAD, it won't look right on some, especially Strife.
 -The normal HUD isn't displayed properly until at least one tic occurs.
 -Using the console/menu to change the hud settings also takes at least one tic to change.
--Odd numbered scaled dimensions will not display the enemy health bar properly
 
 
 ////////////////////////////////////////////////////////////////////////////////

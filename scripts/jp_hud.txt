@@ -82,6 +82,13 @@ Int Player_TID [32];
 //
 //===========================================================================
 
+// Returns 0 for even numbers and 1 for odd numbers
+Function Int IsOdd (Int number)
+{ 
+   int p = number % 2;
+   return p;
+}
+
 // Returns the player's TID if it has one
 Function Int GetPlayerID (void)
 {
@@ -162,6 +169,12 @@ Function Bool DrawEnemyHealthBar (Int CurrentHealth, Int MaxHealth, Str Name)
 	Int y_resolution = GetUserCVar(PlayerNumber(), "HUD_YResolution");
 	If (y_resolution == 0)
 		y_resolution = GetScreenHeight ();
+		
+	// Odd numbered resolutions will break the bar, so make them even
+	If (IsOdd(x_resolution))
+		x_resolution += 1;
+	If (IsOdd(y_resolution))
+		y_resolution += 1;
 		
 	// Offsets
 	
