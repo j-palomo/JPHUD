@@ -5,6 +5,8 @@ User Int hud_globalxoffset;
 User Int hud_globalyoffset;
 User Int hud_xresolution = 320;
 User Int hud_yresolution = 240;
+User Int hud_fontxresolution = 320;
+User Int hud_fontyresolution = 240;
 User Int HUD_BarXOffset;
 User Int HUD_BarYOffset;
 User Int HUD_TagXOffset;
