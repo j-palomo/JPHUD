@@ -170,6 +170,15 @@ Function Bool DrawEnemyHealthBar (Int CurrentHealth, Int MaxHealth, Str Name)
 	If (y_resolution == 0)
 		y_resolution = GetScreenHeight ();
 		
+	// Font scaled resolution
+	Int font_x_resolution = GetUserCVar(PlayerNumber(), "hud_fontxresolution");
+	Int font_y_resolution = GetUserCVar(PlayerNumber(), "hud_fontyresolution");	
+	If (font_x_resolution == 0) // We don't want a divide by zero
+		font_x_resolution = GetScreenWidth (); // so use the player's resolution
+	If (font_y_resolution == 0)
+		font_y_resolution = GetScreenHeight ();
+	
+		
 	// Odd numbered resolutions will break the bar, so make them even
 	If (IsOdd(x_resolution))
 		x_resolution += 1;
@@ -196,6 +205,8 @@ Function Bool DrawEnemyHealthBar (Int CurrentHealth, Int MaxHealth, Str Name)
 	Int f_globaloffsety = globaloffsety << 16;
 	Int f_xresolution = x_resolution << 16;
 	Int f_yresolution = y_resolution << 16;
+	Int f_font_xresolution = font_x_resolution << 16;
+	Int f_font_yresolution = font_y_resolution << 16;
 	Int f_barx = barx << 16;
 	Int f_bary = bary << 16;
 	Int f_tagx = tagx << 16;
@@ -210,6 +221,9 @@ Function Bool DrawEnemyHealthBar (Int CurrentHealth, Int MaxHealth, Str Name)
 	// Center the bar on the x axis by getting the scaled resolution and the graphic size
 	Int centerbarx = ((FixedDiv (f_xresolution, 2.0)) - (FixedDiv(JP_HUD_BARXDIM, 2.0)));
 	Int centerbary = ((FixedDiv (f_yresolution, 2.0)) - (FixedDiv(JP_HUD_BARYDIM, 2.0)));
+	Int centertextx = FixedDiv (f_font_xresolution, 2.0);
+	Int centertexty = FixedDiv (f_font_yresolution, 2.0);
+	
 	
 	Switch (GetUserCVar(PlayerNumber(), "hud_enemyhealthbar")) // Where do we want the enemy health bar?
 	{
@@ -230,13 +244,13 @@ Function Bool DrawEnemyHealthBar (Int CurrentHealth, Int MaxHealth, Str Name)
 			
 			DrawSprite ("HBARBRD", JP_HUD_BARID+3, f_globaloffsetx+f_barx+0.1+centerbarx, 0.1+f_bary+f_globaloffsety, 1.0);
 			DrawSprite ("HBARBOT", JP_HUD_BARID+5, f_globaloffsetx+f_barx+0.1+centerbarx, 0.1+f_bary+f_globaloffsety, 0.5);
-			
-			DrawHealth (CurrentHealth, Maxhealth, JP_HUD_BARID+1, 160.4+f_globaloffsetx+f_hpx+centerbarx, 3.1+f_globaloffsety+f_hpy); // Displays "current health / max health" inside the bar
+			SetHUDSize (font_x_resolution, font_y_resolution, 0);
+			DrawHealth (CurrentHealth, Maxhealth, JP_HUD_BARID+1, 0.4+f_globaloffsetx+f_hpx+centertextx, 10.1+f_globaloffsety+f_hpy); // Displays "current health / max health" inside the bar
 
 			
 			If (GetUserCVar(PlayerNumber(), "hud_drawenemytag")) // Do we want to draw the name tag?
 			{
-				DrawTag (Name, JP_HUD_BARID+2, 160.4+f_globaloffsetx+f_tagx+centerbarx, 16.1+f_globaloffsety+f_tagy); // Drawn below the bar
+				DrawTag (Name, JP_HUD_BARID+2, 0.4+f_globaloffsetx+f_tagx+centertextx, 0.1+f_globaloffsety+f_tagy); // Drawn below the bar
 			}
 			break;
 			
@@ -252,12 +266,12 @@ Function Bool DrawEnemyHealthBar (Int CurrentHealth, Int MaxHealth, Str Name)
 			SetHUDClipRect(0, 0, 0, 0);
 			DrawSprite ("HBARBOT2", JP_HUD_BARID+5, 0.1+f_globaloffsetx+f_barx, 0.1+f_globaloffsety+f_bary+centerbary, 0.5);
 			DrawSprite ("HBARBRD2", JP_HUD_BARID+3, 0.1+f_globaloffsetx+f_barx, 0.1+f_globaloffsety+f_bary+centerbary, 1.0);
-			
-			DrawHealth (CurrentHealth, Maxhealth, JP_HUD_BARID+1, 18.1+f_globaloffsetx+f_hpx, 120.1+f_globaloffsety+f_hpy+centerbary);
+			SetHUDSize (font_x_resolution, font_y_resolution, 0);
+			DrawHealth (CurrentHealth, Maxhealth, JP_HUD_BARID+1, 18.1+f_globaloffsetx+f_hpx, centertexty+0.1+f_globaloffsety+f_hpy);
 			
 			If (GetUserCVar(PlayerNumber(), "hud_drawenemytag"))
 			{
-				DrawTag (Name, JP_HUD_BARID+2, 18.1+f_globaloffsetx+f_tagx, 130.1+f_globaloffsety+f_tagy+centerbary); // This is drawn to the right of the bar
+				DrawTag (Name, JP_HUD_BARID+2, 18.1+f_globaloffsetx+f_tagx, centertexty+10.1+f_globaloffsety+f_tagy); // This is drawn to the right of the bar
 			}
 			break;
 	}

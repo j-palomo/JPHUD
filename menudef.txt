@@ -69,7 +69,13 @@ OptionMenu "JPHUDOptions"
 	Option "Health display", "hud_healthdisplay", "JPHUD_HealthType"
 	Option "Font type", "hud_font", "JPHUD_FontType"
 	StaticText " "
-	StaticText "Offsets", 1
+	Submenu "Offsets",			"JPHUDOffsets"
+	Submenu "Bar and text scaling",			"JPHUDScaling"
+}
+
+OptionMenu "JPHUDOffsets"
+{
+	Title "Offsets"
 	Slider "Global X offset", "hud_globalxoffset", -1920, 1920, 1
 	Slider "Global Y offset", "hud_globalyoffset", -1080, 1080, 1
 	Slider "Tag X offset", "HUD_TagXOffset", -1920, 1920, 1
@@ -78,11 +84,15 @@ OptionMenu "JPHUDOptions"
 	Slider "Bar Y offset", "HUD_BarYOffset", -1080, 1080, 1
 	Slider "Health X offset", "HUD_HPXOffset", -1920, 1920, 1
 	Slider "Health Y offset", "HUD_HPYOffset", -1080, 1080, 1
-	StaticText " "
-	StaticText "Bar scaling", 1
-	StaticText "Don't use odd numbered resolution"
+}
+
+OptionMenu "JPHUDScaling"
+{
+	Title "Bar and text scaling"
 	StaticText "Smaller values increase graphic size"
 	StaticText "Setting value to 0 will use the video resolution"
-	Slider "X scaled resolution", "hud_xresolution", 0, 1920, 8
-	Slider "Y scaled resolution", "hud_yresolution", 0, 1080, 8
+	Slider "X scaled bar resolution", "hud_xresolution", 0, 1920, 8
+	Slider "Y scaled bar resolution", "hud_yresolution", 0, 1080, 8
+	Slider "X scaled font resolution", "hud_fontxresolution", 0, 1920, 8
+	Slider "Y scaled font resolution", "hud_fontyresolution", 0, 1080, 8
 }
