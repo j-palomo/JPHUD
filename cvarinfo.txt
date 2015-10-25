@@ -17,3 +17,6 @@ User Int HUD_TagYOffset;
 User Int HUD_HPXOffset;
 User Int HUD_HPYOffset;
 User Int hud_font;
+User Float hud_baralpha = 1.0;
+User Float hud_backalpha = 0.5;
+User Float hud_textalpha = 1.0;
