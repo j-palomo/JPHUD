@@ -56,6 +56,7 @@ OptionMenu "JPHUDOptions"
 	StaticText " "
 	Submenu "Offsets",			"JPHUDOffsets"
 	Submenu "Bar and text scaling",			"JPHUDScaling"
+	Submenu "Alpha transluceny",			"JPHUDAlpha"
 }
 
 OptionMenu "JPHUDOffsets"
@@ -80,4 +81,12 @@ OptionMenu "JPHUDScaling"
 	Slider "Y scaled bar resolution", "hud_yresolution", 0, 1080, 8
 	Slider "X scaled font resolution", "hud_fontxresolution", 0, 1920, 8
 	Slider "Y scaled font resolution", "hud_fontyresolution", 0, 1080, 8
+}
+
+OptionMenu "JPHUDAlpha"
+{
+	Title "Bar and text alpha"
+	Slider "Bar foreground alpha", "hud_baralpha", 0.0, 1.0, 0.05, 2
+	Slider "Bar background alpha", "hud_backalpha", 0.0, 1.0, 0.05, 2
+	Slider "Text alpha", "hud_textalpha", 0.0, 1.0, 0.05, 2
 }
