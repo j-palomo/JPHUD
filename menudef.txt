@@ -1,13 +1,3 @@
-OptionValue "JPHUD_BarColor"
-{
-	0, "Silver"
-	1, "Bronze"
-	2, "Gold"
-	3, "Emerald"
-	4, "Ruby"
-	5, "Sapphire"
-}
-
 OptionValue "JPHUD_EnemyBarType"
 {
 	0, "No bar"
@@ -58,11 +48,6 @@ OptionMenu "HUDOptions"
 OptionMenu "JPHUDOptions"
 {
 	Title "JP HUD Options"
-	StaticText " "
-	StaticText "Normal HUD", 1
-	Option "Status bar color", "hud_barcolor", "JPHUD_BarColor"
-	Option "Always show keys", "hud_alwaysshowkeys", "YesNo"
-	StaticText " "
 	StaticText "Enemy health bar", 1
 	Option "Bar type", "hud_enemyhealthbar", "JPHUD_EnemyBarType"
 	Option "Draw enemy tag", "hud_drawenemytag", "YesNo"
