@@ -1,0 +1,13 @@
+// By NeoSpearBlade
+addkeysection "Quick-Open JP HUD Menu Keys" jphudkeys
+addmenukey "Main Menu" menu_jphudopt
+addmenukey "Offsets" menu_jphudofs
+addmenukey "Bar and text scaling" menu_jphudsca
+alias menu_jphudopt "openmenu JPHUDOptions"
+alias menu_jphudofs "openmenu JPHUDOffsets"
+alias menu_jphudsca "openmenu JPHUDScaling"
+
+// defaultbinds added by jpalomo
+defaultbind kp/ menu_jphudopt
+defaultbind kp* menu_jphudofs
+defaultbind kp- menu_jphudsca
