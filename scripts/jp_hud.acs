@@ -52,6 +52,7 @@
 #define JP_HUD_FONT_SMALL 0
 #define JP_HUD_FONT_BIG 1
 #define JP_HUD_FONT_NARKISIM 2
+#define JP_HUD_FONT_DOOM93 3
 
 // This is not really needed, but I left it in anyways.
 #define Player_TIDOffset 2000
@@ -112,6 +113,9 @@ Function Bool DrawHealth (Int CurrentHealth, Int MaxHealth, Int ID, Int X, Int Y
 		Case JP_HUD_FONT_NARKISIM:
 			SetFont ("NARKISIM");
 			break;
+		Case JP_HUD_FONT_DOOM93:
+			SetFont ("DOOM93");
+			break;
 	}
 	
 	switch (GetUserCVar (PlayerNumber(), "hud_healthdisplay"))
@@ -143,6 +147,9 @@ Function Bool DrawTag (Str Name, Int ID, Int X, Int Y, Int Alpha)
 			break;
 		Case JP_HUD_FONT_NARKISIM:
 			SetFont ("NARKISIM");
+			break;
+		Case JP_HUD_FONT_DOOM93:
+			SetFont ("DOOM93");
 			break;
 	}
 	
