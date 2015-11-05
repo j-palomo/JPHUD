@@ -27,6 +27,7 @@ OptionValue "JPHUD_FontType"
 	0, "Small"
 	1, "Big"
 	2, "Narkisim"
+	3, "Doom 93"
 }
 
 OptionMenu "HUDOptions"

@@ -2,3 +2,8 @@ NARKISIM
 {
 	Template nrksm%03d
 }
+
+DOOM93
+{
+	Template D93FT%03d
+}
