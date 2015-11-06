@@ -1,5 +1,5 @@
 /*
 Idea - Thetis' Wrath of Cronos RPG mod
-Graphics - HBARBRD based off of Freedoom graphics, font based off of Narkisim font, Doom93 font by ID software (provided by Jimmy) everything else by jpalomo
+Graphics - HBARBRD based off of Freedoom graphics, font based off of Narkisim font, Doom93 font by ID software (provided by Jimmy), everything else by jpalomo
 Code - ZDoom team (sbarinfo, menudef), jpalomo, NeoSpearBlade (keyconf)
 */
