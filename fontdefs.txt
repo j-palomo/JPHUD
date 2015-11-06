@@ -6,4 +6,5 @@ NARKISIM
 DOOM93
 {
 	Template D93FT%03d
+	Spacewidth 10
 }
