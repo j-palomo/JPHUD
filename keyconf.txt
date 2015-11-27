@@ -3,11 +3,14 @@ addkeysection "Quick-Open JP HUD Menu Keys" jphudkeys
 addmenukey "Main Menu" menu_jphudopt
 addmenukey "Offsets" menu_jphudofs
 addmenukey "Bar and text scaling" menu_jphudsca
+addmenukey "Alpha" menu_jphudalp
 alias menu_jphudopt "openmenu JPHUDOptions"
 alias menu_jphudofs "openmenu JPHUDOffsets"
 alias menu_jphudsca "openmenu JPHUDScaling"
+alias menu_jphudalp "openmenu JPHUDAlpha"
 
 // defaultbinds added by jpalomo
 defaultbind kp/ menu_jphudopt
 defaultbind kp* menu_jphudofs
 defaultbind kp- menu_jphudsca
+defaultbind kp+ menu_jphudalp
