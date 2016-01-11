@@ -305,22 +305,25 @@ StatusBar Normal // Standard Doom Status bar
 			DrawImage ArmorIcon, 142, 476, centerbottom, 90, 22, forcescale;
 		}
 		
-		
 		// Ammo
-		DrawString NARKISIM, Yellow, "Held", 332, 421, 0, Alignment(Left)|DrawShadow;
-		DrawString NARKISIM, Gold, "Max", 332, 439, 0, Alignment(Left)|DrawShadow;
-		DrawString smallfont, Untranslated, weapontag, 331, 470, 0, Alignment(Left);
 		DrawImage weaponicon, 370, 468, CenterBottom, 64, 14, skipready;
+		DrawString smallfont, Untranslated, weapontag, 331, 470, 0, Alignment(Left);
 		
-		// Primary
-		DrawImage ammoicon1, 434, 468, CenterBottom, 64, 14;
-		DrawNumber 5, NARKISIM, Untranslated, ammo1capacity, Alignment(Left)|DrawShadow, 426, 439;
-		DrawNumber 5, NARKISIM, Untranslated, ammo1, Alignment(Left)|DrawShadow, 426, 421;
-		
-		// Secondary
-		DrawImage ammoicon2, 508, 468, CenterBottom, 64, 14;
-		DrawNumber 5, NARKISIM, Untranslated, ammo2capacity, Alignment(Left)|DrawShadow, 500, 439;
-		DrawNumber 5, NARKISIM, Untranslated, ammo2, Alignment(Left)|DrawShadow, 500, 421;
+		UsesAmmo
+		{
+			DrawString NARKISIM, Yellow, "Held", 332, 421, 0, Alignment(Left)|DrawShadow;
+			DrawString NARKISIM, Gold, "Max", 332, 439, 0, Alignment(Left)|DrawShadow;
+			
+			// Primary
+			DrawImage ammoicon1, 434, 468, CenterBottom, 64, 14;
+			DrawNumber 5, NARKISIM, Untranslated, ammo1capacity, Alignment(Left)|DrawShadow, 426, 438;
+			DrawNumber 5, NARKISIM, Untranslated, ammo1, Alignment(Left)|DrawShadow, 426, 420;
+			
+			// Secondary
+			DrawImage ammoicon2, 508, 468, CenterBottom, 64, 14;
+			DrawNumber 5, NARKISIM, Untranslated, ammo2capacity, Alignment(Left)|DrawShadow, 500, 438;
+			DrawNumber 5, NARKISIM, Untranslated, ammo2, Alignment(Left)|DrawShadow, 500, 420;
+		}
 
 		
 		// Inventory and mugshot
