@@ -10,7 +10,7 @@ StatusBar Fullscreen, FullscreenOffsets
 
 	DrawBar "hp_top", "hudbot", Health, Horizontal, 0, -19;
 	DrawImage "hudbrdr", 0, -19;
-	DrawNumber 2147483647, NARKISIM, White, Health, Alignment(Center), 80, -14;
+	DrawNumber 2147483647, NARKISIM, White, Health, Alignment(Center), 80, -15;
 	DrawImage "hpcross", 174, -1, CenterBottom, 16, 16;
 	
 // Player Armor bar
@@ -26,7 +26,7 @@ StatusBar Fullscreen, FullscreenOffsets
 		drawimage hexenarmor(shield, "ARMSLOT2"), 188, -22, CenterBottom, 16, 16;
 		drawimage hexenarmor(helm, "ARMSLOT3"), 204, -22, CenterBottom, 16, 16;
 		drawimage hexenarmor(amulet, "ARMSLOT4"), 220, -22, CenterBottom, 16, 16;
-		DrawNumber 5, NARKISIM, white, armorclass, Alignment(Center), 80, -35;
+		DrawNumber 5, NARKISIM, white, armorclass, Alignment(Center), 80, -36;
 	}
 	else playertype MagePlayer
 	{
@@ -34,7 +34,7 @@ StatusBar Fullscreen, FullscreenOffsets
 		drawimage hexenarmor(shield, "ARMSLOT2"), 188, -22, CenterBottom, 16, 16;
 		drawimage hexenarmor(helm, "ARMSLOT3"), 204, -22, CenterBottom, 16, 16;
 		drawimage hexenarmor(amulet, "ARMSLOT4"), 220, -22, CenterBottom, 16, 16;
-		DrawNumber 5, NARKISIM, white, armorclass, Alignment(Center), 80, -35;
+		DrawNumber 5, NARKISIM, white, armorclass, Alignment(Center), 80, -36;
 	}
 	else playertype FighterPlayer
 	{
@@ -42,10 +42,10 @@ StatusBar Fullscreen, FullscreenOffsets
 		drawimage hexenarmor(shield, "ARMSLOT2"), 188, -22, CenterBottom, 16, 16;
 		drawimage hexenarmor(helm, "ARMSLOT3"), 204, -22, CenterBottom, 16, 16;
 		drawimage hexenarmor(amulet, "ARMSLOT4"), 220, -22, CenterBottom, 16, 16;
-		DrawNumber 5, NARKISIM, white, armorclass, Alignment(Center), 80, -35;
+		DrawNumber 5, NARKISIM, white, armorclass, Alignment(Center), 80, -36;
 	}
 	else
-		DrawNumber 2147483647, NARKISIM, White, Armor, Alignment(Center), 80, -35;
+		DrawNumber 2147483647, NARKISIM, White, Armor, Alignment(Center), 80, -36;
 	
 	// Ammo
 
@@ -255,8 +255,8 @@ StatusBar Normal // Standard Doom Status bar
 		
 		
 		// Health
-		DrawString NARKISIM, Red, "Health", 196, 420, 0, Alignment(Left);
-		DrawNumber 5, NARKISIM, Untranslated, health, Alignment(Center), 243, 437;
+		DrawString NARKISIM, Red, "Health", 196, 420, 0, Alignment(Left)|DrawShadow;
+		DrawNumber 5, NARKISIM, Untranslated, health, Alignment(Center)|DrawShadow, 243, 437;
 		playertype StrifePlayer
 		{
 			DrawString smallfont, Untranslated, "Stam:", 196, 462, 0, Alignment(Left);
@@ -265,17 +265,17 @@ StatusBar Normal // Standard Doom Status bar
 		
 		
 		// Armor
-		DrawString NARKISIM, Green, "Armor", 95, 420, 0, Alignment(Left);
+		DrawString NARKISIM, Green, "Armor", 95, 420, 0, Alignment(Left)|DrawShadow;
 		playertype StrifePlayer
 		{
-			DrawNumber 5, NARKISIM, Untranslated, armor, Alignment(Center), 142, 437;
+			DrawNumber 5, NARKISIM, Untranslated, armor, Alignment(Center)|DrawShadow, 142, 437;
 			DrawString smallfont, Untranslated, "Acc:", 94, 462, 0, Alignment(Left);
 			DrawNumber 5, smallfont, Untranslated, Accuracy, Alignment(Left), 128, 462;
 		}
 		else playertype FighterPlayer
 		{
-			DrawNumber 5, NARKISIM, Untranslated, savepercent, Alignment(Right), 171, 437;
-			DrawString NARKISIM, Untranslated, "%", 175, 437, 0, Alignment(Left);
+			DrawNumber 5, NARKISIM, Untranslated, savepercent, Alignment(Right)|DrawShadow, 171, 437;
+			DrawString NARKISIM, Untranslated, "%", 175, 437, 0, Alignment(Left)|DrawShadow;
 			drawimage hexenarmor(armor, "ARMSLOT1"), 110, 476, CenterBottom, 20, 20;
 			drawimage hexenarmor(shield, "ARMSLOT2"), 130, 476, CenterBottom, 20, 20;
 			drawimage hexenarmor(helm, "ARMSLOT3"), 150, 476, CenterBottom, 20, 20;
@@ -283,8 +283,8 @@ StatusBar Normal // Standard Doom Status bar
 		}
 		else playertype ClericPlayer
 		{
-			DrawNumber 5, NARKISIM, Untranslated, savepercent, Alignment(Right), 171, 437;
-			DrawString NARKISIM, Untranslated, "%", 175, 437, 0, Alignment(Left);
+			DrawNumber 5, NARKISIM, Untranslated, savepercent, Alignment(Right)|DrawShadow, 171, 437;
+			DrawString NARKISIM, Untranslated, "%", 175, 437, 0, Alignment(Left)|DrawShadow;
 			drawimage hexenarmor(armor, "ARMSLOT1"), 110, 476, CenterBottom, 20, 20;
 			drawimage hexenarmor(shield, "ARMSLOT2"), 130, 476, CenterBottom, 20, 20;
 			drawimage hexenarmor(helm, "ARMSLOT3"), 150, 476, CenterBottom, 20, 20;
@@ -292,8 +292,8 @@ StatusBar Normal // Standard Doom Status bar
 		}
 		else playertype MagePlayer
 		{
-			DrawNumber 5, NARKISIM, Untranslated, savepercent, Alignment(Right), 171, 437;
-			DrawString NARKISIM, Untranslated, "%", 175, 437, 0, Alignment(Left);
+			DrawNumber 5, NARKISIM, Untranslated, savepercent, Alignment(Right)|DrawShadow, 171, 437;
+			DrawString NARKISIM, Untranslated, "%", 175, 437, 0, Alignment(Left)|DrawShadow;
 			drawimage hexenarmor(armor, "ARMSLOT1"), 110, 476, CenterBottom, 20, 20;
 			drawimage hexenarmor(shield, "ARMSLOT2"), 130, 476, CenterBottom, 20, 20;
 			drawimage hexenarmor(helm, "ARMSLOT3"), 150, 476, CenterBottom, 20, 20;
@@ -301,26 +301,26 @@ StatusBar Normal // Standard Doom Status bar
 		}
 		else
 		{
-			DrawNumber 5, NARKISIM, Untranslated, armor, Alignment(Center), 142, 437;
+			DrawNumber 5, NARKISIM, Untranslated, armor, Alignment(Center)|DrawShadow, 142, 437;
 			DrawImage ArmorIcon, 142, 476, centerbottom, 90, 22, forcescale;
 		}
 		
 		
 		// Ammo
-		DrawString NARKISIM, Yellow, "Held", 332, 421, 0, Alignment(Left);
-		DrawString NARKISIM, Gold, "Max", 332, 439, 0, Alignment(Left);
+		DrawString NARKISIM, Yellow, "Held", 332, 421, 0, Alignment(Left)|DrawShadow;
+		DrawString NARKISIM, Gold, "Max", 332, 439, 0, Alignment(Left)|DrawShadow;
 		DrawString smallfont, Untranslated, weapontag, 331, 470, 0, Alignment(Left);
 		DrawImage weaponicon, 370, 468, CenterBottom, 64, 14, skipready;
 		
 		// Primary
 		DrawImage ammoicon1, 434, 468, CenterBottom, 64, 14;
-		DrawNumber 5, NARKISIM, Untranslated, ammo1capacity, Alignment(Left), 426, 439;
-		DrawNumber 5, NARKISIM, Untranslated, ammo1, Alignment(Left), 426, 421;
+		DrawNumber 5, NARKISIM, Untranslated, ammo1capacity, Alignment(Left)|DrawShadow, 426, 439;
+		DrawNumber 5, NARKISIM, Untranslated, ammo1, Alignment(Left)|DrawShadow, 426, 421;
 		
 		// Secondary
 		DrawImage ammoicon2, 508, 468, CenterBottom, 64, 14;
-		DrawNumber 5, NARKISIM, Untranslated, ammo2capacity, Alignment(Left), 500, 439;
-		DrawNumber 5, NARKISIM, Untranslated, ammo2, Alignment(Left), 500, 421;
+		DrawNumber 5, NARKISIM, Untranslated, ammo2capacity, Alignment(Left)|DrawShadow, 500, 439;
+		DrawNumber 5, NARKISIM, Untranslated, ammo2, Alignment(Left)|DrawShadow, 500, 421;
 
 		
 		// Inventory and mugshot
@@ -344,16 +344,16 @@ StatusBar Normal // Standard Doom Status bar
 		// Kills
 		gamemode deathmatch
 		{
-			DrawString NARKISIM, Blue, "Kills", 6, 420, 0, alignment(left);
-			DrawNumber 4, NARKISIM, Untranslated, frags, alignment(right), 77, 438;
+			DrawString NARKISIM, Blue, "Kills", 6, 420, 0, alignment(left)|DrawShadow;
+			DrawNumber 4, NARKISIM, Untranslated, frags, alignment(right)|DrawShadow, 77, 438;
 		}
 		Else
 		{
-			DrawString NARKISIM, Blue, "Kills", 6, 420, 0, alignment(left);
-			DrawString NARKISIM, Untranslated, "K:", 6, 444, 0, alignment(left);
-			DrawNumber 4, NARKISIM, Untranslated, Kills, alignment(left), 28, 444; // Lets hope some map doesn't have more than 10,000 monsters
-			DrawString NARKISIM, Untranslated, "T:", 6, 462, 0, alignment(left);
-			DrawNumber 4, NARKISIM, Untranslated, Monsters, alignment(left), 28, 462;
+			DrawString NARKISIM, Blue, "Kills", 6, 420, 0, alignment(left)|DrawShadow;
+			DrawString NARKISIM, Untranslated, "K:", 6, 444, 0, alignment(left)|DrawShadow;
+			DrawNumber 4, NARKISIM, Untranslated, Kills, alignment(left)|DrawShadow, 28, 444; // Lets hope some map doesn't have more than 10,000 monsters
+			DrawString NARKISIM, Untranslated, "T:", 6, 462, 0, alignment(left)|DrawShadow;
+			DrawNumber 4, NARKISIM, Untranslated, Monsters, alignment(left)|DrawShadow, 28, 462;
 		}
 
 		// Keys
