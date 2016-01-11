@@ -397,8 +397,13 @@ Script "JP_HUD_Statusbar" (Int ActivatorID, Int Target_MaxHealth, Int Target_Cur
 		ActivatorID = GetPlayerID();
 		if ((GetUserCVar(PlayerNumber(), "hud_enemyhealthbar")) > 0)
 		{
-			if (SetActivatorToTarget(ActivatorID))
+			Int Saved_TID = PickActor (ActivatorID, GetActorAngle (ActivatorID), GetActorPitch (ActivatorID), 8192.0, 0, MF_SHOOTABLE, ML_BLOCKEVERYTHING, PICKAF_RETURNTID);
+			Int Temporary_TID = UniqueTID ();
+			
+			
+			if (PickActor (ActivatorID, GetActorAngle (ActivatorID), GetActorPitch (ActivatorID), 8192.0, Temporary_TID, MF_SHOOTABLE, ML_BLOCKEVERYTHING, PICKAF_FORCETID))
 			{
+				SetActivator(Temporary_TID);
 				if (ClassifyActor(0) & ACTOR_MONSTER  && ClassifyActor(0) & ACTOR_ALIVE && CheckFlag(0, "Shootable") && !(CheckFlag(0, "NoDamage") || CheckFlag(0, "Invulnerable"))) // Monsters
 				{
 					Str Monster_ClassName = GetActorProperty(0, APROP_NameTag);
@@ -409,6 +414,7 @@ Script "JP_HUD_Statusbar" (Int ActivatorID, Int Target_MaxHealth, Int Target_Cur
 						SetActivator(ActivatorID);
 						
 						DrawEnemyHealthBar(Target_CurrentHealth, Target_MaxHealth, Monster_ClassName); // I didn't want to make a huge mess here, so I made a function for it
+						Thing_ChangeTID (Temporary_TID, Saved_TID);
 					}
 				}
 				else if (ClassifyActor(0) & ACTOR_PLAYER && ClassifyActor(0) & ACTOR_ALIVE) // Players/bots
@@ -428,6 +434,7 @@ Script "JP_HUD_Statusbar" (Int ActivatorID, Int Target_MaxHealth, Int Target_Cur
 					}
 					SetActivator(ActivatorID);
 					DrawEnemyHealthBar(Target_CurrentHealth, Target_MaxHealth, Player_Name); // This will only show up if the player is an enemy
+					Thing_ChangeTID (Temporary_TID, Saved_TID);
 				}
 				else
 				{
@@ -439,6 +446,7 @@ Script "JP_HUD_Statusbar" (Int ActivatorID, Int Target_MaxHealth, Int Target_Cur
 			{
 				SetActivator (ActivatorID);
 			}
+			Thing_ChangeTID (Temporary_TID, Saved_TID);
 		}
 		
 		Delay (1);
