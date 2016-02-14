@@ -1,8 +1,9 @@
 // Feel free to tear this apart, reuse it, learn from it. Just be sure to give credit.
 // Also please check the readme for known issues.
 
-#include "zcommon.acs"
 #library "jp_hud"
+#include "zcommon.acs"
+#import "function.acs"
 
 //===========================================================================
 //
@@ -74,13 +75,6 @@ Int Player_TID [32];
 //
 //===========================================================================
 
-// Returns 0 for even numbers and 1 for odd numbers
-Function Int IsOdd (Int number)
-{ 
-   int p = number % 2;
-   return p;
-}
-
 // Returns the player's TID if it has one
 Function Int GetPlayerID (void)
 {
@@ -88,14 +82,6 @@ Function Int GetPlayerID (void)
 		Thing_ChangeTID (ActivatorTID(), UniqueTID((PlayerNumber() + Player_TIDOffset)));
 	Player_TID [PlayerNumber()] = ActivatorTID();
 	Return (Player_TID [PlayerNumber()]);
-}
-
-// Draws an image to the HUD with the specified coordinates
-Function Bool DrawSprite (Str Sprite, Int ID, Int X, Int Y, Int Alpha)
-{
-	SetFont(Sprite);
-	HUDMessage(s:"A"; HUDMSG_FADEOUT|HUDMSG_NOTWITHFULLMAP|HUDMSG_ALPHA, ID, CR_UNTRANSLATED, X, Y, 0.029, 0.25, Alpha);
-	Return True;
 }
 
 // Draw current health and maximum health
@@ -226,7 +212,6 @@ Function Bool DrawEnemyHealthBar (Int CurrentHealth, Int MaxHealth, Str Name)
 	Int centerbary = ((FixedDiv (f_yresolution, 2.0)) - (FixedDiv(JP_HUD_BARYDIM, 2.0)));
 	Int centertextx = FixedDiv (f_font_xresolution, 2.0);
 	Int centertexty = FixedDiv (f_font_yresolution, 2.0);
-	
 	
 	Switch (GetUserCVar(PlayerNumber(), "hud_enemyhealthbar")) // Where do we want the enemy health bar?
 	{
