@@ -321,6 +321,7 @@ Script "JP_HUD_Statusbar" (Int ActivatorID, Int Target_MaxHealth, Int Target_Cur
 					Str Monster_ClassName = GetActorProperty(0, APROP_NameTag);
 					Target_MaxHealth = GetActorProperty (0, AProp_SpawnHealth);
 					Target_CurrentHealth = GetActorProperty (0, AProp_Health);
+					If (Target_CurrentHealth > Target_MaxHealth) Target_MaxHealth = Target_CurrentHealth;
 					if (ActivatorID != ActivatorTID())
 					{
 						SetActivator(ActivatorID);
