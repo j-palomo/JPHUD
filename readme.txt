@@ -9,7 +9,6 @@ Please read these before reporting any bugs or issues to me.
 						
 -Health values are capped at 5 digits. This can be increased, but I wont because...
 -Health values 32768 and above don't display the enemy health bar properly, but the numbers are still shown and are accurate.
--Enemy health bar does not show up if you are more than a certain distance away from the enemy (1024 map units).
 -Resolutions below 640x480 are not supported.
 -The normal HUD isn't displayed properly until at least one tic occurs.
 -Using the console/menu to change the hud settings also takes at least one tic to change.
