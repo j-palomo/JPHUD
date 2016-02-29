@@ -15,6 +15,7 @@ Small = "Small";
 Big = "Big";
 Narkisim = "Narkisim";
 Doom93 = "Doom 93";
+Exocet = "Exocet";
 JPHUD_Options = "JP HUD Options";
 NormalHUD = "Normal HUD";
 StatusBarColor = "Status bar color";

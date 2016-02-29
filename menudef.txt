@@ -28,6 +28,7 @@ OptionValue "JPHUD_FontType"
 	1, "$Big"
 	2, "$Narkisim"
 	3, "$Doom93"
+	4, "$Exocet"
 }
 
 OptionMenu "HUDOptions"
