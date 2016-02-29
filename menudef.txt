@@ -1,93 +1,93 @@
 OptionValue "JPHUD_EnemyBarType"
 {
-	0, "No bar"
-	1, "Horizontal"
-	2, "Vertical"
+	0, "$NoBar"
+	1, "$Horizontal"
+	2, "$Vertical"
 }
 
 OptionValue "JPHUD_HealthType"
 {
-	0, "Disabled"
-	1, "Exact"
-	2, "Percentage"
+	0, "$Disabled"
+	1, "$Exact"
+	2, "$Percentage"
 }
 
 OptionValue "JPHUD_FontType"
 {
-	0, "Small"
-	1, "Big"
-	2, "Narkisim"
-	3, "Doom 93"
+	0, "$Small"
+	1, "$Big"
+	2, "$Narkisim"
+	3, "$Doom93"
 }
 
 OptionMenu "HUDOptions"
 {
-	Title "HUD Options"
-	Submenu "Alternative HUD",			"AltHudOptions"
-	Submenu "JP HUD Options",			"JPHUDOptions"
-	Submenu "Message Options", 			"MessageOptions"
+	Title "$HUDMNU_TITLE"
+	Submenu "$HUDMNU_ALTHUD",				"AltHudOptions"
+	Submenu "$JPHUD_Options",				"JPHUDOptions"
+	Submenu "$HUDMNU_MESSAGE", 				"MessageOptions"
 	StaticText " "
-	Option "Default Crosshair",			"crosshair", "Crosshairs"
-	Option "Force default crosshair",	"crosshairforce", "OnOff"
-	Option "Grow crosshair when picking up items",	"crosshairgrow", "OnOff"
-	ColorPicker "Crosshair color", 		"crosshaircolor"
-	Option "Crosshair shows health",	"crosshairhealth", "OnOff"
-	Option "Scale crosshair",			"crosshairscale", "OnOff"
+	Option "$HUDMNU_CROSSHAIR",				"crosshair", "Crosshairs"
+	Option "$HUDMNU_FORCECROSSHAIR",		"crosshairforce", "OnOff"
+	Option "$HUDMNU_GROWCROSSHAIR",			"crosshairgrow", "OnOff"
+	ColorPicker "$HUDMNU_CROSSHAIRCOLOR", 	"crosshaircolor"
+	Option "$HUDMNU_CROSSHAIRHEALTH",		"crosshairhealth", "OnOff"
+	Option "$HUDMNU_CROSSHAIRSCALE",		"crosshairscale", "OnOff"
 	StaticText " "
-	Option "Display nametags",			"displaynametags", "DisplayTagsTypes"
-	Option "Nametag color",				"nametagcolor", "TextColors", "displaynametags"
-	Option "Stretch status bar",		"st_scale", "OnOff"
-	Option "Stretch Fullscreen HUD",	"hud_scale", "OnOff"
-	Option "Use old ouch mug shot formula",	"st_oldouch", "OnOff"
+	Option "$HUDMNU_NAMETAGS",				"displaynametags", "DisplayTagsTypes"
+	Option "$HUDMNU_NAMETAGCOLOR",			"nametagcolor", "TextColors", "displaynametags"
+	Option "$HUDMNU_SCALESTATBAR",			"st_scale", "OnOff"
+	Option "$HUDMNU_SCALEFULLSCREENHUD",	"hud_scale", "OnOff"
+	Option "$HUDMNU_OLDOUCH",				"st_oldouch", "OnOff"
 	StaticText " "
-	Option "Hexen weapon flashes",		"pf_hexenweaps",	"ZDoomHexen"
-	Option "Poison damage flashes",		"pf_poison",		"ZDoomHexen"
-	Option "Ice death flashes",			"pf_ice",			"ZDoomHexen"
-	Option "Poison Buildup flashes",	"pf_hazard",		"ZDoomStrife"
+	Option "$HUDMNU_HEXENFLASHES",			"pf_hexenweaps", "ZDoomHexen"
+	Option "$HUDMNU_POISONFLASHES",			"pf_poison", "ZDoomHexen"
+	Option "$HUDMNU_ICEFLASHES",			"pf_ice", "ZDoomHexen"
+	Option "$HUDMNU_HAZARDFLASHES",			"pf_hazard", "ZDoomStrife"
 }
 
 OptionMenu "JPHUDOptions"
 {
-	Title "JP HUD Options"
-	StaticText "Enemy health bar", 1
-	Option "Bar type", "hud_enemyhealthbar", "JPHUD_EnemyBarType"
-	Option "Draw enemy tag", "hud_drawenemytag", "YesNo"
-	Option "Health display", "hud_healthdisplay", "JPHUD_HealthType"
-	Option "Font type", "hud_font", "JPHUD_FontType"
+	Title "$JPHUD_Options"
+	StaticText "$EnemyHealthBar", 1
+	Option "$BarType", "hud_enemyhealthbar", "JPHUD_EnemyBarType"
+	Option "$DrawEnemyTag", "hud_drawenemytag", "YesNo"
+	Option "$HealthDisplay", "hud_healthdisplay", "JPHUD_HealthType"
+	Option "$FontType", "hud_font", "JPHUD_FontType"
 	StaticText " "
-	Submenu "Offsets",			"JPHUDOffsets"
-	Submenu "Bar and text scaling",			"JPHUDScaling"
-	Submenu "Alpha transluceny",			"JPHUDAlpha"
+	Submenu "$Offsets",						"JPHUDOffsets"
+	Submenu "$BarTextScaling",			"JPHUDScaling"
+	Submenu "$AlphaTranslucency",			"JPHUDAlpha"
 }
 
 OptionMenu "JPHUDOffsets"
 {
-	Title "Offsets"
-	Slider "Global X offset", "hud_globalxoffset", -1920, 1920, 1
-	Slider "Global Y offset", "hud_globalyoffset", -1080, 1080, 1
-	Slider "Tag X offset", "HUD_TagXOffset", -1920, 1920, 1
-	Slider "Tag Y offset", "HUD_TagYOffset", -1080, 1080, 1
-	Slider "Bar X offset", "HUD_BarXOffset", -1920, 1920, 1
-	Slider "Bar Y offset", "HUD_BarYOffset", -1080, 1080, 1
-	Slider "Health X offset", "HUD_HPXOffset", -1920, 1920, 1
-	Slider "Health Y offset", "HUD_HPYOffset", -1080, 1080, 1
+	Title "$Offsets"
+	Slider "$GlobalXOffset", "hud_globalxoffset", -1920, 1920, 1
+	Slider "$GlobalYOffset", "hud_globalyoffset", -1080, 1080, 1
+	Slider "$TagXOffset", "HUD_TagXOffset", -1920, 1920, 1
+	Slider "$TagYOffset", "HUD_TagYOffset", -1080, 1080, 1
+	Slider "$BarXOffset", "HUD_BarXOffset", -1920, 1920, 1
+	Slider "$BarYOffset", "HUD_BarYOffset", -1080, 1080, 1
+	Slider "$HealthXOffset", "HUD_HPXOffset", -1920, 1920, 1
+	Slider "$HealthYOffset", "HUD_HPYOffset", -1080, 1080, 1
 }
 
 OptionMenu "JPHUDScaling"
 {
-	Title "Bar and text scaling"
-	StaticText "Smaller values increase graphic size"
-	StaticText "Setting value to 0 will use the video resolution"
-	Slider "X scaled bar resolution", "hud_xresolution", 0, 1920, 8
-	Slider "Y scaled bar resolution", "hud_yresolution", 0, 1080, 8
-	Slider "X scaled font resolution", "hud_fontxresolution", 0, 1920, 8
-	Slider "Y scaled font resolution", "hud_fontyresolution", 0, 1080, 8
+	Title "$BarTextScaling"
+	StaticText "$ScalingText1"
+	StaticText "$ScalingText2"
+	Slider "$XBarResolution", "hud_xresolution", 0, 1920, 8
+	Slider "$YBarResolution", "hud_yresolution", 0, 1080, 8
+	Slider "$XFontResolution", "hud_fontxresolution", 0, 1920, 8
+	Slider "$YFontResolution", "hud_fontyresolution", 0, 1080, 8
 }
 
 OptionMenu "JPHUDAlpha"
 {
-	Title "Bar and text alpha"
-	Slider "Bar foreground alpha", "hud_baralpha", 0.0, 1.0, 0.05, 2
-	Slider "Bar background alpha", "hud_backalpha", 0.0, 1.0, 0.05, 2
-	Slider "Text alpha", "hud_textalpha", 0.0, 1.0, 0.05, 2
+	Title "$BarTextAlpha"
+	Slider "$BarAlpha", "hud_baralpha", 0.0, 1.0, 0.05, 2
+	Slider "$BackAlpha", "hud_backalpha", 0.0, 1.0, 0.05, 2
+	Slider "$TextAlpha", "hud_textalpha", 0.0, 1.0, 0.05, 2
 }
