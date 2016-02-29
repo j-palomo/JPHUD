@@ -21,13 +21,13 @@
 
 // For example, if you have a horizontal bar with dimensions of 300x20 and a vertical bar with dimensions of 16x240,
 // you would put 300.0 for xdim and 240.0 for ydim
-#define JP_HUD_BARXDIM 320.0
+#define JP_HUD_BARXDIM 316.0
 #define JP_HUD_BARYDIM 240.0
 
 // Bar clipping
 // If the top graphic isn't going to be drawn over the entire bar, we need to define the offsets from the edges
 // If your graphic is going to span the entire bar, then just set all of these to 0
-#define JP_HUD_CLIP_RIGHT -3
+#define JP_HUD_CLIP_RIGHT 1
 #define JP_HUD_CLIP_LEFT 2
 #define JP_HUD_CLIP_TOP -2
 #define JP_HUD_CLIP_BOTTOM 1
