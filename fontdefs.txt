@@ -8,3 +8,8 @@ DOOM93
 	Template D93FT%03d
 	Spacewidth 10
 }
+
+EXOCET
+{
+	Template exoct%03d
+}
