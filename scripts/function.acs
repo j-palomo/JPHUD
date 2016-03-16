@@ -1,40 +1,13 @@
 #library "function"
+#import "defines.acs"
 #include "zcommon.acs"
 
-
+//===========================================================================
 //
-//	Functions
+// Functions
 //
+//===========================================================================
 
-// IsTIDUnique (Int TID)
-// Returns true if only one actor has the specified TID
-// Returns false if it finds none, or there is more than one
-
-Function Bool IsTIDUnique (Int TID)
-{
-	If (ThingCount(T_NONE, TID) > 1)
-	{
-		// It isn't unique, so return false
-		Return False;
-	}
-	
-	If (!(IsTIDUsed(TID)))
-	{
-		// There are no actors with this TID
-		Return False;
-	}
-	Return True;
-}
-
-// GetActivatorTID
-// Checks if the activator has a TID and gets it
-// If the activator doesn't have a TID, a new one is set
-Function Int GetActivatorTID (void)
-{
-	If (!(IsTIDUnique(ActivatorTID())))
-		Thing_ChangeTID (0, UniqueTID());
-	Return ActivatorTID();
-}
 
 // Int IsOdd (Int Number)
 // Checks if a number is even or odd
@@ -43,224 +16,6 @@ Function Int IsOdd (Int number)
 { 
    int p = number % 2;
    return p;
-}
-
-// Abs (Int x)
-// Gets the absolute value of the specified number
-// Numbers less than 0 are inverted, so -5 becomes 5
-Function Int Abs (Int x)
-{
-    If (x < 0)
-        Return -x;
-
-    Return x;
-}
-
-// Pow (Int x, Int n)
-// Multiplies x by itself n times.
-// Pow (3, 4) would be 81 since 3 * 3 * 3 * 3 = 81
-Function Int Pow (Int x, Int n)
-{
-	Int y = 1;
-	While (n-- > 0) y *= x;
-	Return y;
-}
-
-// Round (Int f)
-// Rounds a decimal to a whole number
-// Numbers will be rounded down unless you add 0.5 before using the function
-Function Int Round (Int f)
-{
-	Return f >> 16;
-}
-
-// FixedDistance (Int tid1, Int tid2)
-// Gets the 2D distance between two actors
-// Number is return as a fixed point
-Function Int FixedDistance (Int tid1, Int tid2)
-{	
-	Int x = GetActorX(tid1) - GetActorX(tid2);
-	Int y = GetActorY(tid1) - GetActorY(tid2);
-	
-	Int len = VectorLength(x, y);
-	Return len;
-}
-
-// Distance (Int tid1, Int tid2)
-// Same as FixedDistance, except it returns a whole number
-Function Int Distance (Int tid1, Int tid2)
-{
-	Return Round(FixedDistance(tid1, tid2));
-}
-
-// XYZ_FixedDistance (Int tid1, Int tid2)
-// Gets the 3D distance between two actors
-// Number is return as a fixed point
-Function Int XYZ_FixedDistance (Int tid1, Int tid2)
-{
-	Int z = ZDistance(tid1, tid2);
-	
-	Int len = VectorLength ((FixedDistance (tid1, tid2)), z);
-	Return len;
-}
-
-// XYZ_Distance (Int tid1, Int tid2)
-// Same as XYZ_FixedDistance, except it returns a whole number
-Function Int XYZ_Distance (Int tid1, Int tid2)
-{
-	Return Round (XYZ_FixedDistance (tid1, tid2));
-}
-
-// ZDistance (Int tid1, Int tid2)
-// Gets the height difference between two actors
-Function Int ZDistance (Int tid1, Int tid2)
-{
-	Return (GetActorZ(tid1) - GetActorZ(tid2));
-}
-
-// Angle (Int tid1, Int tid2)
-// Gets the angle between two actors
-// An actor's facing angle isn't taken into account
-Function Int Angle (Int tid1, Int tid2)
-{
-    int x, y;
-    x = GetActorX(tid1) - GetActorX(tid2);
-    y = GetActorY(tid1) - GetActorY(tid2);
-    return VectorAngle(x, y);
-}
-
-// ByteAngle (Int tid1, Int tid2)
-// Same as Angle, but returned as a byte angle instead
-Function Int ByteAngle (Int tid1, Int tid2)
-{
-    return Angle(tid1, tid2) >> 8;
-}
-
-// Pitch (Int tid1, Int tid2)
-// Gets the pitch between two actors
-// An actor's camera pitch isn't taken into account
-Function Int Pitch (Int tid1, Int tid2)
-{
-    Int x, y, z, xy, a;
-    x = GetActorX(tid2) - GetActorX(tid1);
-    y = GetActorY(tid2) - GetActorY(tid1);
-    z = GetActorZ(tid2) - GetActorZ(tid1);
-    a = VectorAngle(x, y);
-
-    if ((a + 0.125) % 0.5 > 0.25)
-        xy = FixedDiv(y, sin(a));
-    else
-        xy = FixedDiv(x, cos(a));
-
-    return -VectorAngle(xy, z);
-}
-
-// BytePitch (Int tid1, Int tid2)
-// Same as Pitch, but returned as a byte pitch instead
-Function Int BytePitch (Int tid1, Int tid2)
-{
-    return Pitch(tid1, tid2) >> 8;
-}
-
-// Player color functions
-
-// PlayerColor (Int playernum)
-// Get the player's color as a hexadecimal with range of [0, 255]
-Function Int GetPlayerColor (Int playernum)
-{
-	Int playercolor;
-
-	playercolor = GetPlayerInfo (playernum, PlayerInfo_Color);
-	Return playercolor;
-}
-
-Function Int PlayerColorRed (Int playernum)
-{
-	Int playerred;
-	playerred = GetPlayerColor(playernum) >> 16;
-	Return playerred;
-}
-
-Function Int PlayerColorGreen (Int playernum)
-{
-	Int playergreen;
-	playergreen = (GetPlayerColor(playernum) - (PlayerColorRed(playernum) << 16)) >> 8;
-	Return playergreen;
-}
-
-Function Int PlayerColorBlue (Int playernum)
-{
-	Int playerblue;
-	playerblue = GetPlayerColor(playernum) - (PlayerColorRed(playernum) << 16) - (PlayerColorGreen(playernum) << 8);
-	Return playerblue;
-}
-
-
-
-Function Int PressedKey (Int key)
-{
-	int previous_buttons = GetPlayerInput (-1, ModInput_OldButtons);
-	int current_buttons = GetPlayerInput (-1, ModInput_Buttons);
-	
-	if ((current_buttons & key) && !(previous_buttons & key))
-	{
-		Return key;
-	}
-	Return 0;
-}
-
-Function Int HeldKey (Int key)
-{
-	Int buttons = GetPlayerInput (-1, ModInput_Buttons);
-	if (buttons & key)
-		Return key;
-	Return 0;
-}
-
-
-// PlayerHasSigil
-// Goes through each player to check if they have a sigil
-// If anyone has one, all of them are given the sigil
-Function Bool PlayerHasSigil (void)
-{
-	Bool foundSigil;
-	If (GameType () == GAME_NET_COOPERATIVE) // Don't run this in deathmatch or single player
-	{
-		// If the activator isn't a player, don't do anything
-		If (ClassifyActor(0) & ACTOR_PLAYER)
-		{
-			Int ActivatorPlayer = PlayerNumber ();
-			Int NumberOfPlayers = PlayerCount();
-			Int n;
-			foundSigil = False;
-			For (n = 0; n < NumberOfPlayers; n++)
-			{
-				If (SetActivator (0, AAPTR_PLAYER1 << n))
-				{
-					If (GetSigilPieces())
-						foundSigil = True;
-					// We found one, so stop executing the loop
-					If (foundSigil)
-						break;
-				}
-			}
-			
-			// Someone had it, so give one to everyone
-			If (foundSigil)
-			{
-				For (n = 0; n < NumberOfPlayers; n++)
-				{
-					If (SetActivator (0, AAPTR_PLAYER1 << n))
-					{
-						GiveInventory ("Sigil", 1);
-					}
-				}
-			}
-			SetActivator (0, AAPTR_PLAYER1 << ActivatorPlayer);
-		}
-	}
-	
-	Return foundSigil;
 }
 
 // DrawSprite (Str Sprite, Int ID, Int X, Int Y, Int Alpha)
@@ -272,31 +27,200 @@ Function Bool DrawSprite (Str Sprite, Int ID, Int X, Int Y, Int Alpha)
 	Return True;
 }
 
-Function Bool AboveDamagingFlat (void)
+// Returns the player's TID if it has one
+Function Int GetPlayerID (void)
 {
-	Str flats [18] = {
-		"NUKAGE1",
-		"NUKAGE2",
-		"NUKAGE3",
-		"LAVA1",
-		"LAVA2",
-		"LAVA3",
-		"LAVA4",
-		"FLTLAVA1",
-		"FLTLAVA2",
-		"FLTLAVA3",
-		"FLTLAVA4",
-		"FLATHUH1",
-		"FLATHUH2",
-		"FLATHUH3",
-		"FLATHUH4",
-		"F_PWATR1",
-		"F_PWATR2",
-		"F_PWATR3"};
-	For (Int i = 0; i < 18; i++)
+	if (ActivatorTID() == 0)
+		Thing_ChangeTID (ActivatorTID(), UniqueTID((PlayerNumber() + Player_TIDOffset)));
+	Player_TID [PlayerNumber()] = ActivatorTID();
+	Return (Player_TID [PlayerNumber()]);
+}
+
+// Draw current health and maximum health
+Function Bool DrawHealth (Int CurrentHealth, Int MaxHealth, Int ID, Int X, Int Y, Int Alpha)
+{
+	Int hp = ((FixedDiv (CurrentHealth, MaxHealth)) * 100) >> 16; // Used for percentage health display
+	switch (GetUserCVar(PlayerNumber(), "hud_font")) // Which font should we draw?
 	{
-		If (CheckActorFloorTexture (0, flats [i]))
-			Return True;
+		Case JP_HUD_FONT_SMALL:
+			SetFont ("smallfont");
+			break;
+		Case JP_HUD_FONT_BIG:
+			SetFont ("bigfont");
+			break;
+		Case JP_HUD_FONT_NARKISIM:
+			SetFont ("NARKISIM");
+			break;
+		Case JP_HUD_FONT_DOOM93:
+			SetFont ("DOOM93");
+			break;
+		Case JP_HUD_FONT_EXOCET:
+			SetFont ("EXOCET");
+			break;
 	}
-	Return False;
+	
+	switch (GetUserCVar (PlayerNumber(), "hud_healthdisplay"))
+	{
+		Case JP_HUD_HEALTHTYPE_DISABLED:
+			// Do nothing
+			break;
+		Case JP_HUD_HEALTHTYPE_EXACT:
+			HUDMessage(i:CurrentHealth, s:"/", i:MaxHealth; HUDMSG_FADEOUT|HUDMSG_NOWRAP|HUDMSG_NOTWITHFULLMAP|HUDMSG_ALPHA, ID, CR_White, X, Y, 0.029, 0.25, Alpha);
+			break;
+		Case JP_HUD_HEALTHTYPE_PERCENTAGE:
+			HUDMessage(i:hp, s:"%"; HUDMSG_FADEOUT|HUDMSG_NOWRAP|HUDMSG_NOTWITHFULLMAP|HUDMSG_ALPHA, ID, CR_WHITE, X, Y, 0.029, 0.25, Alpha);
+			break;
+	}
+	
+	Return True;
+}
+
+// Draw the actor's tag, or name if it doesn't have one
+Function Bool DrawTag (Str Name, Int ID, Int X, Int Y, Int Alpha)
+{
+	switch (GetUserCVar(PlayerNumber(), "hud_font")) // Which font should we draw?
+	{
+		Case JP_HUD_FONT_SMALL:
+			SetFont ("smallfont");
+			break;
+		Case JP_HUD_FONT_BIG:
+			SetFont ("bigfont");
+			break;
+		Case JP_HUD_FONT_NARKISIM:
+			SetFont ("NARKISIM");
+			break;
+		Case JP_HUD_FONT_DOOM93:
+			SetFont ("DOOM93");
+			break;
+		Case JP_HUD_FONT_EXOCET:
+			SetFont ("EXOCET");
+			break;
+	}
+	
+	HUDMessage(s:Name; HUDMSG_FADEOUT|HUDMSG_NOWRAP|HUDMSG_NOTWITHFULLMAP|HUDMSG_ALPHA, ID, CR_WHITE, X, Y, 0.029, 0.25, Alpha);
+	Return True;
+}
+
+// Draws the enemy health bar graphics
+Function Bool DrawEnemyHealthBar (Int CurrentHealth, Int MaxHealth, Str Name)
+{
+	// How translucent should we draw the bar?
+	Int bar_foregroundalpha = GetUserCVar (PlayerNumber(), "hud_baralpha");
+	Int bar_backgroundalpha = GetUserCVar (PlayerNumber(), "hud_backalpha");
+	Int text_alpha = GetUserCVar (PlayerNumber(), "hud_textalpha");
+	
+	// The higher the resolution, the smaller the graphics are drawn
+	Int x_resolution = GetUserCVar(PlayerNumber(), "HUD_XResolution");
+	If (x_resolution == 0) // We don't want a divide by zero
+		x_resolution = GetScreenWidth (); // so use the player's resolution
+	Int y_resolution = GetUserCVar(PlayerNumber(), "HUD_YResolution");
+	If (y_resolution == 0)
+		y_resolution = GetScreenHeight ();
+		
+	// Font scaled resolution
+	Int font_x_resolution = GetUserCVar(PlayerNumber(), "hud_fontxresolution");
+	Int font_y_resolution = GetUserCVar(PlayerNumber(), "hud_fontyresolution");	
+	If (font_x_resolution == 0) // We don't want a divide by zero
+		font_x_resolution = GetScreenWidth (); // so use the player's resolution
+	If (font_y_resolution == 0)
+		font_y_resolution = GetScreenHeight ();
+	
+		
+	// Odd numbered resolutions will break the bar, so make them even
+	If (IsOdd(x_resolution))
+		x_resolution += 1;
+	If (IsOdd(y_resolution))
+		y_resolution += 1;
+		
+	// Offsets
+	
+	Int globaloffsetx = GetUserCVar(PlayerNumber(), "HUD_GlobalXOffset"); // The offset from the left side that we want to draw everything from
+	Int globaloffsety = GetUserCVar(PlayerNumber(), "HUD_GlobalYOffset"); // The offset from the top of the screen
+	Int barx = GetUserCVar(PlayerNumber(), "HUD_BarXOffset");
+	Int bary = GetUserCVar(PlayerNumber(), "HUD_BarYOffset");
+	Int tagx = GetUserCVar(PlayerNumber(), "HUD_TagXOffset");
+	Int tagy = GetUserCVar(PlayerNumber(), "HUD_TagYOffset");
+	Int hpx = GetUserCVar(PlayerNumber(), "HUD_HPXOffset");
+	Int hpy = GetUserCVar(PlayerNumber(), "HUD_HPYOffset");
+	
+	Int a = CurrentHealth << 16; // convert to fixed point for accuracy
+	Int b = Maxhealth << 16;
+	Int c = FixedDiv(a, b); // This should give us a percentage of remaining health as a fixed point number between 0 and 1.0
+	
+	// Fixed point conversion
+	Int f_globaloffsetx = globaloffsetx << 16;
+	Int f_globaloffsety = globaloffsety << 16;
+	Int f_xresolution = x_resolution << 16;
+	Int f_yresolution = y_resolution << 16;
+	Int f_font_xresolution = font_x_resolution << 16;
+	Int f_font_yresolution = font_y_resolution << 16;
+	Int f_barx = barx << 16;
+	Int f_bary = bary << 16;
+	Int f_tagx = tagx << 16;
+	Int f_tagy = tagy << 16;
+	Int f_hpx = hpx << 16;
+	Int f_hpy = hpy << 16;
+	
+	// Multiplies the dimensions of the graphic by the % of health remaining to get how much of the bar we need to show
+	Int barwidth = (FixedMul(c, JP_HUD_BARXDIM) + 0.5) >> 16; // the extra 0.5 is for rounding up
+	Int barheight = (FixedMul(c, JP_HUD_BARYDIM) + 0.5) >> 16;
+	
+	// Center the bar on the x axis by getting the scaled resolution and the graphic size
+	Int centerbarx = ((FixedDiv (f_xresolution, 2.0)) - (FixedDiv(JP_HUD_BARXDIM, 2.0)));
+	Int centerbary = ((FixedDiv (f_yresolution, 2.0)) - (FixedDiv(JP_HUD_BARYDIM, 2.0)));
+	Int centertextx = FixedDiv (f_font_xresolution, 2.0);
+	Int centertexty = FixedDiv (f_font_yresolution, 2.0);
+	
+	Switch (GetUserCVar(PlayerNumber(), "hud_enemyhealthbar")) // Where do we want the enemy health bar?
+	{
+		Case JP_HUD_NOBAR:
+			// Do nothing
+			break;
+			
+		Case JP_HUD_HORIZONTALBAR: // Bar is drawn right to left
+			SetHUDSize(x_resolution, y_resolution, 0);
+
+			// SetHUDClipRect defines the box that the graphic will be drawn within. Anything outside the box is cutoff, displaying the graphics below
+			SetHUDClipRect(JP_HUD_CLIP_LEFT+globaloffsetx+barx+(centerbarx >> 16), globaloffsety+bary, barwidth+JP_HUD_CLIP_RIGHT, y_resolution+globaloffsety+bary, 0); // To see what these numbers mean, see above.
+			DrawSprite ("HBARTOP", JP_HUD_BARID+4, f_barx+f_globaloffsetx+0.1+centerbarx, 0.1+f_bary+f_globaloffsety, bar_foregroundalpha);
+			
+			
+			// This resets it back to normal
+			SetHUDClipRect(0, 0, 0, 0);
+			
+			DrawSprite ("HBARBRD", JP_HUD_BARID+3, f_globaloffsetx+f_barx+0.1+centerbarx, 0.1+f_bary+f_globaloffsety, bar_foregroundalpha);
+			DrawSprite ("HBARBOT", JP_HUD_BARID+5, f_globaloffsetx+f_barx+0.1+centerbarx, 0.1+f_bary+f_globaloffsety, bar_backgroundalpha);
+			SetHUDSize (font_x_resolution, font_y_resolution, 0);
+			DrawHealth (CurrentHealth, Maxhealth, JP_HUD_BARID+1, 0.4+f_globaloffsetx+f_hpx+centertextx, 10.1+f_globaloffsety+f_hpy, text_alpha); // Displays "current health / max health" inside the bar
+
+			
+			If (GetUserCVar(PlayerNumber(), "hud_drawenemytag")) // Do we want to draw the name tag?
+			{
+				DrawTag (Name, JP_HUD_BARID+2, 0.4+f_globaloffsetx+f_tagx+centertextx, 0.1+f_globaloffsety+f_tagy, text_alpha); // Drawn below the bar
+			}
+			break;
+			
+		Case JP_HUD_VERTICALBAR: // Bar is drawn top to bottom
+			SetHUDSize(x_resolution, y_resolution, 0);
+			
+			// This is a little more complicated than the horizontal bar
+			// Instead of starting from the top left and drawing the box size to the right, we have to start from the bottom of the image and draw up
+			SetHUDClipRect(globaloffsetx+barx, JP_HUD_CLIP_BOTTOM+(JP_HUD_BARYDIM>>16)+bary+globaloffsety-barheight+(centerbary >> 16), x_resolution+globaloffsetx+barx, JP_HUD_CLIP_TOP+bary+globaloffsety+(JP_HUD_BARYDIM >> 16));
+
+			DrawSprite ("HBARTOP2", JP_HUD_BARID+4, 0.1+f_globaloffsetx+f_barx, 0.1+f_globaloffsety+f_bary+centerbary, bar_foregroundalpha);
+			
+			SetHUDClipRect(0, 0, 0, 0);
+			DrawSprite ("HBARBOT2", JP_HUD_BARID+5, 0.1+f_globaloffsetx+f_barx, 0.1+f_globaloffsety+f_bary+centerbary, bar_backgroundalpha);
+			DrawSprite ("HBARBRD2", JP_HUD_BARID+3, 0.1+f_globaloffsetx+f_barx, 0.1+f_globaloffsety+f_bary+centerbary, bar_foregroundalpha);
+			SetHUDSize (font_x_resolution, font_y_resolution, 0);
+			DrawHealth (CurrentHealth, Maxhealth, JP_HUD_BARID+1, 18.1+f_globaloffsetx+f_hpx, centertexty+0.1+f_globaloffsety+f_hpy, text_alpha);
+			
+			If (GetUserCVar(PlayerNumber(), "hud_drawenemytag"))
+			{
+				DrawTag (Name, JP_HUD_BARID+2, 18.1+f_globaloffsetx+f_tagx, centertexty+10.1+f_globaloffsety+f_tagy, text_alpha); // This is drawn to the right of the bar
+			}
+			break;
+	}
+	
+	Return True;
 }
