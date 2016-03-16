@@ -1,0 +1,97 @@
+#library "enemyhb"
+#include "zcommon.acs"
+#import "defines.acs"
+#import "function.acs"
+
+//===========================================================================
+//
+// Scripts
+//
+//===========================================================================
+
+// These 3 scripts are to insure that the enemy health bar is drawn
+
+Script "JP_HUD_HPBar_Enter" Enter
+{
+	ACS_NamedExecuteAlways ("JP_HUD_EnemyHealthBar", 0, GetPlayerID(), 0, 0);
+}
+
+Script "JP_HUD_HPBar_Respawn" Respawn
+{
+	ACS_NamedExecuteAlways ("JP_HUD_EnemyHealthBar", 0, GetPlayerID(), 0, 0);
+}
+
+Script "JP_HUD_HPBar_Return" Return
+{
+	ACS_NamedExecuteAlways ("JP_HUD_EnemyHealthBar", 0, GetPlayerID(), 0, 0);
+}
+
+// Gets the player's target, then gets the needed values for displaying the graphics
+Script "JP_HUD_EnemyHealthBar" (Int ActivatorID, Int Target_MaxHealth, Int Target_CurrentHealth)
+{
+	// Get the player's TID
+	if ((ActivatorTID() == 0) || ThingCount (T_None, ActivatorTID()) > 1)
+		Thing_ChangeTID (0, UniqueTID());
+	if ((ActivatorTID() != Player_TID [PlayerNumber()]))
+		GetPlayerID ();
+	
+		// Enemy health bar stuff
+		ActivatorID = GetPlayerID();
+		if ((GetUserCVar(PlayerNumber(), "hud_enemyhealthbar")) > 0)
+		{
+			Int Saved_TID = PickActor (ActivatorID, GetActorAngle (ActivatorID), GetActorPitch (ActivatorID), 8192.0, 0, MF_SHOOTABLE, ML_BLOCKEVERYTHING, PICKAF_RETURNTID);
+			Int Temporary_TID = UniqueTID ();
+			
+			
+			if (PickActor (ActivatorID, GetActorAngle (ActivatorID), GetActorPitch (ActivatorID), 8192.0, Temporary_TID, MF_SHOOTABLE, ML_BLOCKEVERYTHING, PICKAF_FORCETID))
+			{
+				SetActivator(Temporary_TID);
+				if (ClassifyActor(0) & ACTOR_MONSTER  && ClassifyActor(0) & ACTOR_ALIVE && CheckFlag(0, "Shootable") && !(CheckFlag(0, "NoDamage") || CheckFlag(0, "Invulnerable"))) // Monsters
+				{
+					Str Monster_ClassName = GetActorProperty(0, APROP_NameTag);
+					Target_MaxHealth = GetActorProperty (0, AProp_SpawnHealth);
+					Target_CurrentHealth = GetActorProperty (0, AProp_Health);
+					If (Target_CurrentHealth > Target_MaxHealth) Target_MaxHealth = Target_CurrentHealth;
+					if (ActivatorID != ActivatorTID())
+					{
+						SetActivator(ActivatorID);
+						
+						DrawEnemyHealthBar(Target_CurrentHealth, Target_MaxHealth, Monster_ClassName); // I didn't want to make a huge mess here, so I made a function for it
+						Thing_ChangeTID (Temporary_TID, Saved_TID);
+					}
+				}
+				else if (ClassifyActor(0) & ACTOR_PLAYER && ClassifyActor(0) & ACTOR_ALIVE) // Players/bots
+				{
+					Str Player_Name = GetCVarString ("Name");
+					Target_MaxHealth = GetActorProperty (0, AProp_SpawnHealth);
+					Target_CurrentHealth = GetActorProperty (0, AProp_Health);
+					
+					// hacks to work around player health
+					// apparently players have a default max health of 0
+					if (Target_MaxHealth == 0)
+					{
+						if (Target_CurrentHealth > 100)
+							Target_MaxHealth = Target_CurrentHealth;
+						else
+							Target_MaxHealth = 100;
+					}
+					SetActivator(ActivatorID);
+					DrawEnemyHealthBar(Target_CurrentHealth, Target_MaxHealth, Player_Name); // This will only show up if the player is an enemy
+					Thing_ChangeTID (Temporary_TID, Saved_TID);
+				}
+				else
+				{
+				SetActivator (ActivatorID);
+				}
+			Delay (1);
+			}
+			else
+			{
+				SetActivator (ActivatorID);
+			}
+			Thing_ChangeTID (Temporary_TID, Saved_TID);
+		}
+		
+	Delay (1);
+	Restart;
+}

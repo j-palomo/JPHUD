@@ -1,0 +1,75 @@
+#library "defines"
+#include "zcommon.acs"
+
+//===========================================================================
+//
+// Defines
+//
+//===========================================================================
+
+// Everything that modders will possibly need to change is right here
+
+// Enemy health bar dimensions
+// Change these values if you use new graphics
+// Make sure you use fixed point when specifying the dimension, since it is used in calculations
+// To clarify, the dimensions should be for the graphic you want to have cut-off as the health bar
+// X dimension is for the horizontal bar, Y dimension is for the vertical bar
+
+// For example, if you have a horizontal bar with dimensions of 300x20 and a vertical bar with dimensions of 16x240,
+// you would put 300.0 for xdim and 240.0 for ydim
+#libdefine JP_HUD_BARXDIM 316.0
+#libdefine JP_HUD_BARYDIM 240.0
+
+// Bar clipping
+// If the top graphic isn't going to be drawn over the entire bar, we need to libdefine the offsets from the edges
+// If your graphic is going to span the entire bar, then just set all of these to 0
+#libdefine JP_HUD_CLIP_RIGHT 1
+#libdefine JP_HUD_CLIP_LEFT 2
+#libdefine JP_HUD_CLIP_TOP -2
+#libdefine JP_HUD_CLIP_BOTTOM 1
+
+// HUD Message ID value
+// Change this to something else if it causes issues with another HUD message
+#libdefine JP_HUD_BARID 37
+
+// Enemy health bar positions
+// Don't change or remove these unless you know what you are doing
+#libdefine JP_HUD_NOBAR 0
+#libdefine JP_HUD_HORIZONTALBAR 1
+#libdefine JP_HUD_VERTICALBAR 2
+
+// Enemy health bar health value type
+// Exact displays current / max, while percentage displays a rounded percentage of their current health
+#libdefine JP_HUD_HEALTHTYPE_DISABLED 0
+#libdefine JP_HUD_HEALTHTYPE_EXACT 1
+#libdefine JP_HUD_HEALTHTYPE_PERCENTAGE 2
+
+// Font types
+// Only applies to the enemy health bar
+#libdefine JP_HUD_FONT_SMALL 0
+#libdefine JP_HUD_FONT_BIG 1
+#libdefine JP_HUD_FONT_NARKISIM 2
+#libdefine JP_HUD_FONT_DOOM93 3
+#libdefine JP_HUD_FONT_EXOCET 4
+
+// Bar colors
+// After adding more here, make sure you change the menudef code to reflect the addition
+#libdefine JP_HUD_SILVER 0
+#libdefine JP_HUD_BRONZE 1
+#libdefine JP_HUD_GOLD 2
+#libdefine JP_HUD_EMERALD 3
+#libdefine JP_HUD_RUBY 4
+#libdefine JP_HUD_SAPPHIRE 5
+
+// This is not really needed, but I left it in anyways.
+#libdefine Player_TIDOffset 2000
+
+
+//===========================================================================
+//
+// Variables
+//
+//===========================================================================
+
+// Not really needed
+Int Player_TID [32];
