@@ -9,6 +9,36 @@
 //===========================================================================
 
 
+// IsTIDUnique (Int TID)
+// Returns true if only one actor has the specified TID
+// Returns false if it finds none, or there is more than one
+
+Function Bool IsTIDUnique (Int TID)
+{
+	If (ThingCount(T_NONE, TID) > 1)
+	{
+		// It isn't unique, so return false
+		Return False;
+	}
+	
+	If (!(IsTIDUsed(TID)))
+	{
+		// There are no actors with this TID
+		Return False;
+	}
+	Return True;
+}
+
+// GetActivatorTID
+// Checks if the activator has a TID and gets it
+// If the activator doesn't have a TID, a new one is set
+Function Int GetActivatorTID (void)
+{
+	If (!(IsTIDUnique(ActivatorTID())))
+		Thing_ChangeTID (0, UniqueTID());
+	Return ActivatorTID();
+}
+
 // Int IsOdd (Int Number)
 // Checks if a number is even or odd
 // Returns 0 for even numbers and 1 for odd numbers
@@ -16,6 +46,143 @@ Function Int IsOdd (Int number)
 { 
    int p = number % 2;
    return p;
+}
+
+// Abs (Int x)
+// Gets the absolute value of the specified number
+// Numbers less than 0 are inverted, so -5 becomes 5
+Function Int Abs (Int x)
+{
+    If (x < 0)
+        Return -x;
+
+    Return x;
+}
+
+// Pow (Int x, Int n)
+// Multiplies x by itself n times.
+// Pow (3, 4) would be 81 since 3 * 3 * 3 * 3 = 81
+Function Int Pow (Int x, Int n)
+{
+	Int y = 1;
+	While (n-- > 0) y *= x;
+	Return y;
+}
+
+// Round (Int f)
+// Rounds a decimal to a whole number
+// Numbers will be rounded down unless you add 0.5 before using the function
+Function Int Round (Int f)
+{
+	Return f >> 16;
+}
+
+// FixedDistance (Int tid1, Int tid2)
+// Gets the 2D distance between two actors
+// Number is return as a fixed point
+Function Int FixedDistance (Int tid1, Int tid2)
+{	
+	Int x = GetActorX(tid1) - GetActorX(tid2);
+	Int y = GetActorY(tid1) - GetActorY(tid2);
+	
+	Int len = VectorLength(x, y);
+	Return len;
+}
+
+// Distance (Int tid1, Int tid2)
+// Same as FixedDistance, except it returns a whole number
+Function Int Distance (Int tid1, Int tid2)
+{
+	Return Round(FixedDistance(tid1, tid2));
+}
+
+// XYZ_FixedDistance (Int tid1, Int tid2)
+// Gets the 3D distance between two actors
+// Number is return as a fixed point
+Function Int XYZ_FixedDistance (Int tid1, Int tid2)
+{
+	Int z = ZDistance(tid1, tid2);
+	
+	Int len = VectorLength ((FixedDistance (tid1, tid2)), z);
+	Return len;
+}
+
+// XYZ_Distance (Int tid1, Int tid2)
+// Same as XYZ_FixedDistance, except it returns a whole number
+Function Int XYZ_Distance (Int tid1, Int tid2)
+{
+	Return Round (XYZ_FixedDistance (tid1, tid2));
+}
+
+// ZDistance (Int tid1, Int tid2)
+// Gets the height difference between two actors
+Function Int ZDistance (Int tid1, Int tid2)
+{
+	Return (GetActorZ(tid1) - GetActorZ(tid2));
+}
+
+// Angle (Int tid1, Int tid2)
+// Gets the angle between two actors
+// An actor's facing angle isn't taken into account
+Function Int Angle (Int tid1, Int tid2)
+{
+    int x, y;
+    x = GetActorX(tid1) - GetActorX(tid2);
+    y = GetActorY(tid1) - GetActorY(tid2);
+    return VectorAngle(x, y);
+}
+
+// ByteAngle (Int tid1, Int tid2)
+// Same as Angle, but returned as a byte angle instead
+Function Int ByteAngle (Int tid1, Int tid2)
+{
+    return Angle(tid1, tid2) >> 8;
+}
+
+// Pitch (Int tid1, Int tid2)
+// Gets the pitch between two actors
+// An actor's camera pitch isn't taken into account
+Function Int Pitch (Int tid1, Int tid2)
+{
+    Int p, x, y, z, xy;
+    x = GetActorX(tid2) - GetActorX(tid1);
+    y = GetActorY(tid2) - GetActorY(tid1);
+    z = GetActorZ(tid2) - GetActorZ(tid1);
+    xy = VectorLength (x, y);
+	p = -VectorAngle(xy, z);
+	If (p < -0.25)
+		p += 1.0;
+	If (p > 0.25)
+		p -= 1.0;
+    return p;
+}
+
+// BytePitch (Int tid1, Int tid2)
+// Same as Pitch, but returned as a byte pitch instead
+Function Int BytePitch (Int tid1, Int tid2)
+{
+    return Pitch(tid1, tid2) >> 8;
+}
+
+
+Function Int PressedKey (Int key)
+{
+	int previous_buttons = GetPlayerInput (-1, Input_OldButtons);
+	int current_buttons = GetPlayerInput (-1, Input_Buttons);
+	
+	if ((current_buttons & key) && !(previous_buttons & key))
+	{
+		Return key;
+	}
+	Return 0;
+}
+
+Function Int HeldKey (Int key)
+{
+	Int buttons = GetPlayerInput (-1, ModInput_Buttons);
+	if (buttons & key)
+		Return key;
+	Return 0;
 }
 
 // DrawSprite (Str Sprite, Int ID, Int X, Int Y, Int Alpha)
