@@ -96,8 +96,9 @@ OptionMenu "JPHUDOffsets"
 OptionMenu "JPHUDScaling"
 {
 	Title "$BarTextScaling"
-	StaticText "$ScalingText1"
-	StaticText "$ScalingText2"
+	StaticText "$ScalingText1", 1
+	StaticText "$ScalingText2", 1
+	StaticText " "
 	Slider "$XBarResolution", "hud_xresolution", 0, 1920, 8
 	Slider "$YBarResolution", "hud_yresolution", 0, 1080, 8
 	Slider "$XFontResolution", "hud_fontxresolution", 0, 1920, 8
