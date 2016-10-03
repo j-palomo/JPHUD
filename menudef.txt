@@ -35,15 +35,18 @@ OptionMenu "HUDOptions"
 {
 	Title "$HUDMNU_TITLE"
 	Submenu "$HUDMNU_ALTHUD",				"AltHudOptions"
-	Submenu "$JPHUD_Options",				"JPHUDOptions"
 	Submenu "$HUDMNU_MESSAGE", 				"MessageOptions"
+	StaticText " "
+	Submenu "$JPHUD_Options",				"JPHUDOptions"
+	StaticText " "
+	Slider "$HUDMNU_UISCALE",				"uiscale", 0.0, 8.0, 1.0, 0
 	StaticText " "
 	Option "$HUDMNU_CROSSHAIR",				"crosshair", "Crosshairs"
 	Option "$HUDMNU_FORCECROSSHAIR",		"crosshairforce", "OnOff"
 	Option "$HUDMNU_GROWCROSSHAIR",			"crosshairgrow", "OnOff"
 	ColorPicker "$HUDMNU_CROSSHAIRCOLOR", 	"crosshaircolor"
 	Option "$HUDMNU_CROSSHAIRHEALTH",		"crosshairhealth", "OnOff"
-	Option "$HUDMNU_CROSSHAIRSCALE",		"crosshairscale", "OnOff"
+	Slider "$HUDMNU_CROSSHAIRSCALE",		"crosshairscale", 0.0, 2.0, 0.05, 2
 	StaticText " "
 	Option "$HUDMNU_NAMETAGS",				"displaynametags", "DisplayTagsTypes"
 	Option "$HUDMNU_NAMETAGCOLOR",			"nametagcolor", "TextColors", "displaynametags"
@@ -55,6 +58,7 @@ OptionMenu "HUDOptions"
 	Option "$HUDMNU_POISONFLASHES",			"pf_poison", "ZDoomHexen"
 	Option "$HUDMNU_ICEFLASHES",			"pf_ice", "ZDoomHexen"
 	Option "$HUDMNU_HAZARDFLASHES",			"pf_hazard", "ZDoomStrife"
+	
 }
 
 OptionMenu "JPHUDOptions"

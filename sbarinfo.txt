@@ -85,7 +85,7 @@ StatusBar Fullscreen, FullscreenOffsets
 // Keys
 	GameMode Singleplayer, Cooperative
 	{
-		InInventory "HUDKeyBar", 1
+		IfCVarInt hud_alwaysshowkeys, 1
 		{
 			DrawKeyBar 100, vertical, reverserows, auto, -16, 2, 0, 3, auto;
 		}
@@ -235,22 +235,22 @@ monospacefonts false, "0";
 
 StatusBar Normal // Standard Doom Status bar
 {
-	InInventory "SilverBar", 1
+	IfCVarInt hud_barcolor, 0, equal
 		DrawImage "bar_slvr", 0, 416;
 
-	InInventory "GoldBar", 1
+	IfCVarInt hud_barcolor, 2, equal
 		DrawImage "bar_gold", 0, 416;
 
-	InInventory "BronzeBar", 1
+	IfCVarInt hud_barcolor, 1, equal
 		DrawImage "bar_brnz", 0, 416;
 
-	InInventory "EmeraldBar", 1
+	IfCVarInt hud_barcolor, 3, equal
 		DrawImage "bar_mrld", 0, 416;
 	
-	InInventory "RubyBar", 1
+	IfCVarInt hud_barcolor, 4, equal
 		DrawImage "bar_ruby", 0, 416;
 	
-	InInventory "SapphireBar", 1
+	IfCVarInt hud_barcolor, 5, equal
 		DrawImage "bar_sphr", 0, 416;
 		
 		
@@ -360,7 +360,7 @@ StatusBar Normal // Standard Doom Status bar
 		}
 
 		// Keys
-		InInventory "HUDKeyBar", 1
+		IfCVarInt hud_alwaysshowkeys, 1
 		{
 			playertype StrifePlayer
 				DrawKeyBar 100, vertical, reverserows, auto, 620, 399, 0, 1, auto;
@@ -527,7 +527,7 @@ StatusBar PopupKeys
 {
 	GameMode SinglePlayer, Cooperative
 	{
-		InInventory Not "HUDKeyBar"
+		IfCVarInt hud_alwaysshowkeys, 0, equal
 		{
 			playertype StrifePlayer
 				DrawKeyBar 100, vertical, reverserows, auto, 620, 399, 0, 1, auto;
