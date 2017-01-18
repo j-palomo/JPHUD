@@ -48,6 +48,7 @@ OptionMenu "HUDOptions"
 	Option "$HUDMNU_POISONFLASHES",			"pf_poison", "ZDoomHexen"
 	Option "$HUDMNU_ICEFLASHES",			"pf_ice", "ZDoomHexen"
 	Option "$HUDMNU_HAZARDFLASHES",			"pf_hazard", "ZDoomStrife"
+	
 }
 
 OptionMenu "JPHUDOptions"
@@ -80,8 +81,9 @@ OptionMenu "JPHUDOffsets"
 OptionMenu "JPHUDScaling"
 {
 	Title "$BarTextScaling"
-	StaticText "$ScalingText1"
-	StaticText "$ScalingText2"
+	StaticText "$ScalingText1", 1
+	StaticText "$ScalingText2", 1
+	StaticText " "
 	Slider "$XBarResolution", "hud_xresolution", 0, 1920, 8
 	Slider "$YBarResolution", "hud_yresolution", 0, 1080, 8
 	Slider "$XFontResolution", "hud_fontxresolution", 0, 1920, 8
