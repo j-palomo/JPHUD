@@ -9,6 +9,16 @@
 //
 //===========================================================================
 
+Script "JP_HUD_Open" Open
+{
+	SpawnForced ("JPHUD_Start", 0, 0, 0);
+}
+
+Script "JP_HUD_PrintDamage" (Int DamageTaken)
+{
+	PrintBold (i:DamageTaken);
+}
+
 // These 3 scripts are to insure that the enemy health bar is drawn
 
 Script "JP_HUD_HPBar_Enter" Enter
@@ -49,9 +59,11 @@ Script "JP_HUD_EnemyHealthBar" (Int ActivatorID, Int Target_MaxHealth, Int Targe
 				if (ClassifyActor(0) & ACTOR_MONSTER  && ClassifyActor(0) & ACTOR_ALIVE && CheckFlag(0, "Shootable") && !(CheckFlag(0, "NoDamage") || CheckFlag(0, "Invulnerable"))) // Monsters
 				{
 					Str Monster_ClassName = GetActorProperty(0, APROP_NameTag);
-					Target_MaxHealth = GetActorProperty (0, AProp_SpawnHealth);
-					Target_CurrentHealth = GetActorProperty (0, AProp_Health);
-					If (Target_CurrentHealth > Target_MaxHealth) Target_MaxHealth = Target_CurrentHealth;
+					//Target_MaxHealth = GetActorProperty (0, AProp_SpawnHealth);
+					Target_MaxHealth = CheckInventory ("JPHUD_MaxHealth");
+					//Target_CurrentHealth = GetActorProperty (0, AProp_Health);
+					Target_CurrentHealth = CheckInventory ("JPHUD_CurrentHealth");
+					//If (Target_CurrentHealth > Target_MaxHealth) Target_MaxHealth = Target_CurrentHealth;
 					if (ActivatorID != ActivatorTID())
 					{
 						SetActivator(ActivatorID);

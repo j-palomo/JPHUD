@@ -1,0 +1,91 @@
+Class JPHUD_Start : Actor
+{
+	States
+	{
+		Spawn:
+			TNT1 A 1 A_RadiusGive("JPHUD_SetHealth", 16383.0, RGF_Players|RGF_Monsters|RGF_Objects|RGF_NoSight, 1);
+			Loop;
+	}
+}
+
+Class JPHUD_BaseItem : Inventory
+{
+	Default
+	{
+		+Inventory.UnDroppable;
+		+Inventory.UnTossable;
+		+Inventory.IgnoreSkill;
+		+Inventory.AlwaysPickup;
+		+Inventory.PersistentPower;
+		-Inventory.InvBar;
+		Inventory.Amount 1;
+		Inventory.MaxAmount 0x7fffffff;
+		Inventory.InterHubAmount 0x7fffffff;
+	}
+}
+
+Class JPHUD_CurrentHealth : JPHUD_BaseItem {}
+Class JPHUD_MaxHealth : JPHUD_BaseItem {}
+Class JPHUD_DamageTaken : JPHUD_BaseItem {}
+
+Class JPHUD_SetHealth : CustomInventory
+{
+	States
+	{
+		Pickup:
+			TNT1 A 0
+			{
+				If (CountInv ("JPHUD_UpdateHealth") == 0)
+				{
+					A_SetInventory ("JPHUD_UpdateHealth", 1);
+				}
+			}
+			Stop;
+	}
+}
+
+Class JPHUD_UpdateHealth : JPHUD_BaseItem
+{
+	Default
+	{
+		Inventory.MaxAmount 1;
+		Inventory.InterHubAmount 1;
+	}
+	
+	Override void Tick ()
+	{
+		If (Owner)
+		{
+			If ((Owner.Health > Owner.GetSpawnHealth()) && (Owner.Health >= Owner.CountInv ("JPHUD_MaxHealth")))
+			{
+				Owner.A_SetInventory ("JPHUD_MaxHealth", Owner.Health);
+			}
+			
+			If (Owner.CountInv ("JPHUD_MaxHealth") < Owner.GetSpawnHealth())
+			{
+				Owner.A_SetInventory ("JPHUD_MaxHealth", Owner.GetSpawnHealth());
+			}
+			
+			If (Owner.Health < Owner.CountInv("JPHUD_CurrentHealth")) // took damage
+			{
+				Owner.A_SetInventory ("JPHUD_DamageTaken", Owner.CountInv("JPHUD_CurrentHealth") - Owner.Health);
+			}
+
+			If (Owner.CountInv ("JPHUD_DamageTaken") && Owner.CountInv("JPHUD_CurrentHealth"))
+			{
+				Owner.ACS_NamedExecuteAlways ("JP_HUD_PrintDamage", 0, Owner.CountInv ("JPHUD_DamageTaken"), 0, 0);
+				Owner.A_SetInventory ("JPHUD_DamageTaken", 0);
+			}
+			
+			Owner.A_SetInventory ("JPHUD_CurrentHealth", Owner.Health);
+			
+			If (Owner.Health <= 0)
+			{
+				Owner.A_SetInventory ("JPHUD_DamageTaken", 0);
+				Owner.A_SetInventory ("JPHUD_CurrentHealth", 0);
+				Owner.A_SetInventory ("JPHUD_MaxHealth", 0);
+			}
+		}
+		Super.Tick();
+	}
+}
