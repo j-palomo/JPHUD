@@ -14,6 +14,11 @@ Script "JP_HUD_Open" Open
 	SpawnForced ("JPHUD_Start", 0, 0, 0);
 }
 
+Script "JP_HUD_PrintDamage" (Int DamageTaken)
+{
+	PrintBold (i:DamageTaken);
+}
+
 // These 3 scripts are to insure that the enemy health bar is drawn
 
 Script "JP_HUD_HPBar_Enter" Enter
