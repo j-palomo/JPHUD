@@ -17,6 +17,7 @@ Narkisim = "Narkisim";
 Doom93 = "Doom 93";
 Exocet = "Exocet";
 JPHUD_Options = "JP HUD Options";
+DrawDamageNumbers = "Draw damage numbers";
 NormalHUD = "Normal HUD";
 StatusBarColor = "Status bar color";
 AlwaysShowKeys = "Always show keys";

@@ -1,3 +1,13 @@
+OptionValue "JPHUD_BarColor"
+{
+	0, "$Silver"
+	1, "$Bronze"
+	2, "$Gold"
+	3, "$Emerald"
+	4, "$Ruby"
+	5, "$Sapphire"
+}
+
 OptionValue "JPHUD_EnemyBarType"
 {
 	0, "$NoBar"
@@ -24,10 +34,9 @@ OptionValue "JPHUD_FontType"
 OptionMenu "HUDOptions"
 {
 	Title "$HUDMNU_TITLE"
+	Submenu "$JPHUD_Options",				"JPHUDOptions"
 	Submenu "$HUDMNU_ALTHUD",				"AltHudOptions"
 	Submenu "$HUDMNU_MESSAGE", 				"MessageOptions"
-	StaticText " "
-	Submenu "$JPHUD_Options",				"JPHUDOptions"
 	StaticText " "
 	Slider "$HUDMNU_UISCALE",				"uiscale", 0.0, 8.0, 1.0, 0
 	StaticText " "
@@ -48,12 +57,14 @@ OptionMenu "HUDOptions"
 	Option "$HUDMNU_POISONFLASHES",			"pf_poison", "ZDoomHexen"
 	Option "$HUDMNU_ICEFLASHES",			"pf_ice", "ZDoomHexen"
 	Option "$HUDMNU_HAZARDFLASHES",			"pf_hazard", "ZDoomStrife"
-	
 }
 
 OptionMenu "JPHUDOptions"
 {
 	Title "$JPHUD_Options"
+	StaticText " "
+	Option "$DrawDamageNumbers", "hud_drawdamagenumbers", "YesNo"
+	StaticText " "
 	StaticText "$EnemyHealthBar", 1
 	Option "$BarType", "hud_enemyhealthbar", "JPHUD_EnemyBarType"
 	Option "$DrawEnemyTag", "hud_drawenemytag", "YesNo"
@@ -81,9 +92,8 @@ OptionMenu "JPHUDOffsets"
 OptionMenu "JPHUDScaling"
 {
 	Title "$BarTextScaling"
-	StaticText "$ScalingText1", 1
-	StaticText "$ScalingText2", 1
-	StaticText " "
+	StaticText "$ScalingText1"
+	StaticText "$ScalingText2"
 	Slider "$XBarResolution", "hud_xresolution", 0, 1920, 8
 	Slider "$YBarResolution", "hud_yresolution", 0, 1080, 8
 	Slider "$XFontResolution", "hud_fontxresolution", 0, 1920, 8
