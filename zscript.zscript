@@ -1,5 +1,11 @@
 Class JPHUD_Start : Actor
 {
+	Default
+	{
+		+NoBlockMap
+		+NoInteraction
+	}
+	
 	States
 	{
 		Spawn:

@@ -5,6 +5,50 @@
 
 //===========================================================================
 //
+// Functions
+//
+//===========================================================================
+
+Function void DrawEnemyDamageTaken (Int DamagedActorTID, Int DamageTaken)
+{
+	For (Int pn = 0; pn < 8; pn++)
+	{
+		If (SetActivator(0, AAPTR_PLAYER1<<pn))
+		{
+			If (!(IsPointerEqual(AAPTR_PLAYER1<<pn, AAPTR_DEFAULT, 0, DamagedActorTID))) // No need to display damage taken on yourself
+			{
+				If (GetUserCVar (PlayerNumber(), "hud_drawdamagenumbers"))
+				{
+					Int vp, xt, yt, zt, xy;
+					xt = GetActorX(0) - GetActorX(DamagedActorTID);
+					yt = GetActorY(0) - GetActorY(DamagedActorTID);
+					zt = (GetActorZ(0) + GetActorViewHeight(0)) - (GetActorZ(DamagedActorTID) + GetActorViewHeight(DamagedActorTID));
+					xy = VectorLength (xt, yt);
+					vp = -VectorAngle(xy, zt);
+					If (vp < -0.25)
+						vp += 1.0;
+					If (vp > 0.25)
+						vp -= 1.0;
+						
+					Int a = (Angle (0, DamagedActorTID) - GetActorAngle(0) + 1.0) % 1.0;
+					Int p = 1.0 - ((((vp + FixedMul(GetActorPitch(0), 1.0) + 0.25) * 2) % 1.0));
+					Int w = 640;
+					Int h = 480;
+					SetHudSize (w, h, False);
+					SetFont ("confont");
+					Int x = ((1.0 - a) * w) >> 16;
+					Int y = ((p) * h) >> 16;
+					HudMessage (i:DamageTaken; HUDMSG_FADEOUT|HUDMSG_ALPHA|HUDMSG_NOTWITHFULLMAP, Random (JP_HUD_BARID+10, 2000), CR_Red, x * 1.0, y * 1.0, 1873, 0.5);
+					SetHudSize(0, 0, False);
+				}
+			}
+		}
+	}
+	SetActivator (DamagedActorTID);
+}
+
+//===========================================================================
+//
 // Scripts
 //
 //===========================================================================
@@ -16,7 +60,10 @@ Script "JP_HUD_Open" Open
 
 Script "JP_HUD_PrintDamage" (Int DamageTaken)
 {
-	PrintBold (i:DamageTaken);
+	Int OriginalTID = ActivatorTID ();
+	Int DamagedActorTID = GetActivatorTID();
+	DrawEnemyDamageTaken (DamagedActorTID, DamageTaken);
+	Thing_ChangeTID (0, OriginalTID);
 }
 
 // These 3 scripts are to insure that the enemy health bar is drawn
