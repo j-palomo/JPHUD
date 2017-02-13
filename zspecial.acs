@@ -44,7 +44,7 @@ special
 	 37:Floor_MoveToValue(3,5),
 	 38:Ceiling_Waggle(5),
 	 39:Teleport_ZombieChanger(2),
-	 40:Ceiling_LowerByValue(3,4),
+	 40:Ceiling_LowerByValue(3,5),
 	 41:Ceiling_RaiseByValue(3,4),
 	 42:Ceiling_CrushAndRaise(3,4),
 	 43:Ceiling_LowerAndCrush(3,4),
@@ -187,7 +187,7 @@ special
 	196:Ceiling_CrushAndRaiseA(4,5),
 	197:Ceiling_CrushAndRaiseSilentA(4,5),
 	198:Ceiling_RaiseByValueTimes8(3,4),
-	199:Ceiling_LowerByValueTimes8(3,4),
+	199:Ceiling_LowerByValueTimes8(3,5),
 	200:Generic_Floor(5),
 	201:Generic_Ceiling(5),
 	202:Generic_Door(5),
@@ -203,7 +203,7 @@ special
 	212:Sector_SetColor(4,5),
 	213:Sector_SetFade(4),
 	214:Sector_SetDamage(3,5),
-	215:Teleport_Line(2),
+	215:Teleport_Line(2,3),
 	216:Sector_SetGravity(3),
 	217:Stairs_BuildUpDoom(5),
 	218:Sector_SetWind(4),
@@ -263,7 +263,11 @@ special
 	270:Stairs_BuildDownDoom(5),
 	271:Stairs_BuildUpDoomSync(4),
 	272:Stairs_BuildDownDoomSync(4),
+	273:Stairs_BuildUpDoomCrush(5),
 	
+	// new to Eternity
+//	300:Portal_Define(5),
+//	301:Line_QuickPortal(1),
 	
 	
 	// internal functions have negative values
@@ -327,7 +331,7 @@ special
 	-58:GetUserCVarString(2),
 	-59:SetUserCVarString(3),
 	-60:LineAttack(4,9),
-	-61:PlaySound(2,6),
+	-61:PlaySound(2,7),
 	-62:StopSound(1,2),
 	-63:strcmp(2,3),
 	-64:stricmp(2,3),
@@ -366,6 +370,7 @@ special
 	-96:SpawnParticle(1,16),
 	-97:SetMusicVolume(1),
 	-98:CheckProximity(3, 6),
+	-99:CheckActorState(2,3),
 	
 	// Zandronum's
 	-100:ResetMap(0),
@@ -394,6 +399,23 @@ special
 	-123:BeginDBTransaction(0),
 	-124:EndDBTransaction(0),
 	-125:GetDBEntries(1),
+	
+	// -1xx are reserved for Zandronum
+	-200:CheckClass(1),
+	-201:DamageActor(6), // [arookas]
+	-202:SetActorFlag(3),
+	-203:SetTranslation(2),
+	-204:GetActorFloorTexture(1),
+	-205:GetActorFloorTerrain(1),
+	
+	
+	// Eternity's
+	-300:GetLineX(3),
+	-301:GetLineY(3),
+	
+	// GZDoom OpenGL
+	-400:SetSectorGlow(6),
+	-401:SetFogDensity(2),
 	
 	// ZDaemon's
 	-19620:GetTeamScore(1),

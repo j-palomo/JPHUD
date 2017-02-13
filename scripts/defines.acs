@@ -64,6 +64,10 @@
 // This is not really needed, but I left it in anyways.
 #libdefine Player_TIDOffset 2000
 
+// Maximum digits to display for damage taken
+#libdefine Max_DamageTaken 99999
+#libdefine Max_Digits 5
+
 
 //===========================================================================
 //
