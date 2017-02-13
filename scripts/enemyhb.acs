@@ -12,45 +12,47 @@
 Function void DrawEnemyDamageTaken (Int DamagedActorTID, Int DamageTaken)
 {
 	// New stuff
-	Int NumberSpawnHeight = GetActorProperty (0, APROP_Height) + GetActorZ(0) + 2;
-	If (ClassifyActor (0) & Actor_Dead) NumberSpawnHeight = (GetActorProperty (0, APROP_Height) * 4) + GetActorZ(0) + 2;
-	Int Num_Digits = 0;
-	Str Digit_Values[Max_Digits] = {"0", "0", "0", "0", "0"};
-	Str DigitNum_Values[10] = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
-	If (DamageTaken >= 1) Num_Digits++;
-	If (DamageTaken >= 10) Num_Digits++;
-	If (DamageTaken >= 100) Num_Digits++;
-	If (DamageTaken >= 1000) Num_Digits++;
-	If (DamageTaken >= 10000) Num_Digits++;
-	If (DamageTaken > Max_DamageTaken) DamageTaken = Max_DamageTaken; // Don't exceed 99999
-	
-	For (Int place = 0; place < Num_Digits; place++)
+	If (GetCVar ("hud_drawdamagenumbers"))
 	{
-		// Pow (Int x, Int n)
-		Int p = Pow (10, place);
-		Int Num_Value = (DamageTaken / p) % 10;
-		Digit_Values[Max_Digits - 1 - place] = DigitNum_Values[Num_Value];
-	}
-	
-	
-	
-	// For spawning the right class
-	Str ActorClassPrefix = "JPHUD_DamageNumber_";
-	Str NumDigitsClassPrefix = "X";
-	// Num_Digits
-	Str DigitPlaceClassPrefix = "D";
-	// For (Int place = 0; place < Num_Digits; place++)
-	Str NumberValueClassPrefix = "N";
-	// Digit_Values
-	For (Int decplace = 0; decplace < Num_Digits; decplace++)
-	{
-		Str DamageNumberClass = StrParam (s:ActorClassPrefix, s:NumDigitsClassPrefix, i:Num_Digits, s:DigitPlaceClassPrefix, i:decplace+1, s:NumberValueClassPrefix, s:Digit_Values[Max_Digits - 1 - decplace]);
-		If (CheckClass (DamageNumberClass))
+		Int NumberSpawnHeight = GetActorProperty (0, APROP_Height) + GetActorZ(0) + 2;
+		If (ClassifyActor (0) & Actor_Dead) NumberSpawnHeight = (GetActorProperty (0, APROP_Height) * 4) + GetActorZ(0) + 2;
+		Int Num_Digits = 0;
+		Str Digit_Values[Max_Digits] = {"0", "0", "0", "0", "0"};
+		Str DigitNum_Values[10] = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
+		If (DamageTaken >= 1) Num_Digits++;
+		If (DamageTaken >= 10) Num_Digits++;
+		If (DamageTaken >= 100) Num_Digits++;
+		If (DamageTaken >= 1000) Num_Digits++;
+		If (DamageTaken >= 10000) Num_Digits++;
+		If (DamageTaken > Max_DamageTaken) DamageTaken = Max_DamageTaken; // Don't exceed 99999
+		
+		For (Int place = 0; place < Num_Digits; place++)
 		{
-			SpawnForced (DamageNumberClass, GetActorX (0), GetActorY (0), NumberSpawnHeight, 0, GetActorAngle (0));
+			// Pow (Int x, Int n)
+			Int p = Pow (10, place);
+			Int Num_Value = (DamageTaken / p) % 10;
+			Digit_Values[Max_Digits - 1 - place] = DigitNum_Values[Num_Value];
+		}
+		
+		
+		
+		// For spawning the right class
+		Str ActorClassPrefix = "JPHUD_DamageNumber_";
+		Str NumDigitsClassPrefix = "X";
+		// Num_Digits
+		Str DigitPlaceClassPrefix = "D";
+		// For (Int place = 0; place < Num_Digits; place++)
+		Str NumberValueClassPrefix = "N";
+		// Digit_Values
+		For (Int decplace = 0; decplace < Num_Digits; decplace++)
+		{
+			Str DamageNumberClass = StrParam (s:ActorClassPrefix, s:NumDigitsClassPrefix, i:Num_Digits, s:DigitPlaceClassPrefix, i:decplace+1, s:NumberValueClassPrefix, s:Digit_Values[Max_Digits - 1 - decplace]);
+			If (CheckClass (DamageNumberClass))
+			{
+				SpawnForced (DamageNumberClass, GetActorX (0), GetActorY (0), NumberSpawnHeight, 0, GetActorAngle (0));
+			}
 		}
 	}
-	
 	
 
 
