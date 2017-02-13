@@ -111,6 +111,10 @@ Class JPHUD_DamageNumber : Actor
 		+NoGravity;
 		+NoClip;
 		+RelativeToFloor;
+		+NoTimeFreeze;
+		+ForceXYBillBoard;
+		+NoInteraction;
+		+NotOnAutoMap;
 	}
 	States
 	{

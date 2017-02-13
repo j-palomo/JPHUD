@@ -17,4 +17,4 @@ User Int hud_font = 1; // Big font
 User Float hud_baralpha = 1.0;
 User Float hud_backalpha = 0.5;
 User Float hud_textalpha = 1.0;
-User Bool hud_drawdamagenumbers = true;
+Server Bool hud_drawdamagenumbers = true;
