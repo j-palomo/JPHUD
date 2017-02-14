@@ -158,7 +158,7 @@ Script "JP_HUD_EnemyHealthBar" (Int ActivatorID, Int Target_MaxHealth, Int Targe
 			if (PickActor (ActivatorID, GetActorAngle (ActivatorID), GetActorPitch (ActivatorID), 8192.0, Temporary_TID, MF_SHOOTABLE, ML_BLOCKEVERYTHING, PICKAF_FORCETID))
 			{
 				SetActivator(Temporary_TID);
-				if (ClassifyActor(0) & ACTOR_MONSTER  && ClassifyActor(0) & ACTOR_ALIVE && CheckFlag(0, "Shootable") && !(CheckFlag(0, "NoDamage") || CheckFlag(0, "Invulnerable"))) // Monsters
+				if ((ClassifyActor(0) & ACTOR_MONSTER)  && (ClassifyActor(0) & ACTOR_ALIVE) && (CheckFlag(0, "Shootable")) && (!(CheckFlag(0, "NoDamage") || CheckFlag(0, "Invulnerable"))) && (CheckActorProperty(0, APROP_RenderStyle, STYLE_Normal))) // Monsters
 				{
 					Str Monster_ClassName = GetActorProperty(0, APROP_NameTag);
 					//Target_MaxHealth = GetActorProperty (0, AProp_SpawnHealth);
