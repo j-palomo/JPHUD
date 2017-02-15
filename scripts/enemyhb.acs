@@ -12,7 +12,7 @@
 Function void DrawEnemyDamageTaken (Int DamagedActorTID, Int DamageTaken)
 {
 	// New stuff
-	If (GetCVar ("hud_drawdamagenumbers"))
+	If (GetCVar ("hud_drawdamagenumbers") && !(CheckClass("DamNum"))) // DamNum is from Xaser's damage number mod. Use that one instead if it is loaded
 	{
 		Int NumberSpawnHeight = GetActorProperty (0, APROP_Height) + GetActorZ(0) + 2;
 		If (ClassifyActor (0) & Actor_Dead) NumberSpawnHeight = (GetActorProperty (0, APROP_Height) * 4) + GetActorZ(0) + 2;
