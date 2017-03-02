@@ -1,16 +1,13 @@
-Class JPHUD_Start : Actor
+Class JPHUD_Handler : EventHandler
 {
-	Default
+	Override void WorldThingSpawned (WorldEvent ev)
 	{
-		+NoBlockMap
-		+NoInteraction
-	}
-	
-	States
-	{
-		Spawn:
-			TNT1 A 1 A_RadiusGive("JPHUD_SetHealth", 16383.0, RGF_Players|RGF_Monsters|RGF_Objects|RGF_NoSight, 1);
-			Loop;
+		If (ev.Thing.bShootable)
+		{
+			Class<Inventory> eventstart = "JPHUD_SetHealth";
+			If (eventstart)
+				ev.Thing.A_GiveInventory (eventstart, 1);
+		}
 	}
 }
 
