@@ -31,32 +31,10 @@ OptionValue "JPHUD_FontType"
 	4, "$Exocet"
 }
 
-OptionMenu "HUDOptions"
+AddOptionMenu "HUDOptions"
 {
-	Title "$HUDMNU_TITLE"
-	Submenu "$JPHUD_Options",				"JPHUDOptions"
-	Submenu "$HUDMNU_ALTHUD",				"AltHudOptions"
-	Submenu "$HUDMNU_MESSAGE", 				"MessageOptions"
 	StaticText " "
-	Slider "$HUDMNU_UISCALE",				"uiscale", 0.0, 8.0, 1.0, 0
-	StaticText " "
-	Option "$HUDMNU_CROSSHAIR",				"crosshair", "Crosshairs"
-	Option "$HUDMNU_FORCECROSSHAIR",		"crosshairforce", "OnOff"
-	Option "$HUDMNU_GROWCROSSHAIR",			"crosshairgrow", "OnOff"
-	ColorPicker "$HUDMNU_CROSSHAIRCOLOR", 	"crosshaircolor"
-	Option "$HUDMNU_CROSSHAIRHEALTH",		"crosshairhealth", "OnOff"
-	Slider "$HUDMNU_CROSSHAIRSCALE",		"crosshairscale", 0.0, 2.0, 0.05, 2
-	StaticText " "
-	Option "$HUDMNU_NAMETAGS",				"displaynametags", "DisplayTagsTypes"
-	Option "$HUDMNU_NAMETAGCOLOR",			"nametagcolor", "TextColors", "displaynametags"
-	Option "$HUDMNU_SCALESTATBAR",			"st_scale", "OnOff"
-	Option "$HUDMNU_SCALEFULLSCREENHUD",	"hud_scale", "OnOff"
-	Option "$HUDMNU_OLDOUCH",				"st_oldouch", "OnOff"
-	StaticText " "
-	Option "$HUDMNU_HEXENFLASHES",			"pf_hexenweaps", "ZDoomHexen"
-	Option "$HUDMNU_POISONFLASHES",			"pf_poison", "ZDoomHexen"
-	Option "$HUDMNU_ICEFLASHES",			"pf_ice", "ZDoomHexen"
-	Option "$HUDMNU_HAZARDFLASHES",			"pf_hazard", "ZDoomStrife"
+	Submenu "$JPHUD_Options", "JPHUDOptions"
 }
 
 OptionMenu "JPHUDOptions"
