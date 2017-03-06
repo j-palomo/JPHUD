@@ -108,6 +108,11 @@ Function void DrawEnemyDamageTaken (Int DamagedActorTID, Int DamageTaken)
 //
 //===========================================================================
 
+Script "JP_HUD_Open" Open
+{
+	SpawnForced ("JPHUD_Start", 0, 0, 0);
+}
+
 Script "JP_HUD_PrintDamage" (Int DamageTaken)
 {
 	Int OriginalTID = ActivatorTID ();
