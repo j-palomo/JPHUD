@@ -53,53 +53,6 @@ Function void DrawEnemyDamageTaken (Int DamagedActorTID, Int DamageTaken)
 			}
 		}
 	}
-	
-
-
-
-
-	// Old stuff
-	/*
-	For (Int pn = 0; pn < 8; pn++)
-	{
-		If (SetActivator(0, AAPTR_PLAYER1<<pn))
-		{
-			If (!(IsPointerEqual(AAPTR_PLAYER1<<pn, AAPTR_DEFAULT, 0, DamagedActorTID))) // No need to display damage taken on yourself
-			{
-				If (GetUserCVar (PlayerNumber(), "hud_drawdamagenumbers"))
-				{
-					Int vp, xt, yt, zt, xy;
-					xt = GetActorX(0) - GetActorX(DamagedActorTID);
-					yt = GetActorY(0) - GetActorY(DamagedActorTID);
-					zt = (GetActorZ(0) + GetActorViewHeight(0)) - (GetActorZ(DamagedActorTID) + GetActorViewHeight(DamagedActorTID));
-					xy = VectorLength (xt, yt);
-					vp = -VectorAngle(xy, zt);
-					If (vp < -0.25)
-						vp += 1.0;
-					If (vp > 0.25)
-						vp -= 1.0;
-						
-					Int a = (Angle (0, DamagedActorTID) - GetActorAngle(0) + 1.0) % 1.0;
-					Int p = 1.0 - ((((vp + FixedMul(GetActorPitch(0), 1.0) + 0.25) * 2) % 1.0));
-					Int w = 640;
-					Int h = 480;
-					SetHudSize (w, h, False);
-					SetFont ("confont");
-					Int x = ((1.0 - a) * w) >> 16;
-					Int y = ((p) * h) >> 16;
-					HudMessage (i:DamageTaken; HUDMSG_FADEOUT|HUDMSG_ALPHA|HUDMSG_NOTWITHFULLMAP, Random (JP_HUD_BARID+10, 2000), CR_Red, x * 1.0, y * 1.0, 1873, 0.5);
-					SetHudSize(0, 0, False);
-				}
-			}
-		}
-	}
-	SetActivator (DamagedActorTID);
-	*/
-	
-	
-	
-	
-
 }
 
 //===========================================================================
@@ -158,7 +111,7 @@ Script "JP_HUD_EnemyHealthBar" (Int ActivatorID, Int Target_MaxHealth, Int Targe
 			if (PickActor (ActivatorID, GetActorAngle (ActivatorID), GetActorPitch (ActivatorID), 8192.0, Temporary_TID, MF_SHOOTABLE, ML_BLOCKEVERYTHING, PICKAF_FORCETID))
 			{
 				SetActivator(Temporary_TID);
-				if ((ClassifyActor(0) & ACTOR_MONSTER)  && (ClassifyActor(0) & ACTOR_ALIVE) && (CheckFlag(0, "Shootable")) && (!(CheckFlag(0, "NoDamage") || CheckFlag(0, "Invulnerable"))) && (CheckActorProperty(0, APROP_RenderStyle, STYLE_Normal))) // Monsters
+				if ((ClassifyActor(0) & ACTOR_MONSTER) && (ClassifyActor(0) & ACTOR_ALIVE) && (CheckFlag(0, "Shootable")) && (!(CheckFlag(0, "NoDamage") || CheckFlag(0, "Invulnerable"))) && (CheckActorProperty(0, APROP_RenderStyle, STYLE_Normal))) // Monsters
 				{
 					Str Monster_ClassName = GetActorProperty(0, APROP_NameTag);
 					//Target_MaxHealth = GetActorProperty (0, AProp_SpawnHealth);
@@ -169,12 +122,12 @@ Script "JP_HUD_EnemyHealthBar" (Int ActivatorID, Int Target_MaxHealth, Int Targe
 					if (ActivatorID != ActivatorTID())
 					{
 						SetActivator(ActivatorID);
-						
-						DrawEnemyHealthBar(Target_CurrentHealth, Target_MaxHealth, Monster_ClassName); // I didn't want to make a huge mess here, so I made a function for it
+						If (CheckSight (Temporary_TID, ActivatorID, 0))
+							DrawEnemyHealthBar(Target_CurrentHealth, Target_MaxHealth, Monster_ClassName); // I didn't want to make a huge mess here, so I made a function for it
 						Thing_ChangeTID (Temporary_TID, Saved_TID);
 					}
 				}
-				else if (ClassifyActor(0) & ACTOR_PLAYER && ClassifyActor(0) & ACTOR_ALIVE) // Players/bots
+				else if ((ClassifyActor(0) & ACTOR_PLAYER && ClassifyActor(0) & ACTOR_ALIVE) && (CheckFlag(0, "Shootable")) && (!(CheckFlag(0, "NoDamage") || CheckFlag(0, "Invulnerable"))) && (CheckActorProperty(0, APROP_RenderStyle, STYLE_Normal)) && (!(CheckInventory("JPHUD_DontShowHealth")))) // Players/bots
 				{
 					Str Player_Name = GetCVarString ("Name");
 					Target_MaxHealth = GetActorProperty (0, AProp_SpawnHealth);
@@ -190,7 +143,8 @@ Script "JP_HUD_EnemyHealthBar" (Int ActivatorID, Int Target_MaxHealth, Int Targe
 							Target_MaxHealth = 100;
 					}
 					SetActivator(ActivatorID);
-					DrawEnemyHealthBar(Target_CurrentHealth, Target_MaxHealth, Player_Name); // This will only show up if the player is an enemy
+					If (CheckSight (Temporary_TID, ActivatorID, 0))
+						DrawEnemyHealthBar(Target_CurrentHealth, Target_MaxHealth, Player_Name); // This will only show up if the player is an enemy
 					Thing_ChangeTID (Temporary_TID, Saved_TID);
 				}
 				else

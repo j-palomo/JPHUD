@@ -21,7 +21,7 @@ special
 	 14:Door_Animated(3,4),
 	 15:Autosave(0),
 //	 16:Transfer_WallLight
-	 17:Thing_Raise(1),
+	 17:Thing_Raise(1,2),
 	 18:StartConversation(1,2),
 	 19:Thing_Stop(1),
 	 20:Floor_LowerByValue(3,4),
@@ -53,7 +53,7 @@ special
 	 46:Floor_CrushStop(1),
 	 47:Ceiling_MoveToValue(3,5),
 //	 48:Sector_Attach3dMidtex
-	 49:GlassBreak(0,1),
+	 49:GlassBreak(0,2),
 //	 50:ExtraFloor_LightOnly
 	 51:Sector_SetLink(4),
 	 52:Scroll_Wall(5),
@@ -263,7 +263,14 @@ special
 	270:Stairs_BuildDownDoom(5),
 	271:Stairs_BuildUpDoomSync(4),
 	272:Stairs_BuildDownDoomSync(4),
+	
+	// New additions can go avove 255 now.
 	273:Stairs_BuildUpDoomCrush(5),
+	274:Door_AnimatedClose(2),
+	275:Floor_Stop(1),
+	276:Ceiling_Stop(1),
+	277:Sector_SetFloorGlow(5),
+	278:Sector_SetCeilingGlow(5),
 	
 	// new to Eternity
 //	300:Portal_Define(5),
@@ -407,6 +414,12 @@ special
 	-203:SetTranslation(2),
 	-204:GetActorFloorTexture(1),
 	-205:GetActorFloorTerrain(1),
+	-206:StrArg(1),
+	-207:Floor(1),
+	-208:Round(1),
+	-209:Ceil(1),
+	-210:ScriptCall(2, 100),	// ACS does not know varargs so use something large as maximum.
+	-211:StartSlideshow(1),
 	
 	
 	// Eternity's
