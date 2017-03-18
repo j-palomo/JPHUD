@@ -72,7 +72,7 @@ Function Int Pow (Int x, Int n)
 // Round (Int f)
 // Rounds a decimal to a whole number
 // Numbers will be rounded down unless you add 0.5 before using the function
-Function Int Round (Int f)
+Function Int RoundInt (Int f)
 {
 	Return f >> 16;
 }
@@ -93,7 +93,7 @@ Function Int FixedDistance (Int tid1, Int tid2)
 // Same as FixedDistance, except it returns a whole number
 Function Int Distance (Int tid1, Int tid2)
 {
-	Return Round(FixedDistance(tid1, tid2));
+	Return RoundInt(FixedDistance(tid1, tid2));
 }
 
 // XYZ_FixedDistance (Int tid1, Int tid2)
@@ -111,7 +111,7 @@ Function Int XYZ_FixedDistance (Int tid1, Int tid2)
 // Same as XYZ_FixedDistance, except it returns a whole number
 Function Int XYZ_Distance (Int tid1, Int tid2)
 {
-	Return Round (XYZ_FixedDistance (tid1, tid2));
+	Return RoundInt (XYZ_FixedDistance (tid1, tid2));
 }
 
 // ZDistance (Int tid1, Int tid2)
