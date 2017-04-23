@@ -94,11 +94,13 @@ Script "JP_HUD_HPBar_Return" Return
 // Gets the player's target, then gets the needed values for displaying the graphics
 Script "JP_HUD_EnemyHealthBar" (Int ActivatorID, Int Target_MaxHealth, Int Target_CurrentHealth)
 {
-	// Get the player's TID
-	if ((ActivatorTID() == 0) || ThingCount (T_None, ActivatorTID()) > 1)
-		Thing_ChangeTID (0, UniqueTID());
-	if ((ActivatorTID() != Player_TID [PlayerNumber()]))
-		GetPlayerID ();
+	If (!(CheckClass("NCH_EnemyHealth"))) // NC Hud will draw it's own health bar
+	{
+		// Get the player's TID
+		if ((ActivatorTID() == 0) || ThingCount (T_None, ActivatorTID()) > 1)
+			Thing_ChangeTID (0, UniqueTID());
+		if ((ActivatorTID() != Player_TID [PlayerNumber()]))
+			GetPlayerID ();
 	
 		// Enemy health bar stuff
 		ActivatorID = GetPlayerID();
@@ -159,7 +161,7 @@ Script "JP_HUD_EnemyHealthBar" (Int ActivatorID, Int Target_MaxHealth, Int Targe
 			}
 			Thing_ChangeTID (Temporary_TID, Saved_TID);
 		}
-		
+	}
 	Delay (1);
 	Restart;
 }
