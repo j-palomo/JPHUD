@@ -1,1 +1,1 @@
-7za a -tzip "JP HUD mod friendly.pk3" *.txt* *.zscript* language.enu language.eng acs\ graphics\ scripts\ zscript\
+7za a -tzip "JP_HUD_mod_friendly.pk3" *.txt* *.zscript* language.enu language.eng acs\ graphics\ scripts\ zscript\
