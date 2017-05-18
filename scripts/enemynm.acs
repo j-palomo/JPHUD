@@ -1,0 +1,18 @@
+#library "enemynm"
+#include "zcommon.acs"
+
+/*
+** JP HUD ENEMY NAMES
+** Enemy list from HPBar & HP Tracker Mod (https://github.com/PkmX/hpbar)
+*/
+
+function str GetEnemyName(str NameTag) {
+
+	str LangVariable = StrParam(s: "JPHUD_EnemyName_", s: NameTag);
+	str EnemyName = StrParam(l: LangVariable);
+	
+	if (EnemyName == LangVariable) EnemyName = NameTag;
+	
+	return EnemyName;
+
+}

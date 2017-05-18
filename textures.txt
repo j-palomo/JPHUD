@@ -1118,4 +1118,768 @@ Sprite "X5N5J0", 15, 13
 	Patch "EXOCT048", 0, 0
 }
 
+/*
+** BIGFONT DMG
+*/
+
+// SINGLE DIGIT
+Sprite "Y1N1A0", 12, 12
+{
+	Offset 6, 12
+	Patch "BFNDMG_1", 0, 0
+}
+Sprite "Y1N1B0", 12, 12
+{
+	Offset 6, 12
+	Patch "BFNDMG_2", 0, 0
+}
+Sprite "Y1N1C0", 12, 12
+{
+	Offset 6, 12
+	Patch "BFNDMG_3", 0, 0
+}
+Sprite "Y1N1D0", 12, 12
+{
+	Offset 6, 12
+	Patch "BFNDMG_4", 0, 0
+}
+Sprite "Y1N1E0", 12, 12
+{
+	Offset 6, 12
+	Patch "BFNDMG_5", 0, 0
+}
+Sprite "Y1N1F0", 12, 12
+{
+	Offset 6, 12
+	Patch "BFNDMG_6", 0, 0
+}
+Sprite "Y1N1G0", 12, 12
+{
+	Offset 6, 12
+	Patch "BFNDMG_7", 0, 0
+}
+Sprite "Y1N1H0", 12, 12
+{
+	Offset 6, 12
+	Patch "BFNDMG_8", 0, 0
+}
+Sprite "Y1N1I0", 12, 12
+{
+	Offset 6, 12
+	Patch "BFNDMG_9", 0, 0
+}
+Sprite "Y1N1J0", 12, 12
+{
+	Offset 6, 12
+	Patch "BFNDMG_0", 0, 0
+}
+
+// 2 DIGITS
+Sprite "Y2N1A0", 12, 12
+{
+	Offset 0, 12
+	Patch "BFNDMG_1", 0, 0
+}
+Sprite "Y2N1B0", 12, 12
+{
+	Offset 0, 12
+	Patch "BFNDMG_2", 0, 0
+}
+Sprite "Y2N1C0", 12, 12
+{
+	Offset 0, 12
+	Patch "BFNDMG_3", 0, 0
+}
+Sprite "Y2N1D0", 12, 12
+{
+	Offset 0, 12
+	Patch "BFNDMG_4", 0, 0
+}
+Sprite "Y2N1E0", 12, 12
+{
+	Offset 0, 12
+	Patch "BFNDMG_5", 0, 0
+}
+Sprite "Y2N1F0", 12, 12
+{
+	Offset 0, 12
+	Patch "BFNDMG_6", 0, 0
+}
+Sprite "Y2N1G0", 12, 12
+{
+	Offset 0, 12
+	Patch "BFNDMG_7", 0, 0
+}
+Sprite "Y2N1H0", 12, 12
+{
+	Offset 0, 12
+	Patch "BFNDMG_8", 0, 0
+}
+Sprite "Y2N1I0", 12, 12
+{
+	Offset 0, 12
+	Patch "BFNDMG_9", 0, 0
+}
+Sprite "Y2N1J0", 12, 12
+{
+	Offset 0, 12
+	Patch "BFNDMG_0", 0, 0
+}
+Sprite "Y2N2A0", 12, 12
+{
+	Offset 12, 12
+	Patch "BFNDMG_1", 0, 0
+}
+Sprite "Y2N2B0", 12, 12
+{
+	Offset 12, 12
+	Patch "BFNDMG_2", 0, 0
+}
+Sprite "Y2N2C0", 12, 12
+{
+	Offset 12, 12
+	Patch "BFNDMG_3", 0, 0
+}
+Sprite "Y2N2D0", 12, 12
+{
+	Offset 12, 12
+	Patch "BFNDMG_4", 0, 0
+}
+Sprite "Y2N2E0", 12, 12
+{
+	Offset 12, 12
+	Patch "BFNDMG_5", 0, 0
+}
+Sprite "Y2N2F0", 12, 12
+{
+	Offset 12, 12
+	Patch "BFNDMG_6", 0, 0
+}
+Sprite "Y2N2G0", 12, 12
+{
+	Offset 12, 12
+	Patch "BFNDMG_7", 0, 0
+}
+Sprite "Y2N2H0", 12, 12
+{
+	Offset 12, 12
+	Patch "BFNDMG_8", 0, 0
+}
+Sprite "Y2N2I0", 12, 12
+{
+	Offset 12, 12
+	Patch "BFNDMG_9", 0, 0
+}
+Sprite "Y2N2J0", 12, 12
+{
+	Offset 12, 12
+	Patch "BFNDMG_0", 0, 0
+}
+
+// 3 DIGITS
+Sprite "Y3N1A0", 12, 12
+{
+	Offset -6, 12
+	Patch "BFNDMG_1", 0, 0
+}
+Sprite "Y3N1B0", 12, 12
+{
+	Offset -6, 12
+	Patch "BFNDMG_2", 0, 0
+}
+Sprite "Y3N1C0", 12, 12
+{
+	Offset -6, 12
+	Patch "BFNDMG_3", 0, 0
+}
+Sprite "Y3N1D0", 12, 12
+{
+	Offset -6, 12
+	Patch "BFNDMG_4", 0, 0
+}
+Sprite "Y3N1E0", 12, 12
+{
+	Offset -6, 12
+	Patch "BFNDMG_5", 0, 0
+}
+Sprite "Y3N1F0", 12, 12
+{
+	Offset -6, 12
+	Patch "BFNDMG_6", 0, 0
+}
+Sprite "Y3N1G0", 12, 12
+{
+	Offset -6, 12
+	Patch "BFNDMG_7", 0, 0
+}
+Sprite "Y3N1H0", 12, 12
+{
+	Offset -6, 12
+	Patch "BFNDMG_8", 0, 0
+}
+Sprite "Y3N1I0", 12, 12
+{
+	Offset -6, 12
+	Patch "BFNDMG_9", 0, 0
+}
+Sprite "Y3N1J0", 12, 12
+{
+	Offset -6, 12
+	Patch "BFNDMG_0", 0, 0
+}
+Sprite "Y3N2A0", 12, 12
+{
+	Offset 6, 12
+	Patch "BFNDMG_1", 0, 0
+}
+Sprite "Y3N2B0", 12, 12
+{
+	Offset 6, 12
+	Patch "BFNDMG_2", 0, 0
+}
+Sprite "Y3N2C0", 12, 12
+{
+	Offset 6, 12
+	Patch "BFNDMG_3", 0, 0
+}
+Sprite "Y3N2D0", 12, 12
+{
+	Offset 6, 12
+	Patch "BFNDMG_4", 0, 0
+}
+Sprite "Y3N2E0", 12, 12
+{
+	Offset 6, 12
+	Patch "BFNDMG_5", 0, 0
+}
+Sprite "Y3N2F0", 12, 12
+{
+	Offset 6, 12
+	Patch "BFNDMG_6", 0, 0
+}
+Sprite "Y3N2G0", 12, 12
+{
+	Offset 6, 12
+	Patch "BFNDMG_7", 0, 0
+}
+Sprite "Y3N2H0", 12, 12
+{
+	Offset 6, 12
+	Patch "BFNDMG_8", 0, 0
+}
+Sprite "Y3N2I0", 12, 12
+{
+	Offset 6, 12
+	Patch "BFNDMG_9", 0, 0
+}
+Sprite "Y3N2J0", 12, 12
+{
+	Offset 6, 12
+	Patch "BFNDMG_0", 0, 0
+}
+Sprite "Y3N3A0", 12, 12
+{
+	Offset 18, 12
+	Patch "BFNDMG_1", 0, 0
+}
+Sprite "Y3N3B0", 12, 12
+{
+	Offset 18, 12
+	Patch "BFNDMG_2", 0, 0
+}
+Sprite "Y3N3C0", 12, 12
+{
+	Offset 18, 12
+	Patch "BFNDMG_3", 0, 0
+}
+Sprite "Y3N3D0", 12, 12
+{
+	Offset 18, 12
+	Patch "BFNDMG_4", 0, 0
+}
+Sprite "Y3N3E0", 12, 12
+{
+	Offset 18, 12
+	Patch "BFNDMG_5", 0, 0
+}
+Sprite "Y3N3F0", 12, 12
+{
+	Offset 18, 12
+	Patch "BFNDMG_6", 0, 0
+}
+Sprite "Y3N3G0", 12, 12
+{
+	Offset 18, 12
+	Patch "BFNDMG_7", 0, 0
+}
+Sprite "Y3N3H0", 12, 12
+{
+	Offset 18, 12
+	Patch "BFNDMG_8", 0, 0
+}
+Sprite "Y3N3I0", 12, 12
+{
+	Offset 18, 12
+	Patch "BFNDMG_9", 0, 0
+}
+Sprite "Y3N3J0", 12, 12
+{
+	Offset 18, 12
+	Patch "BFNDMG_0", 0, 0
+}
+
+// 4 DIGITS
+Sprite "Y4N1A0", 12, 12
+{
+	Offset -12, 12
+	Patch "BFNDMG_1", 0, 0
+}
+Sprite "Y4N1B0", 12, 12
+{
+	Offset -12, 12
+	Patch "BFNDMG_2", 0, 0
+}
+Sprite "Y4N1C0", 12, 12
+{
+	Offset -12, 12
+	Patch "BFNDMG_3", 0, 0
+}
+Sprite "Y4N1D0", 12, 12
+{
+	Offset -12, 12
+	Patch "BFNDMG_4", 0, 0
+}
+Sprite "Y4N1E0", 12, 12
+{
+	Offset -12, 12
+	Patch "BFNDMG_5", 0, 0
+}
+Sprite "Y4N1F0", 12, 12
+{
+	Offset -12, 12
+	Patch "BFNDMG_6", 0, 0
+}
+Sprite "Y4N1G0", 12, 12
+{
+	Offset -12, 12
+	Patch "BFNDMG_7", 0, 0
+}
+Sprite "Y4N1H0", 12, 12
+{
+	Offset -12, 12
+	Patch "BFNDMG_8", 0, 0
+}
+Sprite "Y4N1I0", 12, 12
+{
+	Offset -12, 12
+	Patch "BFNDMG_9", 0, 0
+}
+Sprite "Y4N1J0", 12, 12
+{
+	Offset -12, 12
+	Patch "BFNDMG_0", 0, 0
+}
+Sprite "Y4N2A0", 12, 12
+{
+	Offset 0, 12
+	Patch "BFNDMG_1", 0, 0
+}
+Sprite "Y4N2B0", 12, 12
+{
+	Offset 0, 12
+	Patch "BFNDMG_2", 0, 0
+}
+Sprite "Y4N2C0", 12, 12
+{
+	Offset 0, 12
+	Patch "BFNDMG_3", 0, 0
+}
+Sprite "Y4N2D0", 12, 12
+{
+	Offset 0, 12
+	Patch "BFNDMG_4", 0, 0
+}
+Sprite "Y4N2E0", 12, 12
+{
+	Offset 0, 12
+	Patch "BFNDMG_5", 0, 0
+}
+Sprite "Y4N2F0", 12, 12
+{
+	Offset 0, 12
+	Patch "BFNDMG_6", 0, 0
+}
+Sprite "Y4N2G0", 12, 12
+{
+	Offset 0, 12
+	Patch "BFNDMG_7", 0, 0
+}
+Sprite "Y4N2H0", 12, 12
+{
+	Offset 0, 12
+	Patch "BFNDMG_8", 0, 0
+}
+Sprite "Y4N2I0", 12, 12
+{
+	Offset 0, 12
+	Patch "BFNDMG_9", 0, 0
+}
+Sprite "Y4N2J0", 12, 12
+{
+	Offset 0, 12
+	Patch "BFNDMG_0", 0, 0
+}
+Sprite "Y4N3A0", 12, 12
+{
+	Offset 12, 12
+	Patch "BFNDMG_1", 0, 0
+}
+Sprite "Y4N3B0", 12, 12
+{
+	Offset 12, 12
+	Patch "BFNDMG_2", 0, 0
+}
+Sprite "Y4N3C0", 12, 12
+{
+	Offset 12, 12
+	Patch "BFNDMG_3", 0, 0
+}
+Sprite "Y4N3D0", 12, 12
+{
+	Offset 12, 12
+	Patch "BFNDMG_4", 0, 0
+}
+Sprite "Y4N3E0", 12, 12
+{
+	Offset 12, 12
+	Patch "BFNDMG_5", 0, 0
+}
+Sprite "Y4N3F0", 12, 12
+{
+	Offset 12, 12
+	Patch "BFNDMG_6", 0, 0
+}
+Sprite "Y4N3G0", 12, 12
+{
+	Offset 12, 12
+	Patch "BFNDMG_7", 0, 0
+}
+Sprite "Y4N3H0", 12, 12
+{
+	Offset 12, 12
+	Patch "BFNDMG_8", 0, 0
+}
+Sprite "Y4N3I0", 12, 12
+{
+	Offset 12, 12
+	Patch "BFNDMG_9", 0, 0
+}
+Sprite "Y4N3J0", 12, 12
+{
+	Offset 12, 12
+	Patch "BFNDMG_0", 0, 0
+}
+Sprite "Y4N4A0", 12, 12
+{
+	Offset 24, 12
+	Patch "BFNDMG_1", 0, 0
+}
+Sprite "Y4N4B0", 12, 12
+{
+	Offset 24, 12
+	Patch "BFNDMG_2", 0, 0
+}
+Sprite "Y4N4C0", 12, 12
+{
+	Offset 24, 12
+	Patch "BFNDMG_3", 0, 0
+}
+Sprite "Y4N4D0", 12, 12
+{
+	Offset 24, 12
+	Patch "BFNDMG_4", 0, 0
+}
+Sprite "Y4N4E0", 12, 12
+{
+	Offset 24, 12
+	Patch "BFNDMG_5", 0, 0
+}
+Sprite "Y4N4F0", 12, 12
+{
+	Offset 24, 12
+	Patch "BFNDMG_6", 0, 0
+}
+Sprite "Y4N4G0", 12, 12
+{
+	Offset 24, 12
+	Patch "BFNDMG_7", 0, 0
+}
+Sprite "Y4N4H0", 12, 12
+{
+	Offset 24, 12
+	Patch "BFNDMG_8", 0, 0
+}
+Sprite "Y4N4I0", 12, 12
+{
+	Offset 24, 12
+	Patch "BFNDMG_9", 0, 0
+}
+Sprite "Y4N4J0", 12, 12
+{
+	Offset 24, 12
+	Patch "BFNDMG_0", 0, 0
+}
+
+// 5 DIGITS
+Sprite "Y5N1A0", 12, 12
+{
+	Offset -18, 12
+	Patch "BFNDMG_1", 0, 0
+}
+Sprite "Y5N1B0", 12, 12
+{
+	Offset -18, 12
+	Patch "BFNDMG_2", 0, 0
+}
+Sprite "Y5N1C0", 12, 12
+{
+	Offset -18, 12
+	Patch "BFNDMG_3", 0, 0
+}
+Sprite "Y5N1D0", 12, 12
+{
+	Offset -18, 12
+	Patch "BFNDMG_4", 0, 0
+}
+Sprite "Y5N1E0", 12, 12
+{
+	Offset -18, 12
+	Patch "BFNDMG_5", 0, 0
+}
+Sprite "Y5N1F0", 12, 12
+{
+	Offset -18, 12
+	Patch "BFNDMG_6", 0, 0
+}
+Sprite "Y5N1G0", 12, 12
+{
+	Offset -18, 12
+	Patch "BFNDMG_7", 0, 0
+}
+Sprite "Y5N1H0", 12, 12
+{
+	Offset -18, 12
+	Patch "BFNDMG_8", 0, 0
+}
+Sprite "Y5N1I0", 12, 12
+{
+	Offset -18, 12
+	Patch "BFNDMG_9", 0, 0
+}
+Sprite "Y5N1J0", 12, 12
+{
+	Offset -18, 12
+	Patch "BFNDMG_0", 0, 0
+}
+Sprite "Y5N2A0", 12, 12
+{
+	Offset -6, 12
+	Patch "BFNDMG_1", 0, 0
+}
+Sprite "Y5N2B0", 12, 12
+{
+	Offset -6, 12
+	Patch "BFNDMG_2", 0, 0
+}
+Sprite "Y5N2C0", 12, 12
+{
+	Offset -6, 12
+	Patch "BFNDMG_3", 0, 0
+}
+Sprite "Y5N2D0", 12, 12
+{
+	Offset -6, 12
+	Patch "BFNDMG_4", 0, 0
+}
+Sprite "Y5N2E0", 12, 12
+{
+	Offset -6, 12
+	Patch "BFNDMG_5", 0, 0
+}
+Sprite "Y5N2F0", 12, 12
+{
+	Offset -6, 12
+	Patch "BFNDMG_6", 0, 0
+}
+Sprite "Y5N2G0", 12, 12
+{
+	Offset -6, 12
+	Patch "BFNDMG_7", 0, 0
+}
+Sprite "Y5N2H0", 12, 12
+{
+	Offset -6, 12
+	Patch "BFNDMG_8", 0, 0
+}
+Sprite "Y5N2I0", 12, 12
+{
+	Offset -6, 12
+	Patch "BFNDMG_9", 0, 0
+}
+Sprite "Y5N2J0", 12, 12
+{
+	Offset -6, 12
+	Patch "BFNDMG_0", 0, 0
+}
+Sprite "Y5N3A0", 12, 12
+{
+	Offset 6, 12
+	Patch "BFNDMG_1", 0, 0
+}
+Sprite "Y5N3B0", 12, 12
+{
+	Offset 6, 12
+	Patch "BFNDMG_2", 0, 0
+}
+Sprite "Y5N3C0", 12, 12
+{
+	Offset 6, 12
+	Patch "BFNDMG_3", 0, 0
+}
+Sprite "Y5N3D0", 12, 12
+{
+	Offset 6, 12
+	Patch "BFNDMG_4", 0, 0
+}
+Sprite "Y5N3E0", 12, 12
+{
+	Offset 6, 12
+	Patch "BFNDMG_5", 0, 0
+}
+Sprite "Y5N3F0", 12, 12
+{
+	Offset 6, 12
+	Patch "BFNDMG_6", 0, 0
+}
+Sprite "Y5N3G0", 12, 12
+{
+	Offset 6, 12
+	Patch "BFNDMG_7", 0, 0
+}
+Sprite "Y5N3H0", 12, 12
+{
+	Offset 6, 12
+	Patch "BFNDMG_8", 0, 0
+}
+Sprite "Y5N3I0", 12, 12
+{
+	Offset 6, 12
+	Patch "BFNDMG_9", 0, 0
+}
+Sprite "Y5N3J0", 12, 12
+{
+	Offset 6, 12
+	Patch "BFNDMG_0", 0, 0
+}
+Sprite "Y5N4A0", 12, 12
+{
+	Offset 18, 12
+	Patch "BFNDMG_1", 0, 0
+}
+Sprite "Y5N4B0", 12, 12
+{
+	Offset 18, 12
+	Patch "BFNDMG_2", 0, 0
+}
+Sprite "Y5N4C0", 12, 12
+{
+	Offset 18, 12
+	Patch "BFNDMG_3", 0, 0
+}
+Sprite "Y5N4D0", 12, 12
+{
+	Offset 18, 12
+	Patch "BFNDMG_4", 0, 0
+}
+Sprite "Y5N4E0", 12, 12
+{
+	Offset 18, 12
+	Patch "BFNDMG_5", 0, 0
+}
+Sprite "Y5N4F0", 12, 12
+{
+	Offset 18, 12
+	Patch "BFNDMG_6", 0, 0
+}
+Sprite "Y5N4G0", 12, 12
+{
+	Offset 18, 12
+	Patch "BFNDMG_7", 0, 0
+}
+Sprite "Y5N4H0", 12, 12
+{
+	Offset 18, 12
+	Patch "BFNDMG_8", 0, 0
+}
+Sprite "Y5N4I0", 12, 12
+{
+	Offset 18, 12
+	Patch "BFNDMG_9", 0, 0
+}
+Sprite "Y5N4J0", 12, 12
+{
+	Offset 18, 12
+	Patch "BFNDMG_0", 0, 0
+}
+Sprite "Y5N5A0", 12, 12
+{
+	Offset 30, 12
+	Patch "BFNDMG_1", 0, 0
+}
+Sprite "Y5N5B0", 12, 12
+{
+	Offset 30, 12
+	Patch "BFNDMG_2", 0, 0
+}
+Sprite "Y5N5C0", 12, 12
+{
+	Offset 30, 12
+	Patch "BFNDMG_3", 0, 0
+}
+Sprite "Y5N5D0", 12, 12
+{
+	Offset 30, 12
+	Patch "BFNDMG_4", 0, 0
+}
+Sprite "Y5N5E0", 12, 12
+{
+	Offset 30, 12
+	Patch "BFNDMG_5", 0, 0
+}
+Sprite "Y5N5F0", 12, 12
+{
+	Offset 30, 12
+	Patch "BFNDMG_6", 0, 0
+}
+Sprite "Y5N5G0", 12, 12
+{
+	Offset 30, 12
+	Patch "BFNDMG_7", 0, 0
+}
+Sprite "Y5N5H0", 12, 12
+{
+	Offset 30, 12
+	Patch "BFNDMG_8", 0, 0
+}
+Sprite "Y5N5I0", 12, 12
+{
+	Offset 30, 12
+	Patch "BFNDMG_9", 0, 0
+}
+Sprite "Y5N5J0", 12, 12
+{
+	Offset 30, 12
+	Patch "BFNDMG_0", 0, 0
+}
+
 // End of texture definitions
