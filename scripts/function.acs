@@ -269,7 +269,7 @@ Function Bool DrawTag (Str Name, Int ID, Int X, Int Y, Int Alpha)
 }
 
 // Draws the enemy health bar graphics
-Function Bool DrawEnemyHealthBar (Int CurrentHealth, Int MaxHealth, Str Name)
+Function Bool DrawEnemyHealthBar (Int CurrentHealth, Int MaxHealth, Str Name, Bool Vulnerable)
 {
 	// How translucent should we draw the bar?
 	Int bar_foregroundalpha = GetUserCVar (PlayerNumber(), "hud_baralpha");
@@ -328,9 +328,19 @@ Function Bool DrawEnemyHealthBar (Int CurrentHealth, Int MaxHealth, Str Name)
 	Int f_hpx = hpx << 16;
 	Int f_hpy = hpy << 16;
 	
-	// Multiplies the dimensions of the graphic by the % of health remaining to get how much of the bar we need to show
-	Int barwidth = (FixedMul(c, JP_HUD_BARXDIM) + 0.5) >> 16; // the extra 0.5 is for rounding up
-	Int barheight = (FixedMul(c, JP_HUD_BARYDIM) + 0.5) >> 16;
+	// Let's configure the bar
+	Int bartotal;
+	Str hbargfx, vbargfx;
+	If (Vulnerable) {
+		// Multiplies the dimensions of the graphic by the % of health remaining to get how much of the bar we need to show
+		bartotal = (FixedMul(c, JP_HUD_BARXDIM) + 0.5) >> 16; // the extra 0.5 is for rounding up
+		hbargfx = "HBARTOP";
+		vbargfx = "HBARTOP2";
+	} else {
+		bartotal = 1<<16;
+		hbargfx = "HBARTOPG";
+		vbargfx = "HBARTOP2G";
+	}
 	
 	// Center the bar on the x axis by getting the scaled resolution and the graphic size
 	Int centerbarx = ((FixedDiv (f_xresolution, 2.0)) - (FixedDiv(JP_HUD_BARXDIM, 2.0)));
@@ -348,8 +358,8 @@ Function Bool DrawEnemyHealthBar (Int CurrentHealth, Int MaxHealth, Str Name)
 			SetHUDSize(x_resolution, y_resolution, 0);
 
 			// SetHUDClipRect defines the box that the graphic will be drawn within. Anything outside the box is cutoff, displaying the graphics below
-			SetHUDClipRect(JP_HUD_CLIP_LEFT+globaloffsetx+barx+(centerbarx >> 16), globaloffsety+bary, barwidth+JP_HUD_CLIP_RIGHT, y_resolution+globaloffsety+bary, 0); // To see what these numbers mean, see above.
-			DrawSprite ("HBARTOP", JP_HUD_BARID+4, f_barx+f_globaloffsetx+0.1+centerbarx, 0.1+f_bary+f_globaloffsety, bar_foregroundalpha);
+			SetHUDClipRect(JP_HUD_CLIP_LEFT+globaloffsetx+barx+(centerbarx >> 16), globaloffsety+bary, bartotal+JP_HUD_CLIP_RIGHT, y_resolution+globaloffsety+bary, 0); // To see what these numbers mean, see above.
+			DrawSprite (hbargfx, JP_HUD_BARID+4, f_barx+f_globaloffsetx+0.1+centerbarx, 0.1+f_bary+f_globaloffsety, bar_foregroundalpha);
 			
 			
 			// This resets it back to normal
@@ -372,9 +382,9 @@ Function Bool DrawEnemyHealthBar (Int CurrentHealth, Int MaxHealth, Str Name)
 			
 			// This is a little more complicated than the horizontal bar
 			// Instead of starting from the top left and drawing the box size to the right, we have to start from the bottom of the image and draw up
-			SetHUDClipRect(globaloffsetx+barx, JP_HUD_CLIP_BOTTOM+(JP_HUD_BARYDIM>>16)+bary+globaloffsety-barheight+(centerbary >> 16), x_resolution+globaloffsetx+barx, JP_HUD_CLIP_TOP+bary+globaloffsety+(JP_HUD_BARYDIM >> 16));
+			SetHUDClipRect(globaloffsetx+barx, JP_HUD_CLIP_BOTTOM+(JP_HUD_BARYDIM>>16)+bary+globaloffsety-bartotal+(centerbary >> 16), x_resolution+globaloffsetx+barx, JP_HUD_CLIP_TOP+bary+globaloffsety+(JP_HUD_BARYDIM >> 16));
 
-			DrawSprite ("HBARTOP2", JP_HUD_BARID+4, 0.1+f_globaloffsetx+f_barx, 0.1+f_globaloffsety+f_bary+centerbary, bar_foregroundalpha);
+			DrawSprite (vbargfx, JP_HUD_BARID+4, 0.1+f_globaloffsetx+f_barx, 0.1+f_globaloffsety+f_bary+centerbary, bar_foregroundalpha);
 			
 			SetHUDClipRect(0, 0, 0, 0);
 			DrawSprite ("HBARBOT2", JP_HUD_BARID+5, 0.1+f_globaloffsetx+f_barx, 0.1+f_globaloffsety+f_bary+centerbary, bar_backgroundalpha);
