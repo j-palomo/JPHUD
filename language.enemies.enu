@@ -1,6 +1,6 @@
 /*
 ** JP HUD ENEMY NAMES
-** Enemy list from HPBar & HP Tracker Mod (https://github.com/PkmX/hpbar)
+** Complex Doom (and addons) enemy list adapted from HPBar & HP Tracker Mod (https://github.com/PkmX/hpbar)
 */
 
 [enu default]
@@ -281,7 +281,7 @@
 "JPHUD_EnemyName_Fatso" = "Mancubus";
 "JPHUD_EnemyName_Arachnotron" = "Arachnotron";
 "JPHUD_EnemyName_PainElemental" = "Pain Elemental";
-"JPHUD_EnemyName_Archvile" = "Arch-vile";
+"JPHUD_EnemyName_Archvile" = "Arch-Vile";
 "JPHUD_EnemyName_WolfensteinSS" = "Wolfenstein SS";
 "JPHUD_EnemyName_CommanderKeen" = "Commander Keen";
 "JPHUD_EnemyName_BossBrain" = "John Romero";
@@ -295,18 +295,18 @@
 "JPHUD_EnemyName_ComplexDoomPlayer" = "\c[l5]Player\c-";
 
 // MetaDoom
-"JPHUD_EnemyName_MetaArchvile" = "Archvile";
+"JPHUD_EnemyName_MetaArchvile" = "Arch-Vile";
 "JPHUD_EnemyName_MetaSummoner" = "Summoner";
 "JPHUD_EnemyName_MetaUnwilling" = "Unwilling";
 "JPHUD_EnemyName_MetaArachnotron" = "Arachnotron";
 "JPHUD_EnemyName_MetaSpiborg" = "Spiborg";
-"JPHUD_EnemyName_MetaZombieMan" = "Zombieman";
+"JPHUD_EnemyName_MetaZombieMan" = "Former Human";
 "JPHUD_EnemyName_MetaHellRazer" = "Hell Razer";
-"JPHUD_EnemyName_MetaSpiderMastermind" = "Spider Mastermind";
+"JPHUD_EnemyName_MetaSpiderMastermind" = "\cgSpider Mastermind\c-";
 "JPHUD_EnemyName_MetaSpectre" = "Spectre";
 "JPHUD_EnemyName_MetaNightmareSpectre" = "Nightmare Spectre"
 "JPHUD_EnemyName_MetaSawcubus" = "Sawcubus";
-"JPHUD_EnemyName_MetaShotgunGuy" = "Shotgun Guy";
+"JPHUD_EnemyName_MetaShotgunGuy" = "Former Human Sergeant";
 "JPHUD_EnemyName_MetaZSec" = "ZSEC";
 "JPHUD_EnemyName_MetaRevenant" = "Revenant";
 "JPHUD_EnemyName_MetaFiend" = "Fiend";
@@ -328,12 +328,66 @@
 "JPHUD_EnemyName_MetaCerberus" = "Cerberus";
 "JPHUD_EnemyName_MetaDemon" = "Demon";
 "JPHUD_EnemyName_MetaBullDemon" = "Bull Demon";
-"JPHUD_EnemyName_MetaCyberdemon" = "Cyberdemon";
-"JPHUD_EnemyName_MetaMachineGunGuy" = "Heavy Weapons Dude";
-"JPHUD_EnemyName_MetaChainGunGuy" = "Heavy Weapons Dude";
+"JPHUD_EnemyName_MetaCyberdemon" = "\cgCyberdemon\c-";
+"JPHUD_EnemyName_MetaMachineGunGuy" = "Heavy Weapon Dude";
+"JPHUD_EnemyName_MetaChainGunGuy" = "Heavy Weapon Dude";
 "JPHUD_EnemyName_MetaAssassinGuy" = "Former Assassin";
 "JPHUD_EnemyName_MetaCacodemon" = "Cacodemon";
 "JPHUD_EnemyName_MetaMalwraith" = "Malwrath";
 "JPHUD_EnemyName_MetaWretched" = "Wretched";
-"JPHUD_EnemyName_MetaBaronOfHell" = "Baron of Hell";
+"JPHUD_EnemyName_MetaBaronOfHell" = "Baron Of Hell";
 "JPHUD_EnemyName_MetaHellKnight" = "Hell Knight";
+"JPHUD_EnemyName_MetaDoomPlayer" = "\c[l5]Player\c-";
+
+// Smooth Doom
+"JPHUD_EnemyName_smootharachno" = "Arachnotron";
+"JPHUD_EnemyName_SmoothBaronOfHell" = "Baron of Hell";
+"JPHUD_EnemyName_SmoothHellKnight" = "Hell Knight";
+"JPHUD_EnemyName_SmoothZombieman" = "Former Human";
+"JPHUD_EnemyName_ZombieV1" = "Former Human";
+"JPHUD_EnemyName_ZombieV2" = "Former Human";
+"JPHUD_EnemyName_Zombiev3" = "Former Human";
+"JPHUD_EnemyName_SmoothArchvile" = "Arch-Vile";
+"JPHUD_EnemyName_sexysoul" = "Lost Soul";
+"JPHUD_EnemyName_SmoothShotgunGuy" = "Former Human Sergeant";
+"JPHUD_EnemyName_SguyV1" = "Former Human Sergeant";
+"JPHUD_EnemyName_SguyV2" = "Former Human Sergeant";
+"JPHUD_EnemyName_SmoothRevenant" = "Revenant";
+"JPHUD_EnemyName_SmoothPain" = "Pain Elemental";
+"JPHUD_EnemyName_SmoothMastermind" = "\cgSpider Mastermind\c-";
+"JPHUD_EnemyName_SmoothDoomImp" = "Imp";
+"JPHUD_EnemyName_ImpV1" = "Imp";
+"JPHUD_EnemyName_ImpV2" = "Imp";
+"JPHUD_EnemyName_sexyman" = "Mancubus";
+"JPHUD_EnemyName_SmoothDemon" = "Demon";
+"JPHUD_EnemyName_SmoothDemon" = "Demon";
+"JPHUD_EnemyName_smoothspectre" = "Spectre";
+"JPHUD_EnemyName_fastSmoothDemon" = "Demon";
+"JPHUD_EnemyName_fastsmoothspectre" = "Spectre";
+"JPHUD_EnemyName_SmoothCyber" = "\cgCyberdemon\c-";
+"JPHUD_EnemyName_SmoothChaingunGuy" = "Heavy Weapon Dude";
+"JPHUD_EnemyName_CguyV1" = "Heavy Weapon Dude";
+"JPHUD_EnemyName_CguyV2" = "Heavy Weapon Dude";
+"JPHUD_EnemyName_SmoothCacodemon" = "Cacodemon";
+"JPHUD_EnemyName_PerkDPlayer" = "\c[l5]Player\c-";
+
+// Beautiful Doom
+"JPHUD_EnemyName_BD_ZombieMan" = "Former Human";
+"JPHUD_EnemyName_BD_ShotgunGuy" = "Former Human Sergeant";
+"JPHUD_EnemyName_BD_ChaingunGuy" = "Heavy Weapon Dude";
+"JPHUD_EnemyName_BD_WolfensteinSS" = "SS Nazi";
+"JPHUD_EnemyName_BD_DoomImp" = "Imp";
+"JPHUD_EnemyName_BD_Demon" = "Demon";
+"JPHUD_EnemyName_BD_Spectre" = "Spectre";
+"JPHUD_EnemyName_BD_LostSoul" = "Lost Soul";
+"JPHUD_EnemyName_BD_PainElemental" = "Pain Elemental";
+"JPHUD_EnemyName_BD_Cacodemon" = "Cacodemon";
+"JPHUD_EnemyName_BD_Fatso" = "Mancubus";
+"JPHUD_EnemyName_BD_Arachnotron" = "Arachnotron";
+"JPHUD_EnemyName_BD_Revenant" = "Revenant";
+"JPHUD_EnemyName_BD_HellKnight" = "Hell Knight";
+"JPHUD_EnemyName_BD_BaronOfHell" = "Baron Of Hell";
+"JPHUD_EnemyName_BD_ArchVile" = "Arch-Vile";
+"JPHUD_EnemyName_BD_CyberDemon" = "\cgCyberdemon\c-";
+"JPHUD_EnemyName_BD_SpiderMastermind" = "\cgSpider Mastermind\c-";
+"JPHUD_EnemyName_BD_BossBrain" = "John Romero";
