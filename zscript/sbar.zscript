@@ -1,0 +1,143 @@
+Class JPHUD_StatusBar : BaseStatusBar
+{
+	CVar JPHUD_BarColor;
+	HUDFont NARKISIM, DOOM93, EXOCET, jphud_smallfont;
+	Int barcolor;
+	InventoryBarState diparms;
+	Override void Init()
+	{
+		Super.Init();
+		SetSize(64, 640, 480); // Setup base HUD screen size
+		JPHUD_BarColor = cvar.findcvar("hud_barcolor");
+		NARKISIM = HUDFont.Create("NARKISIM", 0, false, 4, 4);
+		DOOM93 = HUDFont.Create("DOOM93");
+		EXOCET = HUDFont.Create("EXOCET");
+		jphud_smallfont = HUDFont.Create(SmallFont, 0, false, 4, 4);
+		diparms = InventoryBarState.Create();
+	}
+	
+	Override void Draw (int state, double TicFrac)
+	{
+		Super.Draw (state, TicFrac);
+
+		if (state == HUD_StatusBar)
+		{
+			BeginStatusBar();
+			DrawMainBar (TicFrac);
+		}
+	}
+	
+	void DrawMainBar (double TicFrac)
+	{
+		barcolor = JPHUD_BarColor.GetInt();
+		switch(barcolor)
+		{
+			default:
+			case 0:
+				DrawImage("bar_slvr", (0, 416), DI_ITEM_OFFSETS);
+				break;
+				
+			case 1:
+				DrawImage("bar_brnz", (0, 416), DI_ITEM_OFFSETS);
+				break;
+				
+			case 2:
+				DrawImage("bar_gold", (0, 416), DI_ITEM_OFFSETS);
+				break;
+				
+			case 3:
+				DrawImage("bar_mrld", (0, 416), DI_ITEM_OFFSETS);
+				break;
+				
+			case 4:
+				DrawImage("bar_ruby", (0, 416), DI_ITEM_OFFSETS);
+				break;
+				
+			case 5:
+				DrawImage("bar_sphr", (0, 416), DI_ITEM_OFFSETS);
+				break;
+		}
+		
+		// Health
+		DrawString(NARKISIM, "Health", (273, 422), DI_TEXT_ALIGN_RIGHT|DI_SCREEN_LEFT_BOTTOM, Font.CR_RED);
+		DrawString(NARKISIM, FormatNumber(CPlayer.mo.health, 5, 5, 0), (270, 438), DI_TEXT_ALIGN_RIGHT|DI_SCREEN_LEFT_BOTTOM);
+		
+		// Armor
+		
+		let armor = CPlayer.mo.FindInventory("BasicArmor");
+		if (armor != null && armor.Amount > 0)
+		{
+			DrawInventoryIcon(armor, (116, 474));
+		}
+
+		DrawString(NARKISIM, "Armor", (172, 422), DI_TEXT_ALIGN_RIGHT|DI_SCREEN_LEFT_BOTTOM, Font.CR_GREEN);
+		DrawString(NARKISIM, FormatNumber(GetArmorAmount(), 5, 5, 0), (175, 438), DI_TEXT_ALIGN_RIGHT|DI_SCREEN_LEFT_BOTTOM);
+		DrawString(NARKISIM, "%", (177, 454),DI_TEXT_ALIGN_RIGHT|DI_SCREEN_LEFT_BOTTOM);
+		DrawString(NARKISIM, FormatNumber(GetArmorSavePercent(), 3, 3, 0), (160, 454),DI_TEXT_ALIGN_RIGHT|DI_SCREEN_LEFT_BOTTOM);
+		
+		
+		// Ammo
+		
+		Ammo am1, am2;
+		int am1amt, am2amt, am1max, am2max;
+		[am1, am2, am1amt, am2amt] = GetCurrentAmmo();
+		
+		DrawString(NARKISIM, "Ammo", (78, 422), DI_TEXT_ALIGN_RIGHT|DI_SCREEN_LEFT_BOTTOM, Font.CR_YELLOW);
+		If (am1)
+		{
+			am1max = am1.MaxAmount;
+			DrawString(jphud_smallfont, FormatNumber(am1amt, 0, 5, 0, "Held:"), (4, 440), DI_TEXT_ALIGN_LEFT|DI_SCREEN_LEFT_BOTTOM, Font.CR_WHITE);
+			DrawString(jphud_smallfont, FormatNumber(am1max, 0, 5, 0, "Max:"), (4, 448), DI_TEXT_ALIGN_LEFT|DI_SCREEN_LEFT_BOTTOM, Font.CR_GRAY);
+		}
+			
+		If (am2)
+		{
+			am2max = am2.MaxAmount;
+			DrawString(jphud_smallfont, FormatNumber(am2amt, 0, 5, 0, "Held:"), (4, 456), DI_TEXT_ALIGN_LEFT|DI_SCREEN_LEFT_BOTTOM, Font.CR_WHITE);
+			DrawString(jphud_smallfont, FormatNumber(am2max, 0, 5, 0, "Max:"), (4, 464), DI_TEXT_ALIGN_LEFT|DI_SCREEN_LEFT_BOTTOM, Font.CR_GRAY);
+		}
+		
+		// Weapon
+		
+		If (CPlayer.readyweapon)
+		{
+			String wep = GetWeaponTag();
+			DrawInventoryIcon(CPlayer.readyweapon, (596,476), DI_SCREEN_LEFT_BOTTOM|DI_ITEM_CENTER_BOTTOM|DI_SKIPREADY, 1.0, (82,56));
+			DrawString(jphud_smallfont, wep, (555,420), DI_TEXT_ALIGN_LEFT|DI_SCREEN_LEFT_BOTTOM, Font.CR_UNTRANSLATED, 1.0, 82);
+		}
+		
+		DrawImage(CPlayer.HasWeaponsInSlot(1)? "STYSNUM1" : "STGNUM1", (338, 447), DI_TEXT_ALIGN_LEFT|DI_SCREEN_LEFT_BOTTOM);
+		DrawImage(CPlayer.HasWeaponsInSlot(2)? "STYSNUM2" : "STGNUM2", (348, 447), DI_TEXT_ALIGN_LEFT|DI_SCREEN_LEFT_BOTTOM);
+		DrawImage(CPlayer.HasWeaponsInSlot(3)? "STYSNUM3" : "STGNUM3", (358, 447), DI_TEXT_ALIGN_LEFT|DI_SCREEN_LEFT_BOTTOM);
+		DrawImage(CPlayer.HasWeaponsInSlot(4)? "STYSNUM4" : "STGNUM4", (368, 447), DI_TEXT_ALIGN_LEFT|DI_SCREEN_LEFT_BOTTOM);
+		DrawImage(CPlayer.HasWeaponsInSlot(5)? "STYSNUM5" : "STGNUM5", (378, 447), DI_TEXT_ALIGN_LEFT|DI_SCREEN_LEFT_BOTTOM);
+		DrawImage(CPlayer.HasWeaponsInSlot(6)? "STYSNUM6" : "STGNUM6", (388, 447), DI_TEXT_ALIGN_LEFT|DI_SCREEN_LEFT_BOTTOM);
+		DrawImage(CPlayer.HasWeaponsInSlot(7)? "STYSNUM7" : "STGNUM7", (398, 447), DI_TEXT_ALIGN_LEFT|DI_SCREEN_LEFT_BOTTOM);
+		DrawImage(CPlayer.HasWeaponsInSlot(8)? "STYSNUM8" : "STGNUM8", (408, 447), DI_TEXT_ALIGN_LEFT|DI_SCREEN_LEFT_BOTTOM);
+		DrawImage(CPlayer.HasWeaponsInSlot(9)? "STYSNUM9" : "STGNUM9", (418, 447), DI_TEXT_ALIGN_LEFT|DI_SCREEN_LEFT_BOTTOM);
+		DrawImage(CPlayer.HasWeaponsInSlot(0)? "STYSNUM0" : "STGNUM0", (428, 447), DI_TEXT_ALIGN_LEFT|DI_SCREEN_LEFT_BOTTOM);
+		
+		DrawImage(CheckInventory("PowerStrength", 1)? "STYBRSK" : "STGBRSK", (447, 447), DI_SCREEN_LEFT_BOTTOM|DI_ITEM_CENTER_BOTTOM);
+			
+		DrawImage(CheckInventory("Backpack", 1)? "STYBPAK" : "STGBPAK", (438, 447), DI_SCREEN_LEFT_BOTTOM|DI_ITEM_CENTER_BOTTOM);		
+		
+		// Keys
+		
+		if (CPlayer.mo.CheckKeys(1, false, true)) DrawImage("STKEYS2", (338, 428), DI_SCREEN_LEFT_BOTTOM|DI_ITEM_CENTER_BOTTOM);
+		if (CPlayer.mo.CheckKeys(2, false, true)) DrawImage("STKEYS0", (348, 428), DI_SCREEN_LEFT_BOTTOM|DI_ITEM_CENTER_BOTTOM);
+		if (CPlayer.mo.CheckKeys(3, false, true)) DrawImage("STKEYS1", (358, 428), DI_SCREEN_LEFT_BOTTOM|DI_ITEM_CENTER_BOTTOM);
+		if (CPlayer.mo.CheckKeys(4, false, true)) DrawImage("STKEYS5", (368, 428), DI_SCREEN_LEFT_BOTTOM|DI_ITEM_CENTER_BOTTOM);
+		if (CPlayer.mo.CheckKeys(5, false, true)) DrawImage("STKEYS3", (378, 428), DI_SCREEN_LEFT_BOTTOM|DI_ITEM_CENTER_BOTTOM);
+		if (CPlayer.mo.CheckKeys(6, false, true)) DrawImage("STKEYS4", (388, 428), DI_SCREEN_LEFT_BOTTOM|DI_ITEM_CENTER_BOTTOM);
+		
+		// Mugshot
+		
+		DrawTexture(GetMugShot(5), (312, 448), DI_SCREEN_LEFT_BOTTOM|DI_ITEM_CENTER_BOTTOM);
+		
+		// Inventory
+		
+		DrawInventoryBar(diparms, (440, 480), 6, DI_SCREEN_LEFT_BOTTOM, 0);
+		DrawInventoryIcon(CPlayer.mo.InvSel, (312, 478), DI_SCREEN_LEFT_BOTTOM);
+		
+	}
+}
