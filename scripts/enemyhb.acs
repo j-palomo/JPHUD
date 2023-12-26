@@ -113,9 +113,10 @@ Script "JP_HUD_EnemyHealthBar" (Int ActivatorID, Int Target_MaxHealth, Int Targe
 			if (PickActor (ActivatorID, GetActorAngle (ActivatorID), GetActorPitch (ActivatorID), 8192.0, Temporary_TID, MF_SHOOTABLE, ML_BLOCKEVERYTHING, PICKAF_FORCETID))
 			{
 				SetActivator(Temporary_TID);
-				if ((ClassifyActor(0) & ACTOR_MONSTER) && (ClassifyActor(0) & ACTOR_ALIVE) && (CheckFlag(0, "Shootable")) && (!(CheckFlag(0, "NoDamage") || CheckFlag(0, "Invulnerable"))) && (CheckActorProperty(0, APROP_RenderStyle, STYLE_Normal))) // Monsters
+				if ((ClassifyActor(0) & ACTOR_MONSTER) && (ClassifyActor(0) & ACTOR_ALIVE) && (CheckFlag(0, "Shootable")) && (!(CheckFlag(0, "NoDamage") || CheckFlag(0, "Invulnerable")))) // Monsters
 				{
 					Str Monster_ClassName = GetActorProperty(0, APROP_NameTag);
+					Int Monster_Alpha = GetActorProperty(0, APROP_Alpha);
 					//Target_MaxHealth = GetActorProperty (0, AProp_SpawnHealth);
 					Target_MaxHealth = CheckInventory ("JPHUD_MaxHealth");
 					//Target_CurrentHealth = GetActorProperty (0, AProp_Health);
@@ -125,13 +126,14 @@ Script "JP_HUD_EnemyHealthBar" (Int ActivatorID, Int Target_MaxHealth, Int Targe
 					{
 						SetActivator(ActivatorID);
 						If (CheckSight (Temporary_TID, ActivatorID, 0))
-							DrawEnemyHealthBar(Target_CurrentHealth, Target_MaxHealth, Monster_ClassName); // I didn't want to make a huge mess here, so I made a function for it
+							DrawEnemyHealthBar(Target_CurrentHealth, Target_MaxHealth, Monster_ClassName, Monster_Alpha); // I didn't want to make a huge mess here, so I made a function for it
 						Thing_ChangeTID (Temporary_TID, Saved_TID);
 					}
 				}
-				else if ((ClassifyActor(0) & ACTOR_PLAYER && ClassifyActor(0) & ACTOR_ALIVE) && (CheckFlag(0, "Shootable")) && (!(CheckFlag(0, "NoDamage") || CheckFlag(0, "Invulnerable"))) && (CheckActorProperty(0, APROP_RenderStyle, STYLE_Normal)) && (!(CheckInventory("JPHUD_DontShowHealth")))) // Players/bots
+				else if ((ClassifyActor(0) & ACTOR_PLAYER && ClassifyActor(0) & ACTOR_ALIVE) && (CheckFlag(0, "Shootable")) && (!(CheckFlag(0, "NoDamage") || CheckFlag(0, "Invulnerable"))) && (!(CheckInventory("JPHUD_DontShowHealth")))) // Players/bots
 				{
 					Str Player_Name = GetCVarString ("Name");
+					Int Player_Alpha = GetActorProperty(0, APROP_Alpha);
 					Target_MaxHealth = GetActorProperty (0, AProp_SpawnHealth);
 					Target_CurrentHealth = GetActorProperty (0, AProp_Health);
 					
@@ -146,7 +148,7 @@ Script "JP_HUD_EnemyHealthBar" (Int ActivatorID, Int Target_MaxHealth, Int Targe
 					}
 					SetActivator(ActivatorID);
 					If (CheckSight (Temporary_TID, ActivatorID, 0))
-						DrawEnemyHealthBar(Target_CurrentHealth, Target_MaxHealth, Player_Name); // This will only show up if the player is an enemy
+						DrawEnemyHealthBar(Target_CurrentHealth, Target_MaxHealth, Player_Name, Player_Alpha); // This will only show up if the player is an enemy
 					Thing_ChangeTID (Temporary_TID, Saved_TID);
 				}
 				else

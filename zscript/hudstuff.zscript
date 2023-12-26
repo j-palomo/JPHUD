@@ -1,3 +1,19 @@
+Class JPHUD_EH : EventHandler
+{
+	Override void WorldThingSpawned (WorldEvent e)
+	{
+		Let spawned = e.Thing;
+		If (spawned != NULL)
+		{
+			If (spawned.bIsMonster == True)
+			{
+				Class<Inventory> ms = "JPHUD_SetHealth";
+				spawned.GiveInventory(ms, 1, False);
+			}
+		}
+	}
+}
+
 Class JPHUD_Start : Actor
 {
 	Default
@@ -9,8 +25,8 @@ Class JPHUD_Start : Actor
 	States
 	{
 		Spawn:
-			TNT1 A 1 A_RadiusGive("JPHUD_SetHealth", 16383.0, RGF_Players|RGF_Monsters|RGF_Objects|RGF_NoSight, 1);
-			Loop;
+			TNT1 A 1 A_RadiusGive("JPHUD_SetHealth", 16383.0, RGF_Players|RGF_NoSight, 1);
+			Stop;
 	}
 }
 

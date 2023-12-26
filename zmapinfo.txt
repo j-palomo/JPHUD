@@ -1,0 +1,4 @@
+Gameinfo
+{
+	AddEventHandlers = "JPHUD_EH"
+}
