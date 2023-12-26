@@ -269,8 +269,9 @@ Function Bool DrawTag (Str Name, Int ID, Int X, Int Y, Int Alpha)
 }
 
 // Draws the enemy health bar graphics
-Function Bool DrawEnemyHealthBar (Int CurrentHealth, Int MaxHealth, Str Name)
+Function Bool DrawEnemyHealthBar (Int CurrentHealth, Int MaxHealth, Str Name, Int BarAlpha)
 {
+	If (BarAlpha < 1.0) FixedMul(BarAlpha, 0.5);
 	// How translucent should we draw the bar?
 	Int bar_foregroundalpha = GetUserCVar (PlayerNumber(), "hud_baralpha");
 	Int bar_backgroundalpha = GetUserCVar (PlayerNumber(), "hud_backalpha");
@@ -349,21 +350,20 @@ Function Bool DrawEnemyHealthBar (Int CurrentHealth, Int MaxHealth, Str Name)
 
 			// SetHUDClipRect defines the box that the graphic will be drawn within. Anything outside the box is cutoff, displaying the graphics below
 			SetHUDClipRect(JP_HUD_CLIP_LEFT+globaloffsetx+barx+(centerbarx >> 16), globaloffsety+bary, barwidth+JP_HUD_CLIP_RIGHT, y_resolution+globaloffsety+bary, 0); // To see what these numbers mean, see above.
-			DrawSprite ("HBARTOP", JP_HUD_BARID+4, f_barx+f_globaloffsetx+0.1+centerbarx, 0.1+f_bary+f_globaloffsety, bar_foregroundalpha);
+			DrawSprite ("HBARTOP", JP_HUD_BARID+4, f_barx+f_globaloffsetx+0.1+centerbarx, 0.1+f_bary+f_globaloffsety, FixedMul(bar_foregroundalpha, BarAlpha));
 			
 			
 			// This resets it back to normal
 			SetHUDClipRect(0, 0, 0, 0);
 			
-			DrawSprite ("HBARBRD", JP_HUD_BARID+3, f_globaloffsetx+f_barx+0.1+centerbarx, 0.1+f_bary+f_globaloffsety, bar_foregroundalpha);
-			DrawSprite ("HBARBOT", JP_HUD_BARID+5, f_globaloffsetx+f_barx+0.1+centerbarx, 0.1+f_bary+f_globaloffsety, bar_backgroundalpha);
+			DrawSprite ("HBARBRD", JP_HUD_BARID+3, f_globaloffsetx+f_barx+0.1+centerbarx, 0.1+f_bary+f_globaloffsety, FixedMul(bar_foregroundalpha, BarAlpha));
+			DrawSprite ("HBARBOT", JP_HUD_BARID+5, f_globaloffsetx+f_barx+0.1+centerbarx, 0.1+f_bary+f_globaloffsety, FixedMul(bar_backgroundalpha, BarAlpha));
 			SetHUDSize (font_x_resolution, font_y_resolution, 0);
-			DrawHealth (CurrentHealth, Maxhealth, JP_HUD_BARID+1, 0.4+f_globaloffsetx+f_hpx+centertextx, 10.1+f_globaloffsety+f_hpy, text_alpha); // Displays "current health / max health" inside the bar
-
+			DrawHealth (CurrentHealth, Maxhealth, JP_HUD_BARID+1, 0.4+f_globaloffsetx+f_hpx+centertextx, 10.1+f_globaloffsety+f_hpy, FixedMul(text_alpha, BarAlpha)); // Displays "current health / max health" inside the bar
 			
 			If (GetUserCVar(PlayerNumber(), "hud_drawenemytag")) // Do we want to draw the name tag?
 			{
-				DrawTag (Name, JP_HUD_BARID+2, 0.4+f_globaloffsetx+f_tagx+centertextx, 0.1+f_globaloffsety+f_tagy, text_alpha); // Drawn below the bar
+				DrawTag (Name, JP_HUD_BARID+2, 0.4+f_globaloffsetx+f_tagx+centertextx, 0.1+f_globaloffsety+f_tagy, FixedMul(text_alpha, BarAlpha)); // Drawn below the bar
 			}
 			break;
 			
@@ -374,17 +374,17 @@ Function Bool DrawEnemyHealthBar (Int CurrentHealth, Int MaxHealth, Str Name)
 			// Instead of starting from the top left and drawing the box size to the right, we have to start from the bottom of the image and draw up
 			SetHUDClipRect(globaloffsetx+barx, JP_HUD_CLIP_BOTTOM+(JP_HUD_BARYDIM>>16)+bary+globaloffsety-barheight+(centerbary >> 16), x_resolution+globaloffsetx+barx, JP_HUD_CLIP_TOP+bary+globaloffsety+(JP_HUD_BARYDIM >> 16));
 
-			DrawSprite ("HBARTOP2", JP_HUD_BARID+4, 0.1+f_globaloffsetx+f_barx, 0.1+f_globaloffsety+f_bary+centerbary, bar_foregroundalpha);
+			DrawSprite ("HBARTOP2", JP_HUD_BARID+4, 0.1+f_globaloffsetx+f_barx, 0.1+f_globaloffsety+f_bary+centerbary, FixedMul(bar_foregroundalpha, BarAlpha));
 			
 			SetHUDClipRect(0, 0, 0, 0);
-			DrawSprite ("HBARBOT2", JP_HUD_BARID+5, 0.1+f_globaloffsetx+f_barx, 0.1+f_globaloffsety+f_bary+centerbary, bar_backgroundalpha);
-			DrawSprite ("HBARBRD2", JP_HUD_BARID+3, 0.1+f_globaloffsetx+f_barx, 0.1+f_globaloffsety+f_bary+centerbary, bar_foregroundalpha);
+			DrawSprite ("HBARBOT2", JP_HUD_BARID+5, 0.1+f_globaloffsetx+f_barx, 0.1+f_globaloffsety+f_bary+centerbary, FixedMul(bar_backgroundalpha, BarAlpha));
+			DrawSprite ("HBARBRD2", JP_HUD_BARID+3, 0.1+f_globaloffsetx+f_barx, 0.1+f_globaloffsety+f_bary+centerbary, FixedMul(bar_foregroundalpha, BarAlpha));
 			SetHUDSize (font_x_resolution, font_y_resolution, 0);
-			DrawHealth (CurrentHealth, Maxhealth, JP_HUD_BARID+1, 18.1+f_globaloffsetx+f_hpx, centertexty+0.1+f_globaloffsety+f_hpy, text_alpha);
+			DrawHealth (CurrentHealth, Maxhealth, JP_HUD_BARID+1, 18.1+f_globaloffsetx+f_hpx, centertexty+0.1+f_globaloffsety+f_hpy, FixedMul(text_alpha, BarAlpha));
 			
 			If (GetUserCVar(PlayerNumber(), "hud_drawenemytag"))
 			{
-				DrawTag (Name, JP_HUD_BARID+2, 18.1+f_globaloffsetx+f_tagx, centertexty+10.1+f_globaloffsety+f_tagy, text_alpha); // This is drawn to the right of the bar
+				DrawTag (Name, JP_HUD_BARID+2, 18.1+f_globaloffsetx+f_tagx, centertexty+10.1+f_globaloffsety+f_tagy, FixedMul(text_alpha, BarAlpha)); // This is drawn to the right of the bar
 			}
 			break;
 	}
