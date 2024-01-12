@@ -7,9 +7,50 @@ Class JPHUD_EH : EventHandler
 		{
 			If (spawned.bIsMonster == True)
 			{
-				Class<Inventory> ms = "JPHUD_SetHealth";
-				spawned.GiveInventory(ms, 1, False);
+				Class<Inventory> chp = "JPHUD_CurrentHealth";
+				Class<Inventory> mhp = "JPHUD_MaxHealth";
+				spawned.GiveInventory(chp, spawned.health, False);
+				spawned.GiveInventory(mhp, spawned.GetSpawnHealth(), False);
+				If (spawned.health > spawned.CountInv("JPHUD_MaxHealth"))
+					spawned.SetInventory(mhp, spawned.health, False);
 			}
+		}
+	}
+	
+	Override void WorldThingRevived (WorldEvent e)
+	{
+		Let revived = e.Thing;
+		If (revived != NULL)
+		{
+			If (revived.bIsMonster == True)
+			{
+				Class<Inventory> chp = "JPHUD_CurrentHealth";
+				Class<Inventory> mhp = "JPHUD_MaxHealth";
+				revived.GiveInventory(chp, revived.health, False);
+				revived.GiveInventory(mhp, revived.GetSpawnHealth(), False);
+				If (revived.health > revived.CountInv("JPHUD_MaxHealth"))
+					revived.SetInventory(mhp, revived.health, False);
+			}
+		}
+	}
+	
+	Override void WorldThingDamaged (WorldEvent e)
+	{
+		Let victim = e.Thing;
+		Let dmg = e.Damage;
+		If (victim != NULL)
+		{
+			Class<Inventory> chp = "JPHUD_CurrentHealth";
+			Class<Inventory> mhp = "JPHUD_MaxHealth";
+			Class<Inventory> dmgt = "JPHUD_DamageTaken";
+			// Update our health for the hud
+			victim.SetInventory(chp, victim.health, False);
+			If ((victim.health > victim.GetSpawnHealth()) && (victim.health > victim.CountInv("JPHUD_MaxHealth")))
+				victim.SetInventory(mhp, victim.health, False);
+			Else
+				victim.SetInventory(mhp, victim.GetSpawnHealth(), False);
+			victim.SetInventory(dmgt, dmg, False);
+			victim.ACS_NamedExecuteAlways ("JP_HUD_PrintDamage", 0, dmg, 0, 0);
 		}
 	}
 }
