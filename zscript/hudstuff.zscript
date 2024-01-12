@@ -5,14 +5,16 @@ Class JPHUD_EH : EventHandler
 		Let spawned = e.Thing;
 		If (spawned != NULL)
 		{
-			If (spawned.bIsMonster == True)
+			If ((spawned.bIsMonster == True) || (spawned is "PlayerPawn"))
 			{
 				Class<Inventory> chp = "JPHUD_CurrentHealth";
 				Class<Inventory> mhp = "JPHUD_MaxHealth";
+				Class<Inventory> uhp = "JPHUD_SetHealth";
 				spawned.GiveInventory(chp, spawned.health, False);
 				spawned.GiveInventory(mhp, spawned.GetSpawnHealth(), False);
 				If (spawned.health > spawned.CountInv("JPHUD_MaxHealth"))
 					spawned.SetInventory(mhp, spawned.health, False);
+				spawned.GiveInventory(uhp, 1, False);
 			}
 		}
 	}
@@ -22,7 +24,7 @@ Class JPHUD_EH : EventHandler
 		Let revived = e.Thing;
 		If (revived != NULL)
 		{
-			If (revived.bIsMonster == True)
+			If ((revived.bIsMonster == True) || (revived is "PlayerPawn"))
 			{
 				Class<Inventory> chp = "JPHUD_CurrentHealth";
 				Class<Inventory> mhp = "JPHUD_MaxHealth";
@@ -41,16 +43,10 @@ Class JPHUD_EH : EventHandler
 		If (victim != NULL)
 		{
 			Class<Inventory> chp = "JPHUD_CurrentHealth";
-			Class<Inventory> mhp = "JPHUD_MaxHealth";
 			Class<Inventory> dmgt = "JPHUD_DamageTaken";
 			// Update our health for the hud
 			victim.SetInventory(chp, victim.health, False);
-			If ((victim.health > victim.GetSpawnHealth()) && (victim.health > victim.CountInv("JPHUD_MaxHealth")))
-				victim.SetInventory(mhp, victim.health, False);
-			Else
-				victim.SetInventory(mhp, victim.GetSpawnHealth(), False);
-			victim.SetInventory(dmgt, dmg, False);
-			victim.ACS_NamedExecuteAlways ("JP_HUD_PrintDamage", 0, dmg, 0, 0);
+			victim.GiveInventory(dmgt, dmg, False);
 		}
 	}
 }
@@ -98,6 +94,10 @@ Class JPHUD_SetHealth : CustomInventory
 		Pickup:
 			TNT1 A 0
 			{
+				If (CountInv ("JPHUD_DamageTracker") == 0)
+				{
+					A_SetInventory ("JPHUD_DamageTracker", 1);
+				}
 				If (CountInv ("JPHUD_UpdateHealth") == 0)
 				{
 					A_SetInventory ("JPHUD_UpdateHealth", 1);
@@ -117,39 +117,37 @@ Class JPHUD_UpdateHealth : JPHUD_BaseItem
 	
 	Override void Tick ()
 	{
-		If (Owner)
+		If (Owner != NULL)
 		{
-			If ((Owner.Health > Owner.GetSpawnHealth()) && (Owner.Health >= Owner.CountInv ("JPHUD_MaxHealth")))
+			If (Owner.CountInv("JPHUD_CurrentHealth") < Owner.health)
 			{
-				Owner.A_SetInventory ("JPHUD_MaxHealth", Owner.Health);
-			}
-			
-			If (Owner.CountInv ("JPHUD_MaxHealth") < Owner.GetSpawnHealth())
-			{
-				Owner.A_SetInventory ("JPHUD_MaxHealth", Owner.GetSpawnHealth());
-			}
-			
-			If (Owner.Health < Owner.CountInv("JPHUD_CurrentHealth")) // took damage
-			{
-				Owner.A_SetInventory ("JPHUD_DamageTaken", Owner.CountInv("JPHUD_CurrentHealth") - Owner.Health);
-			}
-
-			If (Owner.CountInv ("JPHUD_DamageTaken") && Owner.CountInv("JPHUD_CurrentHealth"))
-			{
-				Owner.ACS_NamedExecuteAlways ("JP_HUD_PrintDamage", 0, Owner.CountInv ("JPHUD_DamageTaken"), 0, 0);
-				Owner.A_SetInventory ("JPHUD_DamageTaken", 0);
-			}
-			
-			Owner.A_SetInventory ("JPHUD_CurrentHealth", Owner.Health);
-			
-			If (Owner.Health <= 0)
-			{
-				Owner.A_SetInventory ("JPHUD_DamageTaken", 0);
-				Owner.A_SetInventory ("JPHUD_CurrentHealth", 0);
-				Owner.A_SetInventory ("JPHUD_MaxHealth", 0);
+				If (Owner.CountInv("JPHUD_MaxHealth") < Owner.health)
+					Owner.A_SetInventory ("JPHUD_MaxHealth", Owner.health);
+				Owner.A_SetInventory ("JPHUD_CurrentHealth", Owner.health);
 			}
 		}
-		Super.Tick();
+		Else Destroy();
+	}
+}
+
+Class JPHUD_DamageTracker : JPHUD_BaseItem
+{
+	Default
+	{
+		Inventory.MaxAmount 1;
+		Inventory.InterHubAmount 1;
+	}
+	
+	Override void Tick()
+	{
+		If (Owner != NULL)
+		{
+			If (Owner.CountInv ("JPHUD_DamageTaken"))
+			{
+				Owner.ACS_NamedExecuteAlways ("JP_HUD_PrintDamage", 0, Owner.CountInv ("JPHUD_DamageTaken"), 0, 0);
+				Owner.SetInventory("JPHUD_DamageTaken", 0);
+			}
+		}
 	}
 }
 
